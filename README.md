@@ -1,5 +1,4 @@
-## Hi there 👋
-
+MY FIRST REPO !!:)
 <!--
 **Abhi-ram-init/Abhi-ram-init** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
