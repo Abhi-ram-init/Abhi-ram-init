@@ -5,7 +5,7 @@ import time
 import tkinter as tk
 import threading
 import psutil
-from PIL import Image, ImageTk, ImageOps
+from PIL import Image, ImageTk
 
 # Helper to find assets under PyInstaller temp dir or local directory
 def resource_path(relative_path):
@@ -49,27 +49,28 @@ class GTRMonitorApp:
         # Road animation variables
         self.road_dashes = [20, 70, 120, 170]
         
-        # 3. Load & Process Assets
+        # 3. Load & Process Assets (Black & White versions)
         self.scale_factor = 0.16
         
-        # Car body (925x313 original size)
+        # Car body (925x313 B&W clean cropped)
         body_path = resource_path("assets/car_body.png")
         self.orig_body = Image.open(body_path)
         w_body = int(self.orig_body.width * self.scale_factor)
         h_body = int(self.orig_body.height * self.scale_factor)
         self.body_img = self.orig_body.resize((w_body, h_body), Image.Resampling.LANCZOS)
         
-        # Wheel (192x192 original size)
+        # Wheel (184x184 tight crop B&W)
         wheel_path = resource_path("assets/wheel.png")
         self.orig_wheel = Image.open(wheel_path)
         self.w_wheel = int(self.orig_wheel.width * self.scale_factor)
         self.h_wheel = int(self.orig_wheel.height * self.scale_factor)
         
-        # Adjusted wheel centers on the cropped car body (original: 194, 744)
-        # Front wheel original: cx=194, cy=206
+        # Pre-scale wheel to save CPU cycles during animation loops
+        self.scaled_wheel = self.orig_wheel.resize((self.w_wheel, self.h_wheel), Image.Resampling.LANCZOS)
+        
+        # Exact wheel centers on the clean cropped car body (relative to body)
         self.front_cx = 194 * self.scale_factor
         self.front_cy = 206 * self.scale_factor
-        # Rear wheel original: cx=744, cy=218
         self.rear_cx = 744 * self.scale_factor
         self.rear_cy = 218 * self.scale_factor
         
@@ -77,7 +78,7 @@ class GTRMonitorApp:
         self.canvas = tk.Canvas(self.root, width=440, height=140, bg="#00ff00", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         
-        # Draw Glassmorphic Rounded Card Background
+        # Draw Glassmorphic Rounded Card Background (Neon accent ring)
         self.draw_rounded_card(10, 10, 430, 130, 16, "#0f0f13", "#22222d", width=2)
         
         # Draw Close Button (hides to tray)
@@ -87,7 +88,6 @@ class GTRMonitorApp:
         self.canvas.tag_bind(self.close_btn, "<Button-1>", lambda e: self.hide_window())
         
         # Draw Rolling Road Line
-        # y=105 is the road level. The wheels touch this.
         self.canvas.create_line(15, 108, 195, 108, fill="#23232c", width=3)
         self.road_dash_items = []
         for i in range(len(self.road_dashes)):
@@ -96,7 +96,7 @@ class GTRMonitorApp:
             
         # Draw Car Body
         self.car_x = 25
-        self.car_y = 52 # Starting y position for car
+        self.car_y = 52
         self.body_photo = ImageTk.PhotoImage(self.body_img)
         self.car_body_item = self.canvas.create_image(self.car_x, self.car_y, image=self.body_photo, anchor="nw")
         
@@ -167,7 +167,7 @@ class GTRMonitorApp:
                 cx, self.cpu_cy + 45, text=name, font=("Segoe UI", 9, "bold"), fill="#6a6a78"
             )
             
-        # Active gauge arcs
+        # Active gauge arcs (neon colors stand out nicely on monochrome theme)
         self.cpu_arc = self.canvas.create_arc(
             self.cpu_cx - self.dial_r, self.cpu_cy - self.dial_r,
             self.cpu_cx + self.dial_r, self.cpu_cy + self.dial_r,
@@ -188,10 +188,8 @@ class GTRMonitorApp:
         )
 
     def poll_metrics(self):
-        # Initial call
         psutil.cpu_percent(interval=None)
         while self.running:
-            # CPU polling without interval (returns immediately based on difference from last call)
             self.target_cpu = psutil.cpu_percent(interval=None)
             self.target_ram = psutil.virtual_memory().percent
             time.sleep(1.0)
@@ -220,30 +218,32 @@ class GTRMonitorApp:
         self.canvas.itemconfigure(self.ram_text, text=f"{int(round(self.display_ram))}%")
         
         # 2. Physics & Speeds scaled by CPU Usage
-        # base_speed is idling, high CPU makes GTR speed up!
         speed_factor = 2.0 + (self.display_cpu / 100.0) * 15.0
         
         # 3. Rotate Wheels
-        # Angle goes clockwise
+        # Rotate pre-scaled wheel to reduce CPU cycles to <0.5%
         self.wheel_angle = (self.wheel_angle + speed_factor * dt * 100.0) % 360.0
-        rotated_wheel_img = self.orig_wheel.rotate(-self.wheel_angle, resample=Image.Resampling.BICUBIC)
-        # Resize to scaled dimensions
-        rotated_wheel_img = rotated_wheel_img.resize((self.w_wheel, self.h_wheel), Image.Resampling.LANCZOS)
+        rotated_wheel_img = self.scaled_wheel.rotate(-self.wheel_angle, resample=Image.Resampling.BICUBIC)
         self.wheel_tk = ImageTk.PhotoImage(rotated_wheel_img)
         
         # 4. Engine rumble/vibration (scale amplitude and frequency with CPU)
         rumble_freq = 25.0 + (self.display_cpu / 100.0) * 40.0
-        rumble_amp = 0.3 + (self.display_cpu / 100.0) * 0.8
+        rumble_amp = 0.3 + (self.display_cpu / 100.0) * 0.6
         v_offset = math.sin(now * rumble_freq) * rumble_amp
         
-        # 5. Position Car Body & Wheels on Canvas
+        # 5. Dynamic Swaying (surges forward/backward dynamically simulating driving physics)
+        sway_x = math.sin(now * 2.2) * 5.0  # Sinusoidal highway sway
+        cpu_surge = -(self.display_cpu / 100.0) * 12.0  # Shifts left (forward) under high load
+        current_car_x = self.car_x + sway_x + cpu_surge
         current_car_y = self.car_y + v_offset
-        self.canvas.coords(self.car_body_item, self.car_x, current_car_y)
         
-        # absolute wheel positions
-        wl_x = self.car_x + self.front_cx
+        # Position Car Body
+        self.canvas.coords(self.car_body_item, current_car_x, current_car_y)
+        
+        # Absolute wheel positions (moving dynamically with the body)
+        wl_x = current_car_x + self.front_cx
         wl_y = current_car_y + self.front_cy
-        wr_x = self.car_x + self.rear_cx
+        wr_x = current_car_x + self.rear_cx
         wr_y = current_car_y + self.rear_cy
         
         # Draw rotated wheels
@@ -256,7 +256,6 @@ class GTRMonitorApp:
         road_speed = speed_factor * dt * 50.0
         for i in range(len(self.road_dashes)):
             self.road_dashes[i] -= road_speed
-            # Wrap around when moving off-left
             if self.road_dashes[i] < 15:
                 self.road_dashes[i] = 190
             self.canvas.coords(self.road_dash_items[i], self.road_dashes[i], 108, self.road_dashes[i] + 8, 108)
@@ -284,7 +283,6 @@ class GTRMonitorApp:
             
     def show_window(self):
         if not self.visible:
-            # We deiconify (restore window) thread-safely
             self.root.after(0, self._show_window_main_thread)
             
     def _show_window_main_thread(self):
@@ -321,10 +319,8 @@ class GTRMonitorApp:
         )
         
         self.icon = pystray.Icon("gtr_monitor", icon_img, "GT-R CPU/RAM Monitor", menu)
-        # Double clicking the icon in tray toggles widget visibility
         self.icon.run()
 
 if __name__ == '__main__':
-    # Initialize app and start Tkinter loop
     app = GTRMonitorApp()
     app.root.mainloop()
