@@ -1,0 +1,18 @@
+# Build and compilation output
+build/
+dist/
+*.spec
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Temporary asset processing scripts and source graphics
+assets/gtr_original.png
+assets/gtr_detected.png
+assets/gtr_grid.png
+assets/process_car.py
+assets/detect_wheels_auto.py
+assets/crop_assets.py
+assets/crop_clean.py
+assets/find_wheels.py
