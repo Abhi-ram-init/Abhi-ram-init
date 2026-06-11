@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import math
 import tkinter as tk
 import threading
 import psutil
@@ -32,7 +33,7 @@ class GTRMonitorApp:
         screen_w = self.root.winfo_screenwidth()
         screen_h = self.root.winfo_screenheight()
         # Place 40 pixels from bottom right
-        self.root.geometry(f"200x140+{screen_w - 240}+{screen_h - 200}")
+        self.root.geometry(f"440x140+{screen_w - 480}+{screen_h - 200}")
         
         # 2. State Variables
         self.running = True
@@ -41,23 +42,72 @@ class GTRMonitorApp:
         self.target_ram = 0.0
         self.display_cpu = 0.0
         self.display_ram = 0.0
+        self.wheel_angle = 0.0
         
         # Dragging variables
         self.drag_start_x = 0
         self.drag_start_y = 0
+
+        # Road animation variables
+        self.road_dashes = [20, 70, 120, 170]
         
-        # 3. Create UI Elements on Canvas
-        self.canvas = tk.Canvas(self.root, width=200, height=140, bg="#00ff00", highlightthickness=0)
+        # 3. Load & Process Assets
+        self.scale_factor = 0.2
+        
+        # Car body (wheels erased)
+        body_path = resource_path("assets/car_body_final.png")
+        self.orig_body = Image.open(body_path).convert("RGBA")
+        w_body = int(self.orig_body.width * self.scale_factor)
+        h_body = int(self.orig_body.height * self.scale_factor)
+        self.body_img = self.orig_body.resize((w_body, h_body), Image.Resampling.LANCZOS)
+        
+        # Rear wheel image
+        self.orig_wheel = Image.open(resource_path("assets/wheel_final.png")).convert("RGBA")
+        
+        # Scale factor: rear wheel radius=72 in 1024px image, front=75
+        # Rear wheel scaled size
+        r_rad_orig = 72
+        f_rad_orig = 75
+        r_size = int(r_rad_orig * 2 * self.scale_factor)
+        f_size = int(f_rad_orig * 2 * self.scale_factor)
+        self.scaled_wheel_rear  = self.orig_wheel.resize((r_size, r_size), Image.Resampling.LANCZOS)
+        self.scaled_wheel_front = self.orig_wheel.resize((f_size, f_size), Image.Resampling.LANCZOS)
+        
+        # Exact wheel centers (visually debugged to fit tyre outline perfectly)
+        self.rear_cx  = 238 * self.scale_factor
+        self.rear_cy  = 577 * self.scale_factor
+        self.front_cx = 793 * self.scale_factor
+        self.front_cy = 585 * self.scale_factor
+        
+        # 4. Create UI Elements on Canvas
+        self.canvas = tk.Canvas(self.root, width=440, height=140, bg="#00ff00", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         
         # Draw Glassmorphic Rounded Card Background (Neon accent ring)
-        self.draw_rounded_card(10, 10, 190, 130, 16, "#0f0f13", "#22222d", width=2)
+        self.draw_rounded_card(10, 10, 430, 130, 16, "#0f0f13", "#22222d", width=2)
         
         # Draw Close Button (hides to tray)
         self.close_btn = self.canvas.create_text(
-            175, 25, text="×", font=("Segoe UI", 14, "bold"), fill="#60606b", activefill="#ff4a4a"
+            415, 25, text="×", font=("Segoe UI", 14, "bold"), fill="#60606b", activefill="#ff4a4a"
         )
         self.canvas.tag_bind(self.close_btn, "<Button-1>", lambda e: self.hide_window())
+
+        # Draw Rolling Road Line
+        self.canvas.create_line(15, 115, 195, 115, fill="#23232c", width=3)
+        self.road_dash_items = []
+        for i in range(len(self.road_dashes)):
+            dash = self.canvas.create_line(self.road_dashes[i], 115, self.road_dashes[i] + 8, 115, fill="#6b6b7a", width=3)
+            self.road_dash_items.append(dash)
+            
+        # Place car body (wheels already erased)
+        self.car_x = 10
+        self.car_y = -10
+        self.body_photo = ImageTk.PhotoImage(self.body_img)
+        self.car_body_item = self.canvas.create_image(self.car_x, self.car_y, image=self.body_photo, anchor="nw")
+        
+        # Wheel items drawn ON TOP of the body
+        self.rear_wheel_item  = self.canvas.create_image(0, 0, anchor="center")
+        self.front_wheel_item = self.canvas.create_image(0, 0, anchor="center")
         
         # Setup Dials for CPU & RAM
         self.setup_dials()
@@ -107,8 +157,8 @@ class GTRMonitorApp:
 
     def setup_dials(self):
         # Dials configurations
-        self.cpu_cx, self.cpu_cy = 55, 70
-        self.ram_cx, self.ram_cy = 145, 70
+        self.cpu_cx, self.cpu_cy = 265, 70
+        self.ram_cx, self.ram_cy = 360, 70
         self.dial_r = 30
         
         # Background gauges (dark rings)
@@ -166,6 +216,43 @@ class GTRMonitorApp:
         # Update Dial Text values
         self.canvas.itemconfigure(self.cpu_text, text=f"{int(round(self.display_cpu))}%")
         self.canvas.itemconfigure(self.ram_text, text=f"{int(round(self.display_ram))}%")
+        
+        # Speed scales with CPU
+        speed_factor = 2.0 + (self.display_cpu / 100.0) * 15.0
+        now = time.time()
+        dt = now - self.last_time
+        self.last_time = now
+        
+        # Spin wheels — speed proportional to CPU
+        speed_factor = 3.0 + (self.display_cpu / 100.0) * 20.0
+        now = time.time()
+        dt = now - self.last_time
+        self.last_time = now
+        
+        # Rotate wheel image
+        self.wheel_angle = (self.wheel_angle + speed_factor * dt * 120.0) % 360.0
+        rot_rear  = self.scaled_wheel_rear.rotate(-self.wheel_angle,  resample=Image.Resampling.BICUBIC, expand=False)
+        rot_front = self.scaled_wheel_front.rotate(-self.wheel_angle, resample=Image.Resampling.BICUBIC, expand=False)
+        self.wheel_tk_rear  = ImageTk.PhotoImage(rot_rear)
+        self.wheel_tk_front = ImageTk.PhotoImage(rot_front)
+        
+        rear_x  = self.car_x + self.rear_cx
+        rear_y  = self.car_y + self.rear_cy
+        front_x = self.car_x + self.front_cx
+        front_y = self.car_y + self.front_cy
+        
+        self.canvas.coords(self.rear_wheel_item, rear_x, rear_y)
+        self.canvas.itemconfigure(self.rear_wheel_item, image=self.wheel_tk_rear)
+        self.canvas.coords(self.front_wheel_item, front_x, front_y)
+        self.canvas.itemconfigure(self.front_wheel_item, image=self.wheel_tk_front)
+        
+        # Road dashes animate to give the illusion the car is moving forward
+        road_speed = speed_factor * dt * 60.0
+        for i in range(len(self.road_dashes)):
+            self.road_dashes[i] -= road_speed
+            if self.road_dashes[i] < 15:
+                self.road_dashes[i] = 190
+            self.canvas.coords(self.road_dash_items[i], self.road_dashes[i], 115, self.road_dashes[i] + 8, 115)
             
         # Re-schedule next frame (~60 FPS)
         self.root.after(16, self.animate)
