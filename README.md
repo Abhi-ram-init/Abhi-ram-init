@@ -4,7 +4,7 @@ Hello! I am Abhi-ram-init, a passionate developer who enjoys building fullâ€�
 
 ## My Projects
 
-- **gladiators-ngo** â€“ A web platform for managing NGO activities, built with Node.js, Express, and React.
+- **gladiators-ngo**  A web platform for managing NGO activities, built with Node.js, Express, and React.
 - *(Add more projects here)*
 
 ## About Me
