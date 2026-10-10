@@ -32,3 +32,9 @@ captures/
 # External cloned repositories in workspace
 gods-eye-view/
 oslvvce_ctf_participants/
+
+# Local utility scripts & temporary data
+cleanup.ps1
+recreate_gladiators.ps1
+repos.json
+gladiators-ngo-clone/
