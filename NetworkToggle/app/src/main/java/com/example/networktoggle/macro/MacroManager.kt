@@ -209,7 +209,8 @@ sealed class MacroExecutionState {
 
 class MacroManager(
     private val context: Context,
-    private val networkModeManager: NetworkModeManager
+    private val networkModeManager: NetworkModeManager,
+    var adbTerminalManager: com.example.networktoggle.terminal.AdbTerminalManager? = null
 ) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences("user_recorded_macros", Context.MODE_PRIVATE)
@@ -261,10 +262,29 @@ class MacroManager(
         val dataStr = prefs.getString("saved_macros_data", null)
         if (!dataStr.isNullOrBlank()) {
             val list = dataStr.split("###").mapNotNull { RecordedMacro.fromSerialized(it) }
-            _savedMacros.value = list
-            return
+            if (list.isNotEmpty()) {
+                _savedMacros.value = list
+                return
+            }
         }
-        _savedMacros.value = emptyList()
+        val default5G = RecordedMacro(
+            name = "Switch to 5G NR",
+            steps = listOf(
+                MacroStep(actionType = MacroActionType.SET_5G, label = "Enforce 5G NR Mode"),
+                MacroStep(actionType = MacroActionType.WAIT_DELAY, label = "Wait for modem sync", delaySeconds = 1),
+                MacroStep(actionType = MacroActionType.READ_SIM_SETTINGS, label = "Verify Active State")
+            )
+        )
+        val default4G = RecordedMacro(
+            name = "Switch to 4G LTE",
+            steps = listOf(
+                MacroStep(actionType = MacroActionType.SET_4G, label = "Enforce 4G LTE Mode"),
+                MacroStep(actionType = MacroActionType.WAIT_DELAY, label = "Wait for modem sync", delaySeconds = 1),
+                MacroStep(actionType = MacroActionType.READ_SIM_SETTINGS, label = "Verify Active State")
+            )
+        )
+        _savedMacros.value = listOf(default5G, default4G)
+        persistSavedMacros()
     }
 
     private fun persistSavedMacros() {
@@ -521,7 +541,8 @@ class MacroManager(
     suspend fun executeMacro(
         macro: RecordedMacro,
         onPromptAddTile: (() -> Unit)? = null,
-        onExitApp: (() -> Unit)? = null
+        onExitApp: (() -> Unit)? = null,
+        onToggleFailedMessage: ((String) -> Unit)? = null
     ): Boolean = withContext(Dispatchers.IO) {
         val startTime = System.currentTimeMillis()
         addLog(LogLevel.INFO, "═════════════════════════════════════════════════════")
@@ -531,11 +552,17 @@ class MacroManager(
         if (totalSteps == 0) {
             addLog(LogLevel.WARN, "Macro has no blocks to execute.")
             _macroState.value = MacroExecutionState.Idle
+            withContext(Dispatchers.Main) {
+                onToggleFailedMessage?.invoke("⚠️ Macro has no blocks configured.")
+            }
             return@withContext false
         }
 
         // Pre-execution process inspection
         inspectProcessAndTelephony()
+
+        var hasFailure = false
+        var failureReason = ""
 
         macro.steps.forEachIndexed { index, step ->
             val progress = (index + 1).toFloat() / totalSteps.toFloat()
@@ -550,19 +577,34 @@ class MacroManager(
 
             when (step.actionType) {
                 MacroActionType.SET_5G -> {
-                    networkModeManager.tryDirectSwitch(NetworkMode.FIVE_G)
+                    val res = networkModeManager.tryDirectSwitch(NetworkMode.FIVE_G)
+                    if (res !is com.example.networktoggle.network.ToggleResult.DirectSuccess &&
+                        MacroAccessibilityService.instance == null) {
+                        hasFailure = true
+                        failureReason = "5G direct switch unavailable and Accessibility inactive"
+                    }
                     networkModeManager.saveMode(NetworkMode.FIVE_G)
                     networkModeManager.refreshNetworkState()
                     delay(300)
                 }
                 MacroActionType.SET_4G -> {
-                    networkModeManager.tryDirectSwitch(NetworkMode.FOUR_G)
+                    val res = networkModeManager.tryDirectSwitch(NetworkMode.FOUR_G)
+                    if (res !is com.example.networktoggle.network.ToggleResult.DirectSuccess &&
+                        MacroAccessibilityService.instance == null) {
+                        hasFailure = true
+                        failureReason = "4G direct switch unavailable and Accessibility inactive"
+                    }
                     networkModeManager.saveMode(NetworkMode.FOUR_G)
                     networkModeManager.refreshNetworkState()
                     delay(300)
                 }
                 MacroActionType.SET_AUTO -> {
-                    networkModeManager.tryDirectSwitch(NetworkMode.AUTO)
+                    val res = networkModeManager.tryDirectSwitch(NetworkMode.AUTO)
+                    if (res !is com.example.networktoggle.network.ToggleResult.DirectSuccess &&
+                        MacroAccessibilityService.instance == null) {
+                        hasFailure = true
+                        failureReason = "Auto direct switch unavailable and Accessibility inactive"
+                    }
                     networkModeManager.saveMode(NetworkMode.AUTO)
                     networkModeManager.refreshNetworkState()
                     delay(300)
@@ -591,7 +633,6 @@ class MacroManager(
                     delay(1200)
                 }
                 MacroActionType.OPEN_NETWORK_SETTINGS -> {
-                    // Try direct mobile settings intent first, fallback to general settings
                     withContext(Dispatchers.Main) {
                         val directIntent = Intent("android.settings.NETWORK_OPERATOR_SETTINGS").apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -611,7 +652,6 @@ class MacroManager(
                     val textToClick = step.shellCommand.ifBlank { "SIM" }
                     val service = MacroAccessibilityService.instance
                     if (service != null) {
-                        // Use suspend retry with multi-window lookup and scroll-fallback
                         val clicked = service.findAndClickTextSuspend(
                             text = textToClick,
                             maxAttempts = 4,
@@ -620,15 +660,18 @@ class MacroManager(
                         if (clicked) {
                             addLog(LogLevel.SUCCESS, "✔ Tapped text node '$textToClick'")
                         } else {
+                            hasFailure = true
+                            failureReason = "Option '$textToClick' not found on screen"
                             addLog(LogLevel.WARN, "⚠ Text node '$textToClick' not found after retries")
                         }
                     } else {
+                        hasFailure = true
+                        failureReason = "Accessibility service is not enabled"
                         addLog(LogLevel.WARN, "⚠ Accessibility service not enabled. Touch skipped.")
                     }
                     delay(400)
                 }
                 MacroActionType.FIND_AND_CLICK_ANY_OF -> {
-                    // shellCommand is a comma-separated list of candidate texts
                     val candidates = step.shellCommand
                         .split(",")
                         .map { it.trim() }
@@ -643,9 +686,13 @@ class MacroManager(
                         if (clicked) {
                             addLog(LogLevel.SUCCESS, "✔ OEM-adaptive click succeeded")
                         } else {
+                            hasFailure = true
+                            failureReason = "Could not find '${candidates.firstOrNull() ?: "network option"}' on screen"
                             addLog(LogLevel.WARN, "⚠ None of [${candidates.take(3).joinToString(", ")}…] found on screen")
                         }
                     } else if (service == null) {
+                        hasFailure = true
+                        failureReason = "Accessibility service is not enabled"
                         addLog(LogLevel.WARN, "⚠ Accessibility service not enabled. OEM-click skipped.")
                     }
                     delay(400)
@@ -688,26 +735,37 @@ class MacroManager(
                     delay(400)
                 }
                 MacroActionType.EXIT_APP -> {
-                    addLog(LogLevel.SUCCESS, "🚪 Setup and macro sequence finished. Returning to home...")
-                    withContext(Dispatchers.Main) {
-                        onExitApp?.invoke()
-                        val homeIntent = Intent(Intent.ACTION_MAIN).apply {
-                            addCategory(Intent.CATEGORY_HOME)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    if (hasFailure) {
+                        addLog(LogLevel.WARN, "⚠ Toggle failed ($failureReason). Staying inside the application.")
+                        withContext(Dispatchers.Main) {
+                            onToggleFailedMessage?.invoke("⚠️ Network toggle was not completed: $failureReason. Keeping app open.")
                         }
-                        context.startActivity(homeIntent)
+                    } else {
+                        addLog(LogLevel.SUCCESS, "🚪 Setup and macro sequence finished. Returning to home...")
+                        withContext(Dispatchers.Main) {
+                            onExitApp?.invoke()
+                            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                                addCategory(Intent.CATEGORY_HOME)
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                            context.startActivity(homeIntent)
+                        }
                     }
                     delay(300)
                 }
                 MacroActionType.GO_HOME -> {
-                    addLog(LogLevel.EXEC, "🏠 Going to Home Screen...")
-                    delay(200)
-                    withContext(Dispatchers.Main) {
-                        val homeIntent = Intent(Intent.ACTION_MAIN).apply {
-                            addCategory(Intent.CATEGORY_HOME)
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    if (hasFailure) {
+                        addLog(LogLevel.WARN, "⚠ Skipping Go Home because macro encountered an issue.")
+                    } else {
+                        addLog(LogLevel.EXEC, "🏠 Going to Home Screen...")
+                        delay(200)
+                        withContext(Dispatchers.Main) {
+                            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                                addCategory(Intent.CATEGORY_HOME)
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                            context.startActivity(homeIntent)
                         }
-                        context.startActivity(homeIntent)
                     }
                 }
                 MacroActionType.SCREEN_TAP -> {
@@ -720,6 +778,8 @@ class MacroManager(
                         service.clickAtSuspend(x, y)
                         delay(300)
                     } else {
+                        hasFailure = true
+                        failureReason = "Accessibility service is not enabled"
                         addLog(LogLevel.WARN, "⚠ Accessibility service not enabled. Tap skipped.")
                     }
                 }
@@ -735,6 +795,8 @@ class MacroManager(
                         service.swipeSuspend(startX, startY, endX, endY)
                         delay(400)
                     } else {
+                        hasFailure = true
+                        failureReason = "Accessibility service is not enabled"
                         addLog(LogLevel.WARN, "⚠ Accessibility service not enabled. Swipe skipped.")
                     }
                 }
@@ -754,27 +816,24 @@ class MacroManager(
 
         networkModeManager.refreshNetworkState()
         val duration = String.format(Locale.US, "%.1f", (System.currentTimeMillis() - startTime) / 1000.0)
-        addLog(LogLevel.SUCCESS, "✅ MACRO COMPLETE: '${macro.name}' executed in ${duration}s.")
+
+        if (hasFailure) {
+            addLog(LogLevel.WARN, "⚠ MACRO FINISHED WITH WARNING: '$failureReason'")
+            withContext(Dispatchers.Main) {
+                onToggleFailedMessage?.invoke("⚠️ Toggle could not complete automatically ($failureReason). Staying in app.")
+            }
+        } else {
+            addLog(LogLevel.SUCCESS, "✅ MACRO COMPLETE: '${macro.name}' executed in ${duration}s.")
+        }
         addLog(LogLevel.INFO, "═════════════════════════════════════════════════════")
 
         _macroState.value = MacroExecutionState.Completed(
             macroName = macro.name,
-            success = true,
-            summary = "Completed $totalSteps blocks in ${duration}s"
+            success = !hasFailure,
+            summary = if (!hasFailure) "Executed all blocks successfully in ${duration}s" else "Finished with warning: $failureReason"
         )
 
-        // If macro did not already exit, send to home screen
-        if (macro.steps.none { it.actionType == MacroActionType.EXIT_APP }) {
-            withContext(Dispatchers.Main) {
-                val homeIntent = Intent(Intent.ACTION_MAIN).apply {
-                    addCategory(Intent.CATEGORY_HOME)
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-                context.startActivity(homeIntent)
-            }
-        }
-
-        return@withContext true
+        return@withContext !hasFailure
     }
 
     private fun triggerModemResync() {
