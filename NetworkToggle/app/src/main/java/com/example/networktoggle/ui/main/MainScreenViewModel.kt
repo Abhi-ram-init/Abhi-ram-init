@@ -471,6 +471,14 @@ class MainScreenViewModel(
         adbTerminalManager?.setNetworkModeViaAdb(mode)
     }
 
+    fun openDeveloperSettings() {
+        adbTerminalManager?.openDeveloperSettings()
+    }
+
+    fun launchShizukuApp() {
+        adbTerminalManager?.launchShizukuApp()
+    }
+
     fun requestAddTileToControlPanel(
         isMacroTile: Boolean,
         context: Context,

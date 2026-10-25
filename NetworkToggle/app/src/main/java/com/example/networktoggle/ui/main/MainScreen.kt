@@ -198,7 +198,9 @@ fun MainScreen(
                                 onRevokeSecureSettings = viewModel::revokeAdbSecureSettings,
                                 onClearLogs = viewModel::clearAdbLogs,
                                 onSetMode = viewModel::setNetworkModeViaAdb,
-                                onNavigateToToggle = { selectedTab = NavigationTab.SWITCHER }
+                                onNavigateToToggle = { selectedTab = NavigationTab.SWITCHER },
+                                onOpenDeveloperSettings = viewModel::openDeveloperSettings,
+                                onLaunchShizuku = viewModel::launchShizukuApp
                             )
                         }
                         NavigationTab.SWITCHER -> {
@@ -532,11 +534,16 @@ private fun AdbTerminalScreen(
     onRevokeSecureSettings: () -> Unit,
     onClearLogs: () -> Unit,
     onSetMode: (NetworkMode) -> Unit,
-    onNavigateToToggle: () -> Unit
+    onNavigateToToggle: () -> Unit,
+    onOpenDeveloperSettings: () -> Unit,
+    onLaunchShizuku: () -> Unit
 ) {
+    val context = LocalContext.current
+    val clipboardManager = LocalClipboardManager.current
     val termState = uiState.terminalState
     var inputCmd by remember { mutableStateOf("") }
     val isPermGranted = uiState.isDirectToggleGranted || termState.isPermissionGranted
+    val pcCommand = "adb shell pm grant ${context.packageName} android.permission.WRITE_SECURE_SETTINGS"
 
     // 1. STEP 1 INSTRUCTION BANNER
     Surface(
@@ -665,6 +672,131 @@ private fun AdbTerminalScreen(
                     Text("REVOKE PERMISSION", fontSize = 10.sp, fontWeight = FontWeight.Black, color = Color(0xFFEF4444))
                     Text("Command: revoke", fontSize = 8.sp, color = Color.White.copy(alpha = 0.5f), fontFamily = FontFamily.Monospace)
                 }
+            }
+        }
+    }
+
+    // 3.1 SETUP SHORTCUTS FOR UNROOTED PHONES
+    if (!isPermGranted) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            shape = RoundedCornerShape(12.dp),
+            color = Color(0xFF1E293B).copy(alpha = 0.6f),
+            border = BorderStroke(1.dp, Color.White.copy(alpha = 0.08f)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.padding(10.dp)) {
+                Text(
+                    text = "UNROOTED PHONE SETUP ASSISTANT",
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Black,
+                    color = Color(0xFF38BDF8)
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color(0xFF0284C7).copy(alpha = 0.2f),
+                        border = BorderStroke(1.dp, Color(0xFF0284C7).copy(alpha = 0.4f)),
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable { onOpenDeveloperSettings() }
+                    ) {
+                        Text(
+                            text = "📶 Wireless Debugging",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF38BDF8),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color(0xFF8B5CF6).copy(alpha = 0.2f),
+                        border = BorderStroke(1.dp, Color(0xFF8B5CF6).copy(alpha = 0.4f)),
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable { onLaunchShizuku() }
+                    ) {
+                        Text(
+                            text = "🚀 Open Shizuku",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFA78BFA),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color(0xFFF59E0B).copy(alpha = 0.2f),
+                        border = BorderStroke(1.dp, Color(0xFFF59E0B).copy(alpha = 0.4f)),
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable {
+                                clipboardManager.setText(AnnotatedString(pcCommand))
+                                Toast.makeText(context, "Copied PC ADB command!", Toast.LENGTH_SHORT).show()
+                            }
+                    ) {
+                        Text(
+                            text = "📋 Copy PC Cmd",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFFCD34D),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        // Direct Fast 1-Tap Toggle Test Bar when permitted
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = Color(0xFF10B981).copy(alpha = 0.15f),
+                border = BorderStroke(1.dp, Color(0xFF10B981).copy(alpha = 0.4f)),
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onSetMode(NetworkMode.FIVE_G) }
+            ) {
+                Text(
+                    text = "⚡ Force 5G NR (5g)",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF10B981),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = Color(0xFF06B6D4).copy(alpha = 0.15f),
+                border = BorderStroke(1.dp, Color(0xFF06B6D4).copy(alpha = 0.4f)),
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onSetMode(NetworkMode.FOUR_G) }
+            ) {
+                Text(
+                    text = "⚡ Force 4G LTE (4g)",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF06B6D4),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
         }
     }

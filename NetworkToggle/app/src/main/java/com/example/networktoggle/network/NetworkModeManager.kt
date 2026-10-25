@@ -133,6 +133,20 @@ class NetworkModeManager(private val context: Context) {
         }
     }
 
+    fun getActiveSubscriptionIds(): List<Int> {
+        val list = mutableListOf<Int>()
+        try {
+            val sm = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as? SubscriptionManager
+            sm?.activeSubscriptionInfoList?.forEach { subInfo ->
+                list.add(subInfo.subscriptionId)
+            }
+        } catch (_: Exception) {}
+        if (list.isEmpty()) {
+            list.addAll(listOf(0, 1, 2))
+        }
+        return list
+    }
+
     fun requestKernelPermission(targetModeToApply: NetworkMode? = null): Boolean {
         return try {
             val pkg = context.packageName
@@ -155,14 +169,13 @@ class NetworkModeManager(private val context: Context) {
                     NetworkMode.AUTO -> GLOBAL_MODE_AUTO
                     NetworkMode.FOUR_G -> GLOBAL_MODE_4G
                 }
-                for (sub in 0..2) {
+                val subIds = getActiveSubscriptionIds()
+                for (sub in subIds) {
                     os.writeBytes("cmd phone set-allowed-network-types-for-reason $sub 0 $bitmask 2>/dev/null\n")
                     os.writeBytes("cmd phone set-preferred-network-type $sub $modeVal 2>/dev/null\n")
+                    os.writeBytes("settings put global preferred_network_mode$sub $modeVal 2>/dev/null\n")
                 }
                 os.writeBytes("settings put global preferred_network_mode $modeVal 2>/dev/null\n")
-                os.writeBytes("settings put global preferred_network_mode0 $modeVal 2>/dev/null\n")
-                os.writeBytes("settings put global preferred_network_mode1 $modeVal 2>/dev/null\n")
-                os.writeBytes("settings put global preferred_network_mode2 $modeVal 2>/dev/null\n")
             }
 
             os.writeBytes("exit\n")
@@ -225,7 +238,11 @@ class NetworkModeManager(private val context: Context) {
 
     private fun tryAdbTerminalSwitch(mode: NetworkMode): Boolean {
         val terminal = adbTerminalManager ?: return false
-        if (!terminal.state.value.isAuthorized) return false
+        val isElevated = terminal.state.value.isAuthorized ||
+                terminal.state.value.engine == com.example.networktoggle.terminal.AdbEngine.SHIZUKU ||
+                terminal.state.value.engine == com.example.networktoggle.terminal.AdbEngine.ROOT ||
+                terminal.state.value.isBridgeConnected
+        if (!isElevated) return false
         return try {
             terminal.setNetworkModeViaAdb(mode)
             true
@@ -264,17 +281,16 @@ class NetworkModeManager(private val context: Context) {
             // Ensure WRITE_SECURE_SETTINGS is granted from kernel as well
             os.writeBytes("pm grant $pkg android.permission.WRITE_SECURE_SETTINGS 2>/dev/null\n")
 
-            // Command telephony service across SIM slot 0, 1, and 2
-            for (sub in 0..2) {
+            // Command telephony service across active SIMs
+            val subIds = getActiveSubscriptionIds()
+            for (sub in subIds) {
                 os.writeBytes("cmd phone set-allowed-network-types-for-reason $sub 0 $bitmask 2>/dev/null\n")
                 os.writeBytes("cmd phone set-preferred-network-type $sub $modeVal 2>/dev/null\n")
+                os.writeBytes("settings put global preferred_network_mode$sub $modeVal 2>/dev/null\n")
             }
 
             // Write into Settings.Global across single and multi-SIM keys
             os.writeBytes("settings put global preferred_network_mode $modeVal 2>/dev/null\n")
-            os.writeBytes("settings put global preferred_network_mode0 $modeVal 2>/dev/null\n")
-            os.writeBytes("settings put global preferred_network_mode1 $modeVal 2>/dev/null\n")
-            os.writeBytes("settings put global preferred_network_mode2 $modeVal 2>/dev/null\n")
 
             os.writeBytes("exit\n")
             os.flush()

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
+import android.telephony.SubscriptionManager
 import androidx.core.content.ContextCompat
 import com.example.networktoggle.bridge.BridgeConnectionState
 import com.example.networktoggle.bridge.PrivilegedBridgeManager
@@ -197,6 +199,37 @@ class AdbTerminalManager(
         } catch (_: Exception) {}
     }
 
+    fun openDeveloperSettings() {
+        try {
+            val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+            appendLine("⚡ Opening Developer Settings (Wireless Debugging)...", TerminalLineType.SYSTEM)
+        } catch (_: Exception) {
+            try {
+                val intent = Intent(Settings.ACTION_SETTINGS).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(intent)
+            } catch (_: Exception) {}
+        }
+    }
+
+    fun getActiveSubIds(): List<Int> {
+        val list = mutableListOf<Int>()
+        try {
+            val sm = context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as? SubscriptionManager
+            sm?.activeSubscriptionInfoList?.forEach { subInfo ->
+                list.add(subInfo.subscriptionId)
+            }
+        } catch (_: Exception) {}
+        if (list.isEmpty()) {
+            list.addAll(listOf(0, 1, 2))
+        }
+        return list
+    }
+
     private fun checkRootAvailable(): Boolean {
         return try {
             val proc = Runtime.getRuntime().exec(arrayOf("su", "-c", "id"))
@@ -296,6 +329,16 @@ class AdbTerminalManager(
             "revoke", "revoke-permission", "remove-permission", "remove", "disable-permission", "disable" -> {
                 appendLine("$ $trimmed", TerminalLineType.COMMAND)
                 revokeWriteSecureSettings()
+                return
+            }
+            "wireless", "wireless-debugging", "developer", "developer-options", "dev" -> {
+                appendLine("$ $trimmed", TerminalLineType.COMMAND)
+                openDeveloperSettings()
+                return
+            }
+            "shizuku" -> {
+                appendLine("$ $trimmed", TerminalLineType.COMMAND)
+                requestPermission()
                 return
             }
             "ping" -> {
@@ -582,19 +625,42 @@ class AdbTerminalManager(
                     executeCommand(cmd)
                 }
                 refreshState()
-            } else if (_state.value.isAuthorized) {
+            } else if (_state.value.engine == AdbEngine.SHIZUKU && _state.value.isShizukuRunning) {
                 executeCommand(cmd)
-                appendLine("✔ WRITE_SECURE_SETTINGS grant command dispatched via elevated shell.", TerminalLineType.SYSTEM)
+                appendLine("✔ WRITE_SECURE_SETTINGS grant command dispatched via Shizuku ADB shell.", TerminalLineType.SYSTEM)
+                appendLine("🟢 4G/5G toggle is now enabled! Type '5g' or '4g' to test.", TerminalLineType.SYSTEM)
+                refreshState()
+            } else if (_state.value.isRootAvailable) {
+                executeCommand(cmd)
+                appendLine("✔ WRITE_SECURE_SETTINGS granted via Kernel Root.", TerminalLineType.SYSTEM)
                 appendLine("🟢 4G/5G toggle is now enabled!", TerminalLineType.SYSTEM)
                 refreshState()
             } else {
-                appendLine("$ $cmd", TerminalLineType.COMMAND)
-                appendLine("ℹ Attempting local shell dispatch: $cmd", TerminalLineType.SYSTEM)
-                executePipeline(cmd)
-                appendLine("💡 To grant on this phone without a PC:", TerminalLineType.SYSTEM)
-                appendLine("  1. Tap 'GRANT' above if you have Shizuku or Wireless Debugging active.", TerminalLineType.SYSTEM)
-                appendLine("  2. Or if connected to a PC, run: adb shell $cmd", TerminalLineType.SYSTEM)
-                appendLine("  3. Or launch Privileged Bridge: Type 'bridge start' in this terminal.", TerminalLineType.SYSTEM)
+                // If Shizuku is running but permission not requested yet
+                val shizukuRunning = try { Shizuku.pingBinder() } catch (_: Exception) { false }
+                if (shizukuRunning) {
+                    appendLine("Prompting Shizuku authorization dialog on phone…", TerminalLineType.SYSTEM)
+                    try {
+                        Shizuku.requestPermission(SHIZUKU_REQUEST_CODE)
+                    } catch (e: Exception) {
+                        appendLine("ℹ Shizuku prompt notice: ${e.message}", TerminalLineType.SYSTEM)
+                    }
+                } else if (isShizukuInstalled()) {
+                    appendLine("ℹ Shizuku is installed, but service is not running.", TerminalLineType.SYSTEM)
+                    appendLine("👉 Opening Shizuku app: Tap 'Start' via Wireless Debugging, then return here.", TerminalLineType.SYSTEM)
+                    withContext(Dispatchers.Main) {
+                        launchShizukuApp()
+                    }
+                } else {
+                    appendLine("$ $cmd", TerminalLineType.COMMAND)
+                    appendLine("ℹ Running in unprivileged app sandbox.", TerminalLineType.SYSTEM)
+                    appendLine("💡 To grant WRITE_SECURE_SETTINGS on an unrooted phone:", TerminalLineType.SYSTEM)
+                    appendLine("  Option 1 (No PC): Install Shizuku from Play Store & start via Wireless Debugging.", TerminalLineType.SYSTEM)
+                    appendLine("  Option 2 (PC ADB): Connect phone to PC and run:", TerminalLineType.SYSTEM)
+                    appendLine("     adb shell $cmd", TerminalLineType.OUTPUT)
+                    appendLine("  Option 3: Tap 'Wireless Debugging' in Quick Actions to open Developer Settings.", TerminalLineType.SYSTEM)
+                    executePipeline(cmd)
+                }
             }
         }
     }
@@ -616,22 +682,28 @@ class AdbTerminalManager(
                     executeCommand(cmd)
                 }
                 refreshState()
-            } else if (_state.value.isAuthorized) {
+            } else if (_state.value.engine == AdbEngine.SHIZUKU && _state.value.isShizukuRunning) {
                 executeCommand(cmd)
-                appendLine("🛑 WRITE_SECURE_SETTINGS revoke command dispatched via elevated shell.", TerminalLineType.SYSTEM)
+                appendLine("🛑 WRITE_SECURE_SETTINGS revoke command dispatched via Shizuku ADB shell.", TerminalLineType.SYSTEM)
+                appendLine("ℹ 4G/5G switching permission disabled. Run 'grant' to re-enable anytime.", TerminalLineType.SYSTEM)
+                refreshState()
+            } else if (_state.value.isRootAvailable) {
+                executeCommand(cmd)
+                appendLine("🛑 WRITE_SECURE_SETTINGS revoked via Kernel Root.", TerminalLineType.SYSTEM)
                 appendLine("ℹ Permission disabled. Run 'grant' to re-enable.", TerminalLineType.SYSTEM)
                 refreshState()
             } else {
                 appendLine("$ $cmd", TerminalLineType.COMMAND)
-                appendLine("ℹ Attempting local shell dispatch: $cmd", TerminalLineType.SYSTEM)
                 executePipeline(cmd)
-                appendLine("💡 To revoke via PC: adb shell $cmd", TerminalLineType.SYSTEM)
+                appendLine("ℹ To revoke via PC: adb shell $cmd", TerminalLineType.SYSTEM)
+                refreshState()
             }
         }
     }
 
     /**
      * Directly switches network modes via telephony service command line.
+     * Uses real SIM subscription IDs via SubscriptionManager for multi-SIM support.
      */
     fun setNetworkModeViaAdb(mode: NetworkMode) {
         val bitmask = when (mode) {
@@ -644,6 +716,7 @@ class AdbTerminalManager(
             NetworkMode.AUTO -> GLOBAL_MODE_AUTO
             NetworkMode.FOUR_G -> GLOBAL_MODE_4G
         }
+        val subIds = getActiveSubIds()
 
         if (PrivilegedBridgeManager.isConnected) {
             scope.launch {
@@ -651,20 +724,29 @@ class AdbTerminalManager(
                 if (ok) {
                     appendLine("✔ Network switched to ${mode.label()} via Privileged Bridge System Server proxy.", TerminalLineType.SYSTEM)
                 } else {
-                    executeCommand("cmd phone set-allowed-network-types-for-reason 0 0 $bitmask")
-                    executeCommand("cmd phone set-preferred-network-type 0 $modeVal")
+                    for (sub in subIds) {
+                        executeCommand("cmd phone set-allowed-network-types-for-reason $sub 0 $bitmask")
+                        executeCommand("cmd phone set-preferred-network-type $sub $modeVal")
+                        executeCommand("settings put global preferred_network_mode$sub $modeVal")
+                    }
                     executeCommand("settings put global preferred_network_mode $modeVal")
                 }
             }
         } else if (_state.value.isAuthorized) {
-            executeCommand("cmd phone set-allowed-network-types-for-reason 0 0 $bitmask")
-            executeCommand("cmd phone set-preferred-network-type 0 $modeVal")
+            for (sub in subIds) {
+                executeCommand("cmd phone set-allowed-network-types-for-reason $sub 0 $bitmask")
+                executeCommand("cmd phone set-preferred-network-type $sub $modeVal")
+                executeCommand("settings put global preferred_network_mode$sub $modeVal")
+            }
             executeCommand("settings put global preferred_network_mode $modeVal")
-            appendLine("✔ Network mode commands dispatched via elevated shell.", TerminalLineType.SYSTEM)
+            appendLine("✔ Network mode commands dispatched for active SIM(s) (subIds: $subIds).", TerminalLineType.SYSTEM)
         } else {
-            appendLine("ℹ Running in Local Shell mode. Dispatching telephony switch…", TerminalLineType.SYSTEM)
-            executeCommand("cmd phone set-preferred-network-type 0 $modeVal")
-            appendLine("💡 Tip: Run 'grant' to authorize WRITE_SECURE_SETTINGS, or use the 'Macro' tab via Accessibility.", TerminalLineType.SYSTEM)
+            appendLine("ℹ Running in Local Shell mode. Dispatching telephony switch for subIds: $subIds…", TerminalLineType.SYSTEM)
+            for (sub in subIds) {
+                executeCommand("cmd phone set-preferred-network-type $sub $modeVal")
+            }
+            executeCommand("settings put global preferred_network_mode $modeVal")
+            appendLine("💡 Tip: Run 'grant' to authorize WRITE_SECURE_SETTINGS, or connect via Shizuku/ADB.", TerminalLineType.SYSTEM)
         }
     }
 
