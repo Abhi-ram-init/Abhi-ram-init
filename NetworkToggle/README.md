@@ -61,12 +61,12 @@ An Android application built with **Jetpack Compose**, **Material 3**, and hardw
 ## 📦 Download & Installation
 
 Ready-to-install debug APK is available directly in this repository:
-- 📱 **Latest Release (v2.0 - Terminal First):** [`apk/NetworkToggle-v2.0.apk`](apk/NetworkToggle-v2.0.apk)
+- 📱 **Latest Release (v1.5):** [`apk/NetworkToggle-v1.5.apk`](apk/NetworkToggle-v1.5.apk)
 - 🔗 **Direct Latest Alias:** [`apk/NetworkToggle-latest.apk`](apk/NetworkToggle-latest.apk)
 
 ### Install via ADB:
 ```bash
-adb install -r apk/NetworkToggle-latest.apk
+adb install -r apk/NetworkToggle-v1.5.apk
 ```
 
 ---
