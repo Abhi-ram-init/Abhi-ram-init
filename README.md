@@ -1,4 +1,4 @@
-# Abhi-ram-init
+﻿# Abhi-ram-init
 
 Hello! I am **Abhi-ram-init**, an Android and systems developer passionate about building performant applications, system-level utilities, and modern interactive interfaces.
 
@@ -12,11 +12,13 @@ Hello! I am **Abhi-ram-init**, an Android and systems developer passionate about
 - **Privileged Backend Service**: Native `app_process` daemon with Android System Server telephony proxy.
 - **Kernel Security Audit**: Comprehensive audit of Seccomp BPF, SELinux MAC, Namespaces, USB FunctionFS, and Secure Boot (`ro.secure`, `ro.adb.secure`).
 
-### 🏎️ [CPU MONITOR (Nissan GT-R)](./CPU%20MONITOR)
-- Desktop system telemetry widget featuring animated GT-R wheel dynamics and real-time CPU/RAM usage tracking.
+### 🏎️ [CPU MONITOR (Nissan GT-R)](https://github.com/Abhi-ram-init/CPU_Monitor)
+- **Desktop System Telemetry Widget**: Features animated Nissan Skyline GT-R (R34) wheel dynamics and real-time CPU/RAM usage tracking.
+- **Dynamic Physics & HUD**: Wheel spin velocity and vehicle swaying dynamically scale with system load.
+- **Standalone Distribution**: Portable executable with minimal desktop footprint and taskbar/system tray integration.
 
-### 🌐 [gladiators-ngo](https://github.com/AniruddhaMJois/gladiators-ngo)
-- NGO management web platform developed with Node.js, Express, and React.
+### 🌐 [Gladiconnect](https://github.com/Abhi-ram-init/Gladiconnect)
+- **NGO Management Platform**: Web platform developed with Node.js, Express, Firebase, and React for event registration, volunteer onboarding, and certificate generation.
 
 ---
 
