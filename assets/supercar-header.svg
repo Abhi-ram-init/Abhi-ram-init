@@ -1,0 +1,494 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" width="100%" role="img" aria-label="A_Ram — Abhiram B S Supercar Opening Scene">
+  <defs>
+    <!-- Asphalt & night twilight circuit background -->
+    <linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#04070E"/>
+      <stop offset="52%" stop-color="#091120"/>
+      <stop offset="78%" stop-color="#0C172B"/>
+      <stop offset="100%" stop-color="#060911"/>
+    </linearGradient>
+
+    <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D1422"/>
+      <stop offset="100%" stop-color="#05080F"/>
+    </linearGradient>
+
+    <radialGradient id="horizonGlow" cx="50%" cy="52%" r="55%">
+      <stop offset="0%" stop-color="#FFB400" stop-opacity="0.18"/>
+      <stop offset="45%" stop-color="#00D4FF" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#04070E" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Metallic chrome + gold title gradient for A_Ram -->
+    <linearGradient id="titleMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="48%" stop-color="#E6EEF8"/>
+      <stop offset="78%" stop-color="#FFB400"/>
+      <stop offset="100%" stop-color="#FF7A00"/>
+    </linearGradient>
+
+    <linearGradient id="titleGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#FFB400"/>
+      <stop offset="50%" stop-color="#00E5FF"/>
+      <stop offset="85%" stop-color="#FFB400"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Car body paints -->
+    <!-- Porsche 911 GT3 RS: Guards Red / Racing Crimson -->
+    <linearGradient id="porschePaint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF4229"/>
+      <stop offset="55%" stop-color="#E11919"/>
+      <stop offset="100%" stop-color="#7D0909"/>
+    </linearGradient>
+
+    <!-- Nissan Skyline GT-R R34: Bayside Blue -->
+    <linearGradient id="gtrPaint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1EA4FF"/>
+      <stop offset="55%" stop-color="#0066E6"/>
+      <stop offset="100%" stop-color="#002F87"/>
+    </linearGradient>
+
+    <!-- Hyper GT: Championship Gold -->
+    <linearGradient id="hyperPaint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE055"/>
+      <stop offset="55%" stop-color="#FF9E00"/>
+      <stop offset="100%" stop-color="#9A4800"/>
+    </linearGradient>
+
+    <!-- Glass & Chrome -->
+    <linearGradient id="cabinGlass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5CE1E6" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0D192B" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Headlight cone gradients -->
+    <linearGradient id="beamWhite" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="40%" stop-color="#BCEFFF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#BCEFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beamGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFF0A8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFB400" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Rear light / Slipstream trails -->
+    <linearGradient id="trailRed" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF2020" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#FF3B1F" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#FFD27D" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="trailCyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0088FF" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#00D8FF" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#E6FFFF" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="trailGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFB400" stop-opacity="0"/>
+      <stop offset="75%" stop-color="#FFC833" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FFF8CC" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <filter id="neonGlow" x="-25%" y="-40%" width="150%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <filter id="softHalo" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+
+    <!-- Clip entire banner cleanly -->
+    <clipPath id="frameClip">
+      <rect x="0" y="0" width="900" height="220" rx="14"/>
+    </clipPath>
+
+    <!-- Left-to-right wipe mask that uncovers A_Ram directly behind the passing supercars -->
+    <clipPath id="titleWipeClip" clipPathUnits="userSpaceOnUse">
+      <rect class="wipe-rect" x="0" y="0" width="900" height="220"/>
+    </clipPath>
+
+    <style><![CDATA[
+      .mono { font-family: 'Courier New', Consolas, monospace; }
+      .hero { font-family: 'Arial Black', Impact, 'Segoe UI Black', sans-serif; }
+
+      /* ── High-speed road lane dashes ── */
+      @keyframes roadDash {
+        0%   { transform: translateX(0px); }
+        100% { transform: translateX(-120px); }
+      }
+      .road-dashes { animation: roadDash 0.45s linear infinite; }
+
+      /* ── Subtle speed embers in background ── */
+      @keyframes ember {
+        0%   { transform: translateX(920px); opacity: 0; }
+        20%  { opacity: 0.7; }
+        100% { transform: translateX(-260px); opacity: 0; }
+      }
+      .e1 { animation: ember 1.6s linear infinite 0.1s; }
+      .e2 { animation: ember 1.2s linear infinite 0.5s; }
+      .e3 { animation: ember 1.9s linear infinite 0.9s; }
+      .e4 { animation: ember 1.4s linear infinite 0.3s; }
+
+      /* ── Wheel spin ── */
+      @keyframes spinWheel {
+        0%   { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .wheel-spin {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: spinWheel 0.16s linear infinite;
+      }
+
+      /* ── Car 1: Porsche 911 GT3 RS (blasts ahead in mid-upper lane) ── */
+      @keyframes racePorsche {
+        0%, 2%   { transform: translate(-340px, 118px); opacity: 0; }
+        5%       { opacity: 1; }
+        18%      { transform: translate(295px, 118px); }
+        32%      { transform: translate(860px, 118px); opacity: 1; }
+        36%, 100%{ transform: translate(1160px, 118px); opacity: 0; }
+      }
+      .car-porsche { animation: racePorsche 11s cubic-bezier(0.32, 0.05, 0.25, 1) infinite; }
+
+      /* ── Car 2: Nissan Skyline GT-R R34 (battles close right beside/slightly trailing -> surges) ── */
+      @keyframes raceGtr {
+        0%, 4%   { transform: translate(-360px, 146px); opacity: 0; }
+        8%       { opacity: 1; }
+        21%      { transform: translate(235px, 146px); }
+        35%      { transform: translate(920px, 146px); opacity: 1; }
+        39%, 100%{ transform: translate(1180px, 146px); opacity: 0; }
+      }
+      .car-gtr { animation: raceGtr 11s cubic-bezier(0.28, 0.06, 0.24, 1) infinite; }
+
+      /* ── Car 3: Championship Gold Hypercar (upper slipstream opener) ── */
+      @keyframes raceHyper {
+        0%, 1%   { transform: translate(-310px, 94px); opacity: 0; }
+        4%       { opacity: 0.95; }
+        16%      { transform: translate(350px, 94px); }
+        30%      { transform: translate(1020px, 94px); opacity: 0.95; }
+        33%, 100%{ transform: translate(1220px, 94px); opacity: 0; }
+      }
+      .car-hyper { animation: raceHyper 11s cubic-bezier(0.35, 0.04, 0.22, 1) infinite; }
+
+      /* ── Wipe rect uncovers the name RIGHT BEHIND the passing cars ── */
+      @keyframes titleWipe {
+        0%, 11%   { transform: translateX(-900px); }
+        32%, 96%  { transform: translateX(0px); }
+        98%, 100% { transform: translateX(-900px); }
+      }
+      .wipe-rect { animation: titleWipe 11s ease-out infinite; }
+
+      /* ── Opening scene dramatic lock-in after cars exit ── */
+      @keyframes sceneLock {
+        0%, 10%   { opacity: 0; transform: scale(0.95); }
+        28%       { opacity: 0.92; transform: scale(0.98); }
+        37%       { opacity: 1; transform: scale(1.035); }
+        43%, 91%  { opacity: 1; transform: scale(1); }
+        96%, 100% { opacity: 0; transform: scale(0.98); }
+      }
+      .opening-scene {
+        transform-box: view-box;
+        transform-origin: 450px 104px;
+        animation: sceneLock 11s ease-out infinite;
+      }
+
+      /* ── Subtitle and accent bar fade-in once A_Ram locks ── */
+      @keyframes subReveal {
+        0%, 34%   { opacity: 0; transform: translateY(10px); }
+        44%, 90%  { opacity: 1; transform: translateY(0px); }
+        96%, 100% { opacity: 0; transform: translateY(-4px); }
+      }
+      .sub-scene { animation: subReveal 11s ease-out infinite; }
+
+      /* ── Subtle shockwave flash right after cars clear ── */
+      @keyframes flashSweep {
+        0%, 33%  { opacity: 0; transform: scaleX(0.2); }
+        38%      { opacity: 0.95; transform: scaleX(1.05); }
+        46%, 90% { opacity: 0.65; transform: scaleX(1); }
+        96%,100% { opacity: 0; transform: scaleX(0.4); }
+      }
+      .accent-line {
+        transform-box: view-box;
+        transform-origin: 450px 124px;
+        animation: flashSweep 11s ease-out infinite;
+      }
+
+      /* ── HUD RPM boost bar animation ── */
+      @keyframes rpmBar {
+        0%, 3%   { width: 22px; fill: #00E5FF; }
+        20%      { width: 108px; fill: #FFB400; }
+        34%      { width: 132px; fill: #FF3B1F; }
+        44%, 90% { width: 88px; fill: #00E5FF; }
+        97%,100% { width: 22px; fill: #00E5FF; }
+      }
+      .rpm-fill { animation: rpmBar 11s ease-in-out infinite; }
+
+      @keyframes hudBlink {
+        0%, 100% { opacity: 0.55; }
+        50%      { opacity: 1; }
+      }
+      .hud-live { animation: hudBlink 1.8s ease-in-out infinite; }
+    ]]></style>
+  </defs>
+
+  <g clip-path="url(#frameClip)">
+    <!-- Background -->
+    <rect width="900" height="220" fill="url(#skyBg)"/>
+    <rect width="900" height="220" fill="url(#horizonGlow)"/>
+
+    <!-- Circuit Horizon Grid Lines -->
+    <g stroke="#182642" stroke-width="1" opacity="0.55">
+      <line x1="0" y1="88"  x2="900" y2="88"/>
+      <line x1="0" y1="112" x2="900" y2="112"/>
+      <line x1="0" y1="138" x2="900" y2="138"/>
+    </g>
+
+    <!-- Asphalt track lower half -->
+    <rect x="0" y="138" width="900" height="82" fill="url(#roadGrad)"/>
+    <line x1="0" y1="138" x2="900" y2="138" stroke="#FFB400" stroke-width="1.2" opacity="0.35"/>
+
+    <!-- Animated red/white racing curbs & lane dashes -->
+    <g class="road-dashes" opacity="0.65">
+      <rect x="0"   y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="120" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="240" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="360" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="480" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="600" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="720" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="840" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+      <rect x="960" y="165" width="60" height="3" rx="1.5" fill="#1E2D4A"/>
+
+      <!-- Apex track edge curbs at bottom -->
+      <rect x="0"   y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="30"  y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="60"  y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="90"  y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="120" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="150" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="180" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="210" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="240" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="270" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="300" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="330" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="360" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="390" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="420" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="450" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="480" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="510" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="540" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="570" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="600" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="630" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="660" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="690" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="720" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="750" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="780" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="810" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="840" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="870" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="900" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="930" y="214" width="30" height="6" fill="#E6EEF8"/>
+      <rect x="960" y="214" width="30" height="6" fill="#E11919"/>
+      <rect x="990" y="214" width="30" height="6" fill="#E6EEF8"/>
+    </g>
+
+    <!-- High-speed light embers across track -->
+    <g>
+      <rect class="e1" x="0" y="54"  width="180" height="1.5" fill="url(#trailGold)" opacity="0.5"/>
+      <rect class="e2" x="0" y="96"  width="240" height="2"   fill="url(#trailCyan)" opacity="0.4"/>
+      <rect class="e3" x="0" y="132" width="160" height="1.5" fill="url(#trailRed)"  opacity="0.45"/>
+      <rect class="e4" x="0" y="180" width="210" height="1.5" fill="url(#trailGold)" opacity="0.35"/>
+    </g>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         LAYER 1 (BEHIND THE CARS): OPENING SCENE NAME "A_Ram"
+         Uncovered left-to-right right behind the racing supercars!
+         ═════════════════════════════════════════════════════════════════ -->
+    <g clip-path="url(#titleWipeClip)">
+      <g class="opening-scene">
+        <!-- Ambient halo behind A_Ram -->
+        <ellipse cx="450" cy="96" rx="220" ry="38" fill="#FFB400" opacity="0.22" filter="url(#softHalo)"/>
+        <ellipse cx="450" cy="96" rx="160" ry="26" fill="#00E5FF" opacity="0.14" filter="url(#softHalo)"/>
+
+        <!-- Drop-shadow bevel -->
+        <text x="453" y="109" text-anchor="middle"
+          class="hero" font-size="68" font-weight="900" font-style="italic"
+          letter-spacing="8" fill="#000000" opacity="0.65">A_Ram</text>
+
+        <!-- Warm racing glow layer -->
+        <text x="450" y="106" text-anchor="middle"
+          class="hero" font-size="68" font-weight="900" font-style="italic"
+          letter-spacing="8" fill="#FFB400" opacity="0.32" filter="url(#neonGlow)">A_Ram</text>
+
+        <!-- Primary chrome/gold hero callsign -->
+        <text x="450" y="106" text-anchor="middle"
+          class="hero" font-size="68" font-weight="900" font-style="italic"
+          letter-spacing="8" fill="url(#titleMetal)" stroke="#FFFFFF" stroke-width="0.6" stroke-opacity="0.45">A_Ram</text>
+
+        <!-- Flanking racing chevrons -->
+        <text x="238" y="101" text-anchor="end" class="hero" font-size="38" font-style="italic" fill="#FF3B1F" opacity="0.88">»</text>
+        <text x="662" y="101" text-anchor="start" class="hero" font-size="38" font-style="italic" fill="#00E5FF" opacity="0.88">«</text>
+      </g>
+
+      <!-- Opening scene underline shockwave + real name & tagline -->
+      <rect class="accent-line" x="190" y="120" width="520" height="3" rx="1.5" fill="url(#titleGold)"/>
+
+      <g class="sub-scene">
+        <text x="450" y="146" text-anchor="middle" class="mono" font-size="14" font-weight="700" letter-spacing="6" fill="#E6EEF8">
+          ABHIRAM B S
+        </text>
+        <text x="450" y="167" text-anchor="middle" class="mono" font-size="11" font-weight="700" letter-spacing="2.8" fill="#FFB400">
+          SYSTEMS EXPLORER  ·  VIBECODER → SPEC-DRIVEN BUILDER
+        </text>
+      </g>
+    </g>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         LAYER 2 (FOREGROUND PASS): THREE SUPER-CARS IN A RACE
+         They visibly pass IN FRONT of and unveil A_Ram behind them!
+         ═════════════════════════════════════════════════════════════════ -->
+
+    <!-- CAR 3: Championship Gold Hypercar (upper drafting lane) -->
+    <g class="car-hyper">
+      <!-- Wake / slipstream -->
+      <rect x="-250" y="18" width="250" height="5" fill="url(#trailGold)"/>
+      <rect x="-180" y="27" width="180" height="3" fill="url(#trailRed)"/>
+      <!-- Headlight cone -->
+      <polygon points="154,23 310,6 310,36 154,28" fill="url(#beamGold)"/>
+      <!-- Low-slung hypercar silhouette -->
+      <path d="M8,28 L12,16 L36,14 L62,4 L106,5 L146,18 L160,24 L158,31 L6,31 Z" fill="url(#hyperPaint)"/>
+      <path d="M56,14 L70,6 L102,6 L124,15 Z" fill="url(#cabinGlass)"/>
+      <!-- Rear spoiler -->
+      <path d="M4,15 L18,15 L22,10 L3,10 Z" fill="#182030"/>
+      <!-- LED Headlight & taillight -->
+      <rect x="148" y="21" width="10" height="3" rx="1.5" fill="#FFF7CC"/>
+      <rect x="6"   y="21" width="7"  height="4" rx="1"   fill="#FF2424"/>
+      <!-- Wheels -->
+      <g>
+        <circle cx="36" cy="31" r="11" fill="#111622" stroke="#334155" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="36" cy="31" r="6.5" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3 2.2"/>
+          <circle cx="36" cy="31" r="2.2" fill="#FFB400"/>
+        </g>
+      </g>
+      <g>
+        <circle cx="128" cy="31" r="11" fill="#111622" stroke="#334155" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="128" cy="31" r="6.5" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="3 2.2"/>
+          <circle cx="128" cy="31" r="2.2" fill="#FFB400"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- CAR 1: Porsche 911 GT3 RS (Hero Guards Red — iconic silhouette & swan-neck wing) -->
+    <g class="car-porsche">
+      <!-- Exhaust flame + blazing red taillight slipstream -->
+      <rect x="-320" y="19" width="320" height="7" fill="url(#trailRed)"/>
+      <rect x="-210" y="29" width="210" height="4" fill="url(#trailGold)"/>
+      <polygon points="4,29 -24,25 -12,30 -28,34 4,33" fill="#FF9E00" opacity="0.9"/>
+      <!-- Xenon Headlight Cone -->
+      <polygon points="172,22 365,-2 365,38 172,29" fill="url(#beamWhite)"/>
+      <!-- Swan-neck GT3 RS Rear Wing -->
+      <path d="M12,17 L18,6 L23,6 L19,17 Z" fill="#111827"/>
+      <path d="M2,5 L32,3 L33,7 L1,8 Z" fill="#1F2937" stroke="#FF4229" stroke-width="0.7"/>
+      <!-- Iconic 911 body: rounded frog-eye front fender + sweeping fastback roof -->
+      <path d="M8,31 L6,20 L16,17 L34,15 L56,5 Q86,2 114,13 L142,16 Q168,18 178,26 L176,33 L6,33 Z" fill="url(#porschePaint)"/>
+      <!-- Side accent stripe & vent -->
+      <path d="M46,24 L112,24 L118,27 L42,27 Z" fill="#0F172A" opacity="0.65"/>
+      <path d="M38,20 L48,20 L44,27 L34,27 Z" fill="#0B0F17"/>
+      <!-- Signature 911 Fastback Cabin Glass -->
+      <path d="M52,15 L63,7 Q87,5 108,14 L52,15 Z" fill="url(#cabinGlass)"/>
+      <!-- 911 Continuous LED Lightbar Rear & Frog-eye Quad Headlight Front -->
+      <rect x="6" y="20" width="12" height="3.2" rx="1.5" fill="#FF1E1E" filter="url(#neonGlow)"/>
+      <ellipse cx="163" cy="21.5" rx="6.5" ry="3.4" fill="#E6FAFF" filter="url(#neonGlow)"/>
+      <!-- Ground Shadow -->
+      <ellipse cx="92" cy="36" rx="86" ry="4" fill="#000000" opacity="0.7"/>
+      <!-- Wheels + red calipers -->
+      <g>
+        <circle cx="40" cy="33" r="12.5" fill="#0B0F18" stroke="#475569" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="40" cy="33" r="7.5" fill="none" stroke="#E2E8F0" stroke-width="1.8" stroke-dasharray="3.2 2.4"/>
+          <circle cx="40" cy="33" r="2.6" fill="#FF3B1F"/>
+        </g>
+      </g>
+      <g>
+        <circle cx="142" cy="33" r="12.5" fill="#0B0F18" stroke="#475569" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="142" cy="33" r="7.5" fill="none" stroke="#E2E8F0" stroke-width="1.8" stroke-dasharray="3.2 2.4"/>
+          <circle cx="142" cy="33" r="2.6" fill="#FF3B1F"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- CAR 2: Nissan Skyline GT-R R34 (Bayside Blue — chasing lower foreground lane!) -->
+    <g class="car-gtr">
+      <!-- Cyan NOS flame & slipstream -->
+      <rect x="-300" y="22" width="300" height="6" fill="url(#trailCyan)"/>
+      <polygon points="4,29 -32,24 -16,29 -34,34 4,33" fill="#00F5FF" opacity="0.92"/>
+      <!-- Headlight cone -->
+      <polygon points="175,23 360,3 360,39 175,29" fill="url(#beamWhite)"/>
+      <!-- R34 Rear Wing -->
+      <path d="M8,16 L13,6 L17,6 L15,16 Z" fill="#0F172A"/>
+      <rect x="2" y="5" width="26" height="4" rx="1" fill="#0066E6" stroke="#38BDF8" stroke-width="0.6"/>
+      <!-- Boxy R34 Skyline Coupe Silhouette -->
+      <path d="M6,32 L8,18 L34,16 L50,6 L102,6 L124,16 L168,19 L178,26 L176,33 L6,33 Z" fill="url(#gtrPaint)"/>
+      <!-- White/Silver GT-R Livery Stripes -->
+      <path d="M22,24 L152,24 L158,27 L18,27 Z" fill="#E2E8F0" opacity="0.8"/>
+      <!-- Windows -->
+      <path d="M46,15 L55,8 L98,8 L115,15 Z" fill="url(#cabinGlass)"/>
+      <!-- Quad Round GT-R Tail-Lights + Angular Headlight -->
+      <circle cx="11" cy="21" r="2.3" fill="#FF1E1E" filter="url(#neonGlow)"/>
+      <circle cx="17" cy="21" r="2.1" fill="#FF1E1E" filter="url(#neonGlow)"/>
+      <polygon points="164,20 175,22 173,25 162,24" fill="#FFFFFF" filter="url(#neonGlow)"/>
+      <!-- Ground Shadow -->
+      <ellipse cx="92" cy="36" rx="88" ry="4" fill="#000000" opacity="0.75"/>
+      <!-- Spinning 6-spoke bronze/chrome rims -->
+      <g>
+        <circle cx="38" cy="33" r="12.5" fill="#0B0F18" stroke="#64748B" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="38" cy="33" r="7.5" fill="none" stroke="#F8FAFC" stroke-width="1.8" stroke-dasharray="3.2 2.4"/>
+          <circle cx="38" cy="33" r="2.6" fill="#38BDF8"/>
+        </g>
+      </g>
+      <g>
+        <circle cx="144" cy="33" r="12.5" fill="#0B0F18" stroke="#64748B" stroke-width="2"/>
+        <g class="wheel-spin">
+          <circle cx="144" cy="33" r="7.5" fill="none" stroke="#F8FAFC" stroke-width="1.8" stroke-dasharray="3.2 2.4"/>
+          <circle cx="144" cy="33" r="2.6" fill="#38BDF8"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         TOP RACING GAME HUD OVERLAY (A_Ram callsign)
+         ═════════════════════════════════════════════════════════════════ -->
+    <g>
+      <!-- Top-left Callsign pill -->
+      <rect x="16" y="12" width="128" height="24" rx="5" fill="#0A1222" fill-opacity="0.82" stroke="#FFB400" stroke-opacity="0.55" stroke-width="1"/>
+      <circle cx="29" cy="24" r="3.5" fill="#22C55E" class="hud-live"/>
+      <text x="40" y="28" class="mono" font-size="12" font-weight="700" letter-spacing="1.2" fill="#FFB400">[ A_Ram ]</text>
+
+      <!-- Top-right Circuit / Class / Grad Year HUD -->
+      <rect x="708" y="12" width="176" height="24" rx="5" fill="#0A1222" fill-opacity="0.82" stroke="#00E5FF" stroke-opacity="0.45" stroke-width="1"/>
+      <text x="796" y="28" text-anchor="middle" class="mono" font-size="11.5" font-weight="700" letter-spacing="1" fill="#00E5FF">[ VVCE · CLASS 2029 ]</text>
+
+      <!-- Bottom-right Micro Boost/RPM Telemetry Gauge -->
+      <text x="720" y="201" class="mono" font-size="9.5" font-weight="700" fill="#94A3B8" letter-spacing="1">BOOST</text>
+      <rect x="760" y="193" width="124" height="8" rx="4" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+      <rect x="760" y="193" width="88"  height="8" rx="4" class="rpm-fill"/>
+
+      <!-- Bottom-left Lap / Stage indicator -->
+      <text x="18" y="201" class="mono" font-size="9.5" font-weight="700" fill="#64748B" letter-spacing="1.2">911 GT3 RS  //  GT-R R34  ·  OPENING CIRCUIT</text>
+    </g>
+
+    <!-- Outer crisp bezel -->
+    <rect x="0.75" y="0.75" width="898.5" height="218.5" rx="13.5" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+  </g>
+</svg>

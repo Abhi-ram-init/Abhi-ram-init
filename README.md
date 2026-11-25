@@ -1,42 +1,47 @@
 ﻿<div align="center">
 
-<img src="assets/name-header.svg" width="100%" alt="Abhiram B S"/>
+<img src="assets/supercar-header.svg" width="100%" alt="A_Ram — Abhiram B S"/>
 
-<br/>
+<br/><br/>
 
-<!-- Social icons — original brand colours -->
-<a href="https://www.linkedin.com/in/abhiram-b-s-90b628383/" target="_blank">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="32"/>
+<!-- Original full-color company logos (no badge boxes) -->
+<a href="https://www.linkedin.com/in/abhiram-b-s-90b628383/" target="_blank" title="LinkedIn">
+  <img src="assets/icons/linkedin.svg" width="30" height="30" alt="LinkedIn"/>
 </a>
-&nbsp;
-<a href="mailto:abhiram.github@gmail.com">
-  <img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" height="32"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="mailto:abhiram.github@gmail.com" target="_blank" title="Gmail">
+  <img src="assets/icons/gmail.svg" width="30" height="30" alt="Gmail"/>
 </a>
-&nbsp;
-<a href="https://www.instagram.com/fstop.manual/" target="_blank">
-  <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Photography · @fstop.manual" height="32"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.instagram.com/fstop.manual/" target="_blank" title="Photography · @fstop.manual">
+  <img src="assets/icons/instagram.svg" width="30" height="30" alt="Instagram"/>
 </a>
-&nbsp;
-<a href="https://github.com/Abhi-ram-init" target="_blank">
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" height="32"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/Abhi-ram-init" target="_blank" title="GitHub">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/icons/github-light.svg"/>
+    <source media="(prefers-color-scheme: light)" srcset="assets/icons/github-dark.svg"/>
+    <img src="assets/icons/github-dark.svg" width="30" height="30" alt="GitHub"/>
+  </picture>
 </a>
 
 </div>
 
 ---
 
-## 👋 About Me
+## ⚡ About Me
 
-I'm **Abhiram B S** — an engineering student at **Vidyavardhaka College of Engineering (VVCE), Mysuru**, on track to graduate in **2029**.
+<img align="right" width="40%" src="assets/about-hud.svg" alt="A_Ram Developer Telemetry"/>
 
-My story with code started the way all great ones do — no roadmap, no plan, just curiosity and a leap of faith into the unknown. Pure **vibecoding**: chasing whatever felt exciting, building things that probably shouldn't have worked, breaking them completely, and then — in that frustration — actually *understanding* them. That trial-by-fire way of learning is baked into how I think now, and I wouldn't trade it for anything.
+- 👨‍💻 **Identity** — **Abhiram B S** (`A_Ram`)
+- 🎓 **Campus** — **Vidyavardhaka College of Engineering (VVCE), Mysuru** · Class of **2029**
+- 🧠 **Core Languages** — **C / C++**, **Python**, **Java** *(still building deeper mastery every day)*
+- 🔥 **Where It Started** — Kicked off with pure **vibecoding** — diving headfirst into code on instinct, breaking things boldly, and falling in love with that spark when an idea first comes alive
+- 🧭 **Where It's Going** — Growing into **Spec-Driven Development**, learning fundamentals from scratch one concept at a time until every layer clicks clearly
+- 🤝 **Open to Build** — Always excited to help out, brainstorm, and team up on **interesting ideas**
+- 📸 **Photography** — Capturing light, frames, and quiet stories over at [@fstop.manual](https://www.instagram.com/fstop.manual/)
 
-These days I channel it into something more intentional: **Spec-Driven Development**. It means taking a problem down to its bones — pulling apart every abstraction until nothing is a mystery — then building back up with clarity and purpose. I love the moment when something truly *clicks*: not just knowing *how* a system works, but feeling in your gut *why* it works that way. Android internals, low-level architectures, system utilities — that's where my curiosity lives.
-
-Outside of code, I point a camera at the world. Photography gave me a completely different lens — patience, composition, and the quiet satisfaction of catching light at exactly the right moment. Find my frames at **[@fstop.manual](https://www.instagram.com/fstop.manual/)** on Instagram.
-
-🧠 &nbsp;**Comfortable with** — C &nbsp;·&nbsp; C++ &nbsp;·&nbsp; Python &nbsp;·&nbsp; Java  
-⚙️ &nbsp;**Also working with** — Kotlin · Jetpack Compose · AIDL / Binder IPC · ADB Shell
+<br clear="right"/>
 
 ---
 
@@ -44,32 +49,25 @@ Outside of code, I point a camera at the world. Photography gave me a completely
 
 <div align="center">
 
-| Domain | Tools |
-|:---:|:---|
-| **Languages** | ![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white) &nbsp; ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat-square&logo=cplusplus&logoColor=white) &nbsp; ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) &nbsp; ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) &nbsp; ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white) |
-| **Android & Systems** | ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white) &nbsp; ![AIDL IPC](https://img.shields.io/badge/AIDL_Binder_IPC-3DDC84?style=flat-square&logo=android&logoColor=white) &nbsp; ![ADB](https://img.shields.io/badge/ADB_Shell-1a1a1a?style=flat-square&logo=gnubash&logoColor=white) |
-| **Web & Fullstack** | ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) &nbsp; ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black) |
-| **Tooling** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) &nbsp; ![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=flat-square&logo=androidstudio&logoColor=white) &nbsp; ![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) |
+| Focus | Technologies |
+|:---:|:---:|
+| **Core Comfort** | ![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white) &nbsp; ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat-square&logo=cplusplus&logoColor=white) &nbsp; ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) &nbsp; ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white) |
+| **Explored in Projects** | ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white) &nbsp; ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white) &nbsp; ![Android](https://img.shields.io/badge/Android_ADB_/_AIDL-3DDC84?style=flat-square&logo=android&logoColor=white) &nbsp; ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) &nbsp; ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black) |
+| **Tools & Environment** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) &nbsp; ![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=flat-square&logo=androidstudio&logoColor=white) &nbsp; ![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) |
 
 </div>
 
 ---
 
-## 🎮 Contribution Calendar
-
-> **Real commits — no fakes.** This calendar is generated directly from my GitHub contribution data via a GitHub Action that runs daily. Each block is a real day I pushed code. The snake eats through them in chronological order — just like the journey itself.
+## 🧱 Contribution Calendar
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/Abhi-ram-init/Abhi-ram-init/output/snake-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Abhi-ram-init/Abhi-ram-init/output/snake.svg"/>
-  <img src="https://raw.githubusercontent.com/Abhi-ram-init/Abhi-ram-init/output/snake-dark.svg"
-       alt="Contribution snake eating through real GitHub commit data"
-       width="100%"/>
-</picture>
+<img src="assets/arcade-contributions.svg" width="100%" alt="Retro Arcade Block Contribution Calendar — Real GitHub Commits"/>
 
-<sub>🐍 Snake runs on real contribution data · updated every 24 h via <a href=".github/workflows/snake.yml">GitHub Actions</a></sub>
+<br/>
+
+<sub>🕹 Starts empty and drops <strong>real GitHub commit bricks</strong> chronologically onto their exact dates · RGB tiers use a Golden-Ratio contrast palette (<i>φ</i> ≈ 1.618) mapped to commit count · Auto-updated via <a href=".github/workflows/arcade-calendar.yml">GitHub Actions</a></sub>
 
 </div>
 
@@ -86,7 +84,7 @@ Outside of code, I point a camera at the world. Photography gave me a completely
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white) &nbsp; ![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
 
-Fast **5G / 4G network mode** toggle for Android. Privileged Shizuku AIDL Binder IPC, direct ADB socket control, clean Jetpack Compose UI.
+Fast **5G / 4G network mode** switcher for Android with privileged Shizuku AIDL Binder IPC, direct ADB socket execution, and Jetpack Compose UI.
 
 </td>
 <td width="33%" align="center" valign="top">
@@ -95,16 +93,16 @@ Fast **5G / 4G network mode** toggle for Android. Privileged Shizuku AIDL Binder
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 
-Desktop telemetry widget — **Nissan Skyline GT-R (R34)** style. Real-time CPU/RAM tracking with animated wheel dynamics that react to hardware load.
+**Nissan Skyline GT-R (R34)** desktop telemetry widget tracking live CPU and RAM load with animated hardware-reactive wheels.
 
 </td>
 <td width="33%" align="center" valign="top">
 
-### 🌐 [Gladiconnect](https://github.com/Abhi-ram-init/Gladiconnect)
+### 🌐 [GladiConnect](https://github.com/Abhi-ram-init/gladiators-ngo)
 
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) &nbsp; ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
 
-NGO management portal — **volunteer onboarding**, event coordination, and automated digital certificate generation.
+Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contributors with event & impact workflows.
 
 </td>
 </tr>
@@ -115,28 +113,36 @@ NGO management portal — **volunteer onboarding**, event coordination, and auto
 
 <div align="center">
 
-*"Every complex system was once an intuition deconstructed line by line."*
+```
+// ──────────────────────────[ END OF TRANSMISSION ]────────────────────────── //
+```
+
+*"Every complex system was once an intuition — deconstructed patiently, one layer at a time."*
 
 <br/>
 
-**Let's build something interesting** — ideas, problems, or just a good conversation about systems.
+**Got an interesting idea or tough bug?** Always down to learn, collaborate, and build something cool.
 
 <br/>
 
-<a href="https://www.linkedin.com/in/abhiram-b-s-90b628383/">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" height="26" alt="LinkedIn"/>
+<a href="https://www.linkedin.com/in/abhiram-b-s-90b628383/" target="_blank" title="LinkedIn">
+  <img src="assets/icons/linkedin.svg" width="28" height="28" alt="LinkedIn"/>
 </a>
-&nbsp;
-<a href="mailto:abhiram.github@gmail.com">
-  <img src="https://img.shields.io/badge/Gmail-EA4335?style=flat-square&logo=gmail&logoColor=white" height="26" alt="Email"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="mailto:abhiram.github@gmail.com" target="_blank" title="Gmail">
+  <img src="assets/icons/gmail.svg" width="28" height="28" alt="Gmail"/>
 </a>
-&nbsp;
-<a href="https://github.com/Abhi-ram-init">
-  <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" height="26" alt="GitHub"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/Abhi-ram-init" target="_blank" title="GitHub">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/icons/github-light.svg"/>
+    <source media="(prefers-color-scheme: light)" srcset="assets/icons/github-dark.svg"/>
+    <img src="assets/icons/github-dark.svg" width="28" height="28" alt="GitHub"/>
+  </picture>
 </a>
 
 <br/><br/>
 
-<sub>⚡ Crafted with Spec-Driven spirit by <strong>Abhiram B S</strong></sub>
+<sub>⚡ Spec-Driven Spirit · Built with curiosity by <strong>A_Ram (Abhiram B S)</strong></sub>
 
 </div>

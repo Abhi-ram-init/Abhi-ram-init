@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" role="img" aria-label="Gmail">
+  <path fill="#4285F4" d="M2 18.5V10l4.5 3.375V20H3.5A1.5 1.5 0 0 1 2 18.5z"/>
+  <path fill="#34A853" d="M22 18.5V10l-4.5 3.375V20h3A1.5 1.5 0 0 0 22 18.5z"/>
+  <path fill="#FBBC04" d="M17.5 13.375V5.5l2.7-2.025A1.5 1.5 0 0 1 22 4.675V10l-4.5 3.375z"/>
+  <path fill="#EA4335" d="M6.5 13.375V5.5L12 9.625 17.5 5.5v7.875L12 17.5l-5.5-4.125z"/>
+  <path fill="#C5221F" d="M2 10V4.675a1.5 1.5 0 0 1 1.8-1.2L6.5 5.5v7.875L2 10z"/>
+</svg>
