@@ -9,7 +9,7 @@
   <img src="assets/icons/linkedin.svg" width="30" height="30" alt="LinkedIn"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="mailto:abhiram.github@gmail.com" target="_blank" title="Gmail">
+<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=abhiram.github@gmail.com" target="_blank" title="Gmail · abhiram.github@gmail.com">
   <img src="assets/icons/gmail.svg" width="30" height="30" alt="Gmail"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -126,7 +126,7 @@ Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contribu
   <img src="assets/icons/linkedin.svg" width="28" height="28" alt="LinkedIn"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="mailto:abhiram.github@gmail.com" target="_blank" title="Gmail">
+<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=abhiram.github@gmail.com" target="_blank" title="Gmail · abhiram.github@gmail.com">
   <img src="assets/icons/gmail.svg" width="28" height="28" alt="Gmail"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;
