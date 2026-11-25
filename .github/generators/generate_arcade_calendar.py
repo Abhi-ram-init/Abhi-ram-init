@@ -215,10 +215,24 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     end_lbl = datetime.strptime(end_date, "%Y-%m-%d").strftime("%b '%y").upper()
 
     n_active = len(active_days)
-    cycle_s = round(max(4.5, min(12.0, 2.2 + n_active * 0.18)), 2)
+    cycle_s = round(max(4.0, min(9.5, 1.8 + n_active * 0.14)), 2)
+    wave_dur_s = round(max(3.8, cycle_s * 0.80), 2)
     month_labels = compute_month_labels(days)
 
-    css_keyframes: List[str] = []
+    css_keyframes: List[str] = [
+        f"""      .tile-wrap {{ transform-box: fill-box; transform-origin: center; }}
+      .tile-sheen {{ opacity: 0; }}
+      @keyframes tilePulse {{
+        0%, 100% {{ transform: scale(1); }}
+        22%      {{ transform: scale(1.13); }}
+        48%      {{ transform: scale(1); }}
+      }}
+      @keyframes tileSheen {{
+        0%, 100% {{ opacity: 0; }}
+        22%      {{ opacity: 0.48; }}
+        48%      {{ opacity: 0; }}
+      }}"""
+    ]
     drop_span_start = 4.0
     drop_span_end = 99.0
     drop_dur_pct = 24.0
@@ -230,6 +244,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
         t0 = drop_span_start + idx * stagger
         dy = -(day.row * step + 20.0)
         t_land = min(100.0, t0 + drop_dur_pct)
+        t_land_s = round((t_land / 100.0) * cycle_s, 2)
 
         # Smooth 9-point cubic ease-out deceleration; lands once and remains permanently placed
         steps_lines = [f"        0%, {t0:.2f}% {{ transform: translateY({dy:.1f}px); opacity: 0; }}"]
@@ -247,7 +262,9 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
             f"""      @keyframes drop_{idx} {{
 {keyframes_body}
       }}
-      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear 1 both; }}"""
+      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear 1 both; }}
+      .tw_{idx} {{ animation: tilePulse {wave_dur_s:.2f}s ease-in-out {t_land_s:.2f}s infinite; }}
+      .ts_{idx} {{ animation: tileSheen {wave_dur_s:.2f}s ease-in-out {t_land_s:.2f}s infinite; }}"""
         )
 
     # Pure flat 2D empty grid squares
@@ -259,7 +276,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
             f'    <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="#0C1322" stroke="#162238" stroke-width="0.8"/>'
         )
 
-    # Pure flat 2D falling arcade blocks (no 3D bevels, no glow shadows)
+    # Pure flat 2D falling arcade blocks with perpetual chronological wave pulse once landed
     falling_bricks_svg: List[str] = []
     for idx, d in enumerate(active_days):
         t = tier_from_count(d.count)
@@ -268,7 +285,10 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
         falling_bricks_svg.append(
             f'    <g class="b_{idx}">\n'
             f'      <title>{d.date}: {d.count} commit{"s" if d.count != 1 else ""}</title>\n'
-            f'      <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="url(#tier{t}Grad)"/>\n'
+            f'      <g class="tile-wrap tw_{idx}">\n'
+            f'        <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="url(#tier{t}Grad)"/>\n'
+            f'        <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="#99F0FF" class="tile-sheen ts_{idx}"/>\n'
+            f'      </g>\n'
             f'    </g>'
         )
 
