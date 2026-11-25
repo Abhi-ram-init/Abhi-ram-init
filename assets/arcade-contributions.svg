@@ -1,0 +1,323 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 240" width="100%" height="100%">
+  <defs>
+    <!-- Gradients & Glow Filters -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5ff" />
+      <stop offset="50%" stop-color="#ff007f" />
+      <stop offset="100%" stop-color="#7928ca" />
+    </linearGradient>
+
+    <linearGradient id="paddleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f5ff" />
+      <stop offset="100%" stop-color="#39ff14" />
+    </linearGradient>
+
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="brickGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+
+      .arcade-bg { fill: #0b0f19; stroke: url(#borderGrad); stroke-width: 2px; }
+      .crt-lines { fill: none; stroke: rgba(255, 255, 255, 0.03); stroke-width: 1px; }
+      
+      .hud-title { font-family: 'Press Start 2P', monospace, sans-serif; font-size: 11px; fill: #00f5ff; letter-spacing: 1px; }
+      .hud-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; fill: #a0aec0; }
+      .hud-score { font-family: 'Press Start 2P', monospace; font-size: 10px; fill: #ff007f; }
+      .hud-legend { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #718096; }
+      
+      /* RGB Brick Palette */
+      .b-0 { fill: #151d2d; }
+      .b-cyan { fill: #00f5ff; filter: url(#brickGlow); }
+      .b-lime { fill: #39ff14; filter: url(#brickGlow); }
+      .b-amber { fill: #ffb700; filter: url(#brickGlow); }
+      .b-pink { fill: #ff007f; filter: url(#brickGlow); }
+
+      /* Falling Brick Animations */
+      @keyframes fall1 {
+        0% { transform: translateY(-80px); opacity: 0; }
+        40% { opacity: 1; }
+        70% { transform: translateY(0px); }
+        85% { transform: translateY(-6px); }
+        100% { transform: translateY(0px); opacity: 1; }
+      }
+      @keyframes fall2 {
+        0%, 15% { transform: translateY(-80px); opacity: 0; }
+        55% { opacity: 1; }
+        80% { transform: translateY(0px); }
+        90% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); opacity: 1; }
+      }
+      @keyframes fall3 {
+        0%, 30% { transform: translateY(-80px); opacity: 0; }
+        70% { opacity: 1; }
+        88% { transform: translateY(0px); }
+        95% { transform: translateY(-4px); }
+        100% { transform: translateY(0px); opacity: 1; }
+      }
+      @keyframes fall4 {
+        0%, 45% { transform: translateY(-80px); opacity: 0; }
+        80% { opacity: 1; }
+        92% { transform: translateY(0px); }
+        97% { transform: translateY(-3px); }
+        100% { transform: translateY(0px); opacity: 1; }
+      }
+
+      .falling-1 { animation: fall1 4s ease-out infinite; }
+      .falling-2 { animation: fall2 4.5s ease-out infinite; }
+      .falling-3 { animation: fall3 5s ease-out infinite; }
+      .falling-4 { animation: fall4 5.5s ease-out infinite; }
+
+      /* Arcade Paddle & Ball Motion */
+      @keyframes paddleMove {
+        0%, 100% { transform: translateX(0px); }
+        50% { transform: translateX(280px); }
+      }
+      @keyframes ballMove {
+        0% { transform: translate(0px, 0px); }
+        25% { transform: translate(140px, -60px); }
+        50% { transform: translate(280px, -5px); }
+        75% { transform: translate(140px, -70px); }
+        100% { transform: translate(0px, 0px); }
+      }
+
+      .paddle { animation: paddleMove 6s ease-in-out infinite; }
+      .ball { animation: ballMove 6s ease-in-out infinite; fill: #ffffff; filter: url(#neonGlow); }
+    </style>
+  </defs>
+
+  <!-- Screen Frame -->
+  <rect x="2" y="2" width="836" height="236" rx="10" class="arcade-bg" />
+
+  <!-- CRT Scanlines Overlay -->
+  <path d="M10,25 H830 M10,50 H830 M10,75 H830 M10,100 H830 M10,125 H830 M10,150 H830 M10,175 H830 M10,200 H830" class="crt-lines" />
+
+  <!-- Retro Arcade Header HUD -->
+  <g id="header-hud">
+    <text x="25" y="30" class="hud-title">🕹️ ABHI-RAM // RGB BRICK BREAKOUT</text>
+    <text x="560" y="30" class="hud-score">SCORE: 2029</text>
+    <text x="710" y="30" class="hud-meta">LEVEL: 01</text>
+    
+    <text x="25" y="48" class="hud-meta">SYS: SPEC-DRIVEN // VIBECODING ➔ PRODUCTION</text>
+    <text x="560" y="48" class="hud-meta">STREAK: ACTIVE 🔥</text>
+    <text x="710" y="48" class="hud-meta">LIVES: ♥♥♥</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="25" y1="58" x2="815" y2="58" stroke="#1d263b" stroke-width="1.5" />
+
+  <!-- Matrix of Arcade Bricks (28 Columns x 6 Rows) -->
+  <g id="brick-matrix" transform="translate(25, 68)">
+    <!-- Row 0 -->
+    <rect x="0" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="28" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="56" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="84" y="0" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="112" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="140" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="168" y="0" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="196" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="224" y="0" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="252" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="280" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="308" y="0" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="336" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="364" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="392" y="0" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="420" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="448" y="0" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="476" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="504" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="532" y="0" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="560" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="588" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="616" y="0" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="644" y="0" width="24" height="11" rx="2" class="b-0" />
+    <rect x="672" y="0" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="700" y="0" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="728" y="0" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="756" y="0" width="24" height="11" rx="2" class="b-0" />
+
+    <!-- Row 1 -->
+    <rect x="0" y="15" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="28" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="56" y="15" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="84" y="15" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="112" y="15" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="140" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="168" y="15" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="196" y="15" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="224" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="252" y="15" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="280" y="15" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="308" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="336" y="15" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="364" y="15" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="392" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="420" y="15" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="448" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="476" y="15" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="504" y="15" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="532" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="560" y="15" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="588" y="15" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="616" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="644" y="15" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="672" y="15" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="700" y="15" width="24" height="11" rx="2" class="b-0" />
+    <rect x="728" y="15" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="756" y="15" width="24" height="11" rx="2" class="b-cyan" />
+
+    <!-- Row 2 -->
+    <rect x="0" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="28" y="30" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="56" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="84" y="30" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="112" y="30" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="140" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="168" y="30" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="196" y="30" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="224" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="252" y="30" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="280" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="308" y="30" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="336" y="30" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="364" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="392" y="30" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="420" y="30" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="448" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="476" y="30" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="504" y="30" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="532" y="30" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="560" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="588" y="30" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="616" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="644" y="30" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="672" y="30" width="24" height="11" rx="2" class="b-0" />
+    <rect x="700" y="30" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="728" y="30" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="756" y="30" width="24" height="11" rx="2" class="b-0" />
+
+    <!-- Row 3 (Featuring Active Falling Blocks) -->
+    <rect x="0" y="45" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="28" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="56" y="45" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="84" y="45" width="24" height="11" rx="2" class="b-0" />
+    
+    <!-- Falling block 1 -->
+    <rect x="112" y="45" width="24" height="11" rx="2" class="b-pink falling-1" />
+    
+    <rect x="140" y="45" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="168" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="196" y="45" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="224" y="45" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="252" y="45" width="24" height="11" rx="2" class="b-0" />
+    
+    <!-- Falling block 2 -->
+    <rect x="280" y="45" width="24" height="11" rx="2" class="b-cyan falling-2" />
+    
+    <rect x="308" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="336" y="45" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="364" y="45" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="392" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="420" y="45" width="24" height="11" rx="2" class="b-pink" />
+    
+    <!-- Falling block 3 -->
+    <rect x="448" y="45" width="24" height="11" rx="2" class="b-amber falling-3" />
+    
+    <rect x="476" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="504" y="45" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="532" y="45" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="560" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="588" y="45" width="24" height="11" rx="2" class="b-amber" />
+    
+    <!-- Falling block 4 -->
+    <rect x="616" y="45" width="24" height="11" rx="2" class="b-pink falling-4" />
+    
+    <rect x="644" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="672" y="45" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="700" y="45" width="24" height="11" rx="2" class="b-0" />
+    <rect x="728" y="45" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="756" y="45" width="24" height="11" rx="2" class="b-0" />
+
+    <!-- Row 4 -->
+    <rect x="0" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="28" y="60" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="56" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="84" y="60" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="112" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="140" y="60" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="168" y="60" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="196" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="224" y="60" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="252" y="60" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="280" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="308" y="60" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="336" y="60" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="364" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="392" y="60" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="420" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="448" y="60" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="476" y="60" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="504" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="532" y="60" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="560" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="588" y="60" width="24" height="11" rx="2" class="b-cyan" />
+    <rect x="616" y="60" width="24" height="11" rx="2" class="b-pink" />
+    <rect x="644" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="672" y="60" width="24" height="11" rx="2" class="b-lime" />
+    <rect x="700" y="60" width="24" height="11" rx="2" class="b-amber" />
+    <rect x="728" y="60" width="24" height="11" rx="2" class="b-0" />
+    <rect x="756" y="60" width="24" height="11" rx="2" class="b-cyan" />
+  </g>
+
+  <!-- Arcade Paddle & Ball Section -->
+  <g transform="translate(250, 158)">
+    <!-- Moving Paddle -->
+    <g class="paddle">
+      <rect x="0" y="16" width="60" height="6" rx="3" fill="url(#paddleGrad)" filter="url(#neonGlow)" />
+    </g>
+    <!-- Bouncing Ball -->
+    <g class="ball">
+      <circle cx="30" cy="8" r="4" />
+    </g>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="25" y1="190" x2="815" y2="190" stroke="#1d263b" stroke-width="1.5" />
+
+  <!-- Legend & Status Footer -->
+  <g id="legend" transform="translate(25, 212)">
+    <text x="0" y="0" class="hud-legend">COMMIT DENSITY [RGB]:</text>
+    
+    <rect x="160" y="-9" width="12" height="10" rx="2" class="b-0" />
+    <text x="178" y="0" class="hud-legend">0 Commits</text>
+    
+    <rect x="260" y="-9" width="12" height="10" rx="2" class="b-cyan" />
+    <text x="278" y="0" class="hud-legend">1-2</text>
+    
+    <rect x="325" y="-9" width="12" height="10" rx="2" class="b-lime" />
+    <text x="343" y="0" class="hud-legend">3-5</text>
+    
+    <rect x="390" y="-9" width="12" height="10" rx="2" class="b-amber" />
+    <text x="408" y="0" class="hud-legend">6-9</text>
+    
+    <rect x="455" y="-9" width="12" height="10" rx="2" class="b-pink" />
+    <text x="473" y="0" class="hud-legend">10+ MAX</text>
+
+    <text x="615" y="0" class="hud-legend" fill="#00f5ff">INSERT COIN TO BUILD 🪙</text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+﻿name: Update Arcade Contributions Graph
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+  workflow_dispatch:      # Allows manual trigger anytime
+
+permissions:
+  contents: write
+
+jobs:
+  update-arcade-graph:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Arcade Assets
+        run: |
+          echo "Arcade Contribution Matrix ready in assets/arcade-contributions.svg"
+          ls -l assets/

@@ -38,3 +38,16 @@ cleanup.ps1
 recreate_gladiators.ps1
 repos.json
 gladiators-ngo-clone/
+
+# Agent configuration and internal local workflows (keep local, do not push to public profile)
+.agent/
+.agents/
+.gemini/
+.gsd/
+GSD-STYLE.md
+PROJECT_RULES.md
+VERSION
+adapters/
+model_capabilities.yaml
+scripts/
+
