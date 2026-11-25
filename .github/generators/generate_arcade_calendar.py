@@ -215,49 +215,39 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     end_lbl = datetime.strptime(end_date, "%Y-%m-%d").strftime("%b '%y").upper()
 
     n_active = len(active_days)
-    cycle_s = round(max(10.0, min(20.0, 5.2 + n_active * 0.24)), 2)
+    cycle_s = round(max(4.5, min(12.0, 2.2 + n_active * 0.18)), 2)
     month_labels = compute_month_labels(days)
 
     css_keyframes: List[str] = []
-    drop_span_start = 3.0
-    drop_span_end = 60.0
-    drop_dur_pct = 8.5
+    drop_span_start = 4.0
+    drop_span_end = 99.0
+    drop_dur_pct = 24.0
 
     stagger = (drop_span_end - drop_span_start - drop_dur_pct) / max(1, n_active - 1) if n_active > 1 else 0.0
-    clear_span_start = 82.0
-    clear_fade_dur = 5.5
-    clear_stagger = (96.5 - clear_span_start - clear_fade_dur) / max(1, n_active - 1) if n_active > 1 else 0.0
+    sample_us = (0.125, 0.25, 0.375, 0.50, 0.625, 0.75, 0.875)
 
     for idx, day in enumerate(active_days):
         t0 = drop_span_start + idx * stagger
         dy = -(day.row * step + 20.0)
+        t_land = min(100.0, t0 + drop_dur_pct)
 
-        # Smooth cubic ease-out deceleration directly to translateY(0px) — zero bounce/overlap
-        p1 = t0 + drop_dur_pct * 0.14
-        p2 = t0 + drop_dur_pct * 0.42
-        p3 = t0 + drop_dur_pct * 0.72
-        t_land = t0 + drop_dur_pct
+        # Smooth 9-point cubic ease-out deceleration; lands once and remains permanently placed
+        steps_lines = [f"        0%, {t0:.2f}% {{ transform: translateY({dy:.1f}px); opacity: 0; }}"]
+        for u in sample_us:
+            tu = t0 + drop_dur_pct * u
+            dyu = dy * ((1.0 - u) ** 3)
+            steps_lines.append(f"        {tu:.2f}% {{ transform: translateY({dyu:.2f}px); opacity: 1; }}")
+        if round(t_land, 2) < 100.0:
+            steps_lines.append(f"        {t_land:.2f}%, 100% {{ transform: translateY(0px); opacity: 1; }}")
+        else:
+            steps_lines.append("        100% { transform: translateY(0px); opacity: 1; }")
 
-        dy1 = dy * ((1.0 - 0.14) ** 3)
-        dy2 = dy * ((1.0 - 0.42) ** 3)
-        dy3 = dy * ((1.0 - 0.72) ** 3)
-
-        # Smooth ending wave dissolve back to the empty grid (stays locked at translateY(0))
-        tc0 = clear_span_start + idx * clear_stagger
-        tc_mid = tc0 + clear_fade_dur * 0.50
-        tc1 = min(97.5, tc0 + clear_fade_dur)
-
+        keyframes_body = os.linesep.join(steps_lines)
         css_keyframes.append(
             f"""      @keyframes drop_{idx} {{
-        0%, {t0:.2f}% {{ transform: translateY({dy:.1f}px); opacity: 0; }}
-        {p1:.2f}% {{ transform: translateY({dy1:.1f}px); opacity: 1; }}
-        {p2:.2f}% {{ transform: translateY({dy2:.1f}px); opacity: 1; }}
-        {p3:.2f}% {{ transform: translateY({dy3:.1f}px); opacity: 1; }}
-        {t_land:.2f}%, {tc0:.2f}% {{ transform: translateY(0px); opacity: 1; }}
-        {tc_mid:.2f}% {{ transform: translateY(0px); opacity: 0.50; }}
-        {tc1:.2f}%, 100% {{ transform: translateY(0px); opacity: 0; }}
+{keyframes_body}
       }}
-      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear infinite; }}"""
+      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear 1 both; }}"""
         )
 
     # Pure flat 2D empty grid squares
