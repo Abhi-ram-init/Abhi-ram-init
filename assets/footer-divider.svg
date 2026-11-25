@@ -10,21 +10,22 @@
 
     <style><![CDATA[
       @keyframes corePulse {
-        0%, 100% { opacity: 0.45; }
+        0%, 100% { opacity: 0.55; }
         50%      { opacity: 1; }
       }
-      .core { animation: corePulse 2.2s ease-in-out infinite; }
+      .core { animation: corePulse 2.4s ease-in-out infinite; }
     ]]></style>
   </defs>
 
-  <line x1="20" y1="14" x2="325" y2="14" stroke="url(#divLine)" stroke-width="1.5"/>
-  <line x1="495" y1="14" x2="800" y2="14" stroke="url(#divLine)" stroke-width="1.5"/>
+  <!-- Wide margins so lines and endpoint nodes never overlap centered text -->
+  <line x1="20"  y1="14" x2="262" y2="14" stroke="url(#divLine)" stroke-width="1.5"/>
+  <line x1="558" y1="14" x2="800" y2="14" stroke="url(#divLine)" stroke-width="1.5"/>
 
-  <rect x="336" y="11" width="6" height="6" fill="#0F5A76"/>
-  <rect x="478" y="11" width="6" height="6" fill="#0F5A76"/>
+  <rect x="272" y="11.5" width="5" height="5" rx="1" fill="#38BDF8" opacity="0.75"/>
+  <rect x="543" y="11.5" width="5" height="5" rx="1" fill="#38BDF8" opacity="0.75"/>
 
   <text x="410" y="17.5" text-anchor="middle"
     font-family="'Courier New', Consolas, monospace"
-    font-size="10.5" font-weight="700" letter-spacing="2.2" fill="#4DD0FF" class="core"
-  >◆  BUILD · LEARN · REPEAT  ◆</text>
+    font-size="10" font-weight="700" letter-spacing="1.8" fill="#4DD0FF" class="core"
+  >BUILD · LEARN · REPEAT</text>
 </svg>
