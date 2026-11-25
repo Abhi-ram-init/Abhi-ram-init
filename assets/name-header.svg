@@ -105,7 +105,6 @@
   </defs>
 
   <rect width="820" height="170" rx="12" fill="url(#bg)"/>
-  <ellipse cx="410" cy="86" rx="380" ry="44" fill="#00D4FF" opacity="0.06"/>
 
   <!-- 8 Continuous Speed Streak Lines -->
   <g clip-path="url(#svgclip)">
