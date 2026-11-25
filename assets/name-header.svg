@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 170" width="100%" role="img" aria-label="Abhiram B S — Forza Horizon / Need for Speed Title Header">
+  <defs>
+    <!-- Deep midnight asphalt background -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#04080f"/>
+      <stop offset="100%" stop-color="#0d1a26"/>
+    </linearGradient>
+
+    <!-- Speed streak gradient — Forza gold / NFS amber -->
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FFB400" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#FFB400" stop-opacity="0.58"/>
+      <stop offset="55%"  stop-color="#FF8C00" stop-opacity="0.68"/>
+      <stop offset="85%"  stop-color="#FF6B00" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Name text gradient — crisp white -> cool chrome -->
+    <linearGradient id="namec" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#DCE6F2"/>
+    </linearGradient>
+
+    <!-- Bottom gold accent bar gradient -->
+    <linearGradient id="acbar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FF6B00" stop-opacity="0"/>
+      <stop offset="18%"  stop-color="#FF8C00"/>
+      <stop offset="50%"  stop-color="#FFD24C"/>
+      <stop offset="82%"  stop-color="#FFB400"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- White/gold crisp glow around ABHIRAM B S -->
+    <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="4.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Warm Forza gold halo behind name -->
+    <filter id="goldHalo" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+
+    <clipPath id="svgclip">
+      <rect width="820" height="170" rx="12"/>
+    </clipPath>
+
+    <style><![CDATA[
+      /* 8 continuous Forza speed streaks sweeping left-to-right */
+      @keyframes sweep {
+        0%   { transform: translateX(-820px); }
+        100% { transform: translateX(820px); }
+      }
+
+      /* Dramatic letter-spread entrance for ABHIRAM B S */
+      @keyframes nameIn {
+        0%   { opacity: 0; letter-spacing: 28px; }
+        58%  { opacity: 1; letter-spacing: 7px;  }
+        100% { opacity: 1; letter-spacing: 7px;  }
+      }
+
+      @keyframes haloIn {
+        0%   { opacity: 0; letter-spacing: 28px; }
+        58%  { opacity: 0.34; letter-spacing: 7px; }
+        100% { opacity: 0.34; letter-spacing: 7px; }
+      }
+
+      /* Tagline fade up */
+      @keyframes tagIn {
+        0%, 36%   { opacity: 0; transform: translateY(8px); }
+        76%, 100% { opacity: 0.92; transform: translateY(0); }
+      }
+
+      /* NFS race-start bottom gold bar pulse */
+      @keyframes barPulse {
+        0%, 100% { opacity: 0.48; }
+        50%      { opacity: 1; }
+      }
+
+      /* Speedometer chevrons pulse and slide */
+      @keyframes chL {
+        0%, 100% { opacity: 0.25; transform: translateX(0); }
+        50%      { opacity: 0.92; transform: translateX(-7px); }
+      }
+      @keyframes chR {
+        0%, 100% { opacity: 0.25; transform: translateX(0); }
+        50%      { opacity: 0.92; transform: translateX(7px); }
+      }
+
+      /* Corner race tags blink in amber */
+      @keyframes amberBlink {
+        0%, 100% { opacity: 0.28; }
+        50%      { opacity: 0.95; }
+      }
+
+      .s1 { animation: sweep 2.1s linear infinite; }
+      .s2 { animation: sweep 2.1s linear infinite 0.30s; }
+      .s3 { animation: sweep 2.6s linear infinite 0.05s; }
+      .s4 { animation: sweep 1.9s linear infinite 0.55s; }
+      .s5 { animation: sweep 2.4s linear infinite 0.80s; }
+      .s6 { animation: sweep 2.9s linear infinite 0.40s; }
+      .s7 { animation: sweep 2.1s linear infinite 1.10s; }
+      .s8 { animation: sweep 2.4s linear infinite 0.15s; }
+
+      .n    { animation: nameIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .halo { animation: haloIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .tag  { animation: tagIn  2.0s ease-out forwards; }
+      .bar  { animation: barPulse 2.4s ease-in-out infinite; }
+      .chl  { animation: chL 1.8s ease-in-out infinite; }
+      .chr  { animation: chR 1.8s ease-in-out infinite; }
+      .brk  { animation: amberBlink 2.4s ease-in-out infinite; }
+    ]]></style>
+  </defs>
+
+  <!-- Midnight Asphalt Frame -->
+  <rect width="820" height="170" rx="12" fill="url(#bg)"/>
+  <ellipse cx="410" cy="86" rx="380" ry="44" fill="#FFB400" opacity="0.05"/>
+
+  <!-- 8 Continuous Speed Streak Lines -->
+  <g clip-path="url(#svgclip)">
+    <rect class="s1" x="0" y="34"  width="820" height="1.5" fill="url(#streak)"/>
+    <rect class="s2" x="0" y="47"  width="820" height="2.5" fill="url(#streak)"/>
+    <rect class="s3" x="0" y="59"  width="820" height="1.0" fill="url(#streak)"/>
+    <rect class="s4" x="0" y="72"  width="820" height="3.5" fill="url(#streak)"/>
+    <rect class="s5" x="0" y="85"  width="820" height="1.5" fill="url(#streak)"/>
+    <rect class="s6" x="0" y="96"  width="820" height="2.0" fill="url(#streak)"/>
+    <rect class="s7" x="0" y="108" width="820" height="1.0" fill="url(#streak)"/>
+    <rect class="s8" x="0" y="119" width="820" height="2.5" fill="url(#streak)"/>
+  </g>
+
+  <!-- Corner Race Tags blinking in amber -->
+  <text class="brk" x="18" y="28"
+    font-family="'Courier New', Consolas, monospace" font-size="13.5" font-weight="700" fill="#FFB400" letter-spacing="1.2"
+  >[ A_Ram ]</text>
+
+  <text class="brk" x="802" y="28" text-anchor="end"
+    font-family="'Courier New', Consolas, monospace" font-size="13.5" font-weight="700" fill="#FFB400" letter-spacing="1.2"
+  >[ VVCE · 2029 ]</text>
+
+  <!-- Left / Right Speedometer Chevrons -->
+  <text class="chl" x="22" y="103"
+    font-family="monospace" font-size="50" font-weight="900" fill="#FFB400"
+  >»</text>
+
+  <text class="chr" x="798" y="103" text-anchor="end"
+    font-family="monospace" font-size="50" font-weight="900" fill="#FFB400"
+  >«</text>
+
+  <!-- Gold Halo Behind ABHIRAM B S -->
+  <text class="halo" x="410" y="103" text-anchor="middle"
+    font-family="'Arial Black', Impact, 'Segoe UI Black', sans-serif"
+    font-size="58" font-weight="900" font-style="italic"
+    fill="#FFB400" filter="url(#goldHalo)" letter-spacing="7"
+  >ABHIRAM B S</text>
+
+  <!-- Main Title: ABHIRAM B S (58px, bold, italic, white + gold glow, letter-spread reveal) -->
+  <text class="n" x="410" y="103" text-anchor="middle"
+    font-family="'Arial Black', Impact, 'Segoe UI Black', sans-serif"
+    font-size="58" font-weight="900" font-style="italic"
+    fill="url(#namec)" filter="url(#glow)" letter-spacing="7"
+  >ABHIRAM B S</text>
+
+  <!-- Pulsing Bottom Gold Countdown Bar -->
+  <rect class="bar" x="205" y="119" width="410" height="2.8" rx="1.4" fill="url(#acbar)"/>
+
+  <!-- Subtitle -->
+  <text class="tag" x="410" y="146" text-anchor="middle"
+    font-family="'Courier New', Courier, monospace"
+    font-size="11.5" font-weight="700" letter-spacing="3.8" fill="#FFB400"
+  >SYSTEMS EXPLORER  ·  VIBECODER  →  SPEC-DRIVEN BUILDER</text>
+
+  <!-- Clean subtle border -->
+  <rect x="0.75" y="0.75" width="818.5" height="168.5" rx="11.5" fill="none" stroke="#1E293B" stroke-width="1.2"/>
+</svg>

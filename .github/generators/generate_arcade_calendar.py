@@ -3,10 +3,11 @@
 
 - Fetches real public contribution cells from https://github.com/users/<user>/contributions
   (matching GitHub's exact 53x7 matrix: week column, day row, date, level, commit count).
-- Starts with an empty matrix (all recessed grid slots empty), then drops each active
+- Starts with an empty matrix (all recessed slots empty), then drops each active
   commit day one-by-one in strict chronological order into its exact calendar coordinate.
-- Computes RGB brick colours mathematically using the Golden Angle (-137.508 deg) and
-  Golden Ratio (phi = 1.618) WCAG luminance contrast progression on a dark cabinet canvas.
+- Uses a SINGLE cohesive base hue (Forza/Arcade Gold-Amber, matching the profile HUD theme)
+  where each brick tier scales strictly by saturation, luminance (Golden Ratio phi = 1.618
+  WCAG contrast progression), and internal 2-stop brick gradient — avoiding multi-color clutter.
 """
 
 from __future__ import annotations
@@ -20,15 +21,16 @@ import re
 import sys
 import urllib.request
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 
 PHI = (1.0 + math.sqrt(5.0)) / 2.0
-GOLDEN_ANGLE = 360.0 * (1.0 - 1.0 / PHI)  # ~137.50776 deg
-BG_HEX = "#070B12"
-BG_RGB = (7, 11, 18)
+BG_HEX = "#04080F"
+BG_RGB = (4, 8, 15)
+ACCENT_HEX = "#FFB400"
+SINGLE_HUE_DEG = 41.0  # Rich Racing Gold-Amber monochrome spectrum
 
 
 @dataclass(frozen=True)
@@ -48,13 +50,13 @@ def _rel_luminance(r: int, g: int, b: int) -> float:
     return 0.2126 * ch(r) + 0.7152 * ch(g) + 0.0722 * ch(b)
 
 
-def _solve_rgb_for_contrast(hue_deg: float, target_contrast: float, bg_rgb: Tuple[int, int, int], sat: float = 0.96) -> Tuple[int, int, int]:
-    """Find vivid RGB at hue_deg whose relative luminance meets target_contrast against bg_rgb."""
+def _solve_monochrome_rgb(hue_deg: float, sat: float, target_contrast: float, bg_rgb: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    """Find RGB at fixed single hue & given saturation that meets Golden-Ratio contrast on bg_rgb."""
     bg_l = _rel_luminance(*bg_rgb)
     target_l = target_contrast * (bg_l + 0.05) - 0.05
-    lo, hi = 0.18, 0.92
+    lo, hi = 0.14, 0.94
     best = (0, 0, 0)
-    for _ in range(36):
+    for _ in range(40):
         mid = 0.5 * (lo + hi)
         rgb = tuple(int(round(c * 255)) for c in colorsys.hls_to_rgb((hue_deg % 360.0) / 360.0, mid, sat))
         if _rel_luminance(*rgb) < target_l:
@@ -65,25 +67,33 @@ def _solve_rgb_for_contrast(hue_deg: float, target_contrast: float, bg_rgb: Tupl
     return best
 
 
-def _brighten_bevel(rgb: Tuple[int, int, int], factor: float = 0.45) -> str:
-    r, g, b = (min(255, int(round(c + (255 - c) * factor))) for c in rgb)
+def _shade(rgb: Tuple[int, int, int], factor: float) -> str:
+    """Scale brightness (>1 brightens highlight, <1 deepens shadow) keeping hue aligned."""
+    if factor >= 1.0:
+        amt = min(1.0, factor - 1.0)
+        r, g, b = (min(255, int(round(c + (255 - c) * amt))) for c in rgb)
+    else:
+        r, g, b = (max(0, int(round(c * factor))) for c in rgb)
     return f"#{r:02X}{g:02X}{b:02X}"
 
 
-def build_golden_ratio_palette() -> Dict[int, Tuple[str, str]]:
-    """Build 4 RGB commit-density tiers via Golden Angle hues & phi-scaled contrast."""
-    # Start near pure Green (115 deg) with reverse golden angle:
-    # Tier 1: Green, Tier 2: Neon Crimson-Red, Tier 3: Electric Cyan-Blue, Tier 4: Arcade Gold
-    base_hue = 115.0
-    base_contrast = 3.25
-    palette: Dict[int, Tuple[str, str]] = {}
+def build_monochrome_golden_palette() -> Dict[int, Tuple[str, str, str]]:
+    """Build 4 single-hue commit tiers varying by saturation, phi-luminance & gradient stops.
+
+    Returns mapping: tier -> (top_gradient_hex, bottom_gradient_hex, highlight_bevel_hex)
+    """
+    # Hold SINGLE_HUE_DEG constant across all 4 tiers!
+    # Saturation increases progressively; contrast scales geometrically by phi (~1.618).
+    base_contrast = 2.65
+    saturations = {1: 0.72, 2: 0.86, 3: 0.96, 4: 1.00}
+    palette: Dict[int, Tuple[str, str, str]] = {}
     for tier in range(1, 5):
-        hue = (base_hue - (tier - 1) * GOLDEN_ANGLE) % 360.0
         target_cr = base_contrast * (PHI ** (tier - 1))
-        rgb = _solve_rgb_for_contrast(hue, target_cr, BG_RGB, sat=0.96)
-        fill_hex = f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}"
-        bevel_hex = _brighten_bevel(rgb, 0.42)
-        palette[tier] = (fill_hex, bevel_hex)
+        rgb = _solve_monochrome_rgb(SINGLE_HUE_DEG, saturations[tier], target_cr, BG_RGB)
+        top_hex = f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}"
+        bot_hex = _shade(rgb, 0.70)
+        bevel_hex = _shade(rgb, 1.38)
+        palette[tier] = (top_hex, bot_hex, bevel_hex)
     return palette
 
 
@@ -118,8 +128,6 @@ def parse_contributions(raw_html: str) -> Tuple[List[ContributionDay], Optional[
     if m_hdr:
         total_header = int(m_hdr.group(1).replace(",", ""))
 
-    # Match <td ... data-date="YYYY-MM-DD" id="contribution-day-component-R-C" data-level="L" ...></td>
-    # followed closely by <tool-tip ...>TEXT</tool-tip>
     cell_pattern = re.compile(
         r'<td\b([^>]*data-date="(\d{4}-\d{2}-\d{2})"[^>]*)>\s*</td>\s*(?:<tool-tip[^>]*>(.*?)</tool-tip>)?',
         re.DOTALL,
@@ -145,7 +153,6 @@ def parse_contributions(raw_html: str) -> Tuple[List[ContributionDay], Optional[
         if cnt_match:
             count = int(cnt_match.group(1))
         elif level > 0:
-            # Fallback if tooltip text format ever changes
             count = level
 
         days.append(ContributionDay(date=date_str, col=col, row=row, level=level, count=count))
@@ -181,7 +188,6 @@ def compute_month_labels(days: List[ContributionDay]) -> List[Tuple[int, str]]:
         if chosen_dt is not None:
             key = chosen_dt.strftime("%Y-%m")
             if key != last_month_key:
-                # If col 0 partial month would collide with month starting at col 1 or 2, replace col 0 edge label
                 if labels and (col - labels[-1][0]) < 3:
                     if labels[-1][0] == 0:
                         labels.pop()
@@ -193,20 +199,20 @@ def compute_month_labels(days: List[ContributionDay]) -> List[Tuple[int, str]]:
 
 
 def render_svg(username: str, days: List[ContributionDay], total_header: Optional[int]) -> str:
-    palette = build_golden_ratio_palette()
+    palette = build_monochrome_golden_palette()
     max_col = max(d.col for d in days)
     num_cols = max_col + 1
 
     cell = 11.5
     gap = 3.0
-    step = cell + gap  # 14.5 px per week column
+    step = cell + gap
 
     margin_left = 36.0
     grid_y = 66.0
     grid_w = num_cols * step - gap
-    grid_h = 7 * step - gap  # ~98.5 px
+    grid_h = 7 * step - gap
 
-    svg_w = int(math.ceil(margin_left + grid_w + 22))  # ~825 -> clean ~825..840px
+    svg_w = int(math.ceil(margin_left + grid_w + 22))
     svg_h = 242
 
     active_days = sorted([d for d in days if d.count > 0], key=lambda d: d.date)
@@ -221,25 +227,14 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
 
     n_active = len(active_days)
     cycle_s = round(max(10.0, min(20.0, 5.2 + n_active * 0.24)), 2)
-
     month_labels = compute_month_labels(days)
 
-    # CSS keyframes for chronological brick drops starting from an EMPTY calendar
-    # Timeline in % of cycle_s:
-    #   0% .. 3%   -> Calendar completely EMPTY (all bricks opacity: 0 above chute)
-    #   3% .. 64%  -> Bricks drop sequentially in chronological order (oldest -> latest)
-    #   64% .. 92% -> Complete real contribution calendar stays seated & visible
-    #   92% .. 97% -> Clean arcade board reset fade back to empty
-    #   97% .. 100%-> Empty baseline before next loop
     css_keyframes: List[str] = []
     drop_span_start = 3.0
     drop_span_end = 62.0
-    drop_dur_pct = 8.5  # single brick fall duration as % of total loop
+    drop_dur_pct = 8.5
 
-    if n_active > 0:
-        stagger = (drop_span_end - drop_span_start - drop_dur_pct) / max(1, n_active - 1) if n_active > 1 else 0.0
-    else:
-        stagger = 0.0
+    stagger = (drop_span_end - drop_span_start - drop_dur_pct) / max(1, n_active - 1) if n_active > 1 else 0.0
 
     for idx, day in enumerate(active_days):
         t0 = drop_span_start + idx * stagger
@@ -247,7 +242,6 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
         t_land = min(drop_span_end + drop_dur_pct, t0 + drop_dur_pct)
         t_bounce = min(90.0, t_land + 1.1)
         t_settle = min(91.5, t_bounce + 1.0)
-        # Drop from right under the top chute line above row 0 down into target row
         dy = -(day.row * step + 22.0)
         css_keyframes.append(
             f"""      @keyframes drop_{idx} {{
@@ -261,28 +255,26 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
       .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }}"""
         )
 
-    # Active chute scanning tracer bar tracking roughly above active chronological waves
     empty_slots_svg: List[str] = []
     for d in days:
         cx = margin_left + d.col * step
         cy = grid_y + d.row * step
         empty_slots_svg.append(
-            f'    <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="2.2" fill="#0F172A" stroke="#1E293B" stroke-width="0.8"/>'
+            f'    <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="2.2" fill="#0B111E" stroke="#182235" stroke-width="0.8"/>'
         )
 
     falling_bricks_svg: List[str] = []
     for idx, d in enumerate(active_days):
         t = tier_from_count(d.count)
-        fill_hex, bevel_hex = palette[t]
+        _, _, bevel_hex = palette[t]
         cx = margin_left + d.col * step
         cy = grid_y + d.row * step
         glow_attr = ' filter="url(#brickGlow)"' if t >= 3 else ""
-        # Each brick is a mini 3D arcade brick (main block + bright top edge bevel)
         falling_bricks_svg.append(
             f'    <g class="b_{idx}"{glow_attr}>\n'
             f'      <title>{d.date}: {d.count} commit{"s" if d.count != 1 else ""}</title>\n'
-            f'      <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="2.2" fill="{fill_hex}"/>\n'
-            f'      <rect x="{cx + 1.2:.1f}" y="{cy + 1.0:.1f}" width="{cell - 2.4:.1f}" height="2.2" rx="1" fill="{bevel_hex}" opacity="0.85"/>\n'
+            f'      <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="2.2" fill="url(#tier{t}Grad)"/>\n'
+            f'      <rect x="{cx + 1.2:.1f}" y="{cy + 1.0:.1f}" width="{cell - 2.4:.1f}" height="2.0" rx="1" fill="{bevel_hex}" opacity="0.82"/>\n'
             f'    </g>'
         )
 
@@ -291,51 +283,64 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
         for col, lbl in month_labels
     ]
 
-    # Day labels on Sun/Mon/Wed/Fri rows matching GitHub calendar orientation (Row 0 = Sun .. Row 6 = Sat)
     day_rows = [(1, "Mon"), (3, "Wed"), (5, "Fri")]
     days_lbl_svg = [
         f'    <text x="12" y="{grid_y + r * step + 8.5:.1f}" class="mono d-lbl">{name}</text>'
         for r, name in day_rows
     ]
 
-    # Legend swatches from golden-ratio palette
+    tier_defs = []
+    for tier in range(1, 5):
+        top_hex, bot_hex, _ = palette[tier]
+        tier_defs.append(
+            f"""    <linearGradient id="tier{tier}Grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{top_hex}"/>
+      <stop offset="100%" stop-color="{bot_hex}"/>
+    </linearGradient>"""
+        )
+
     legend_x = 36
     legend_y = 204
-    c1, b1 = palette[1]
-    c2, b2 = palette[2]
-    c3, b3 = palette[3]
-    c4, b4 = palette[4]
+    t4_top, _, _ = palette[4]
+    t3_top, _, _ = palette[3]
+    b1 = palette[1][2]
+    b2 = palette[2][2]
+    b3 = palette[3][2]
+    b4 = palette[4][2]
 
-    footer_note = f"REALTIME GITHUB COMMITS  ·  {start_lbl} – {end_lbl}  ·  BLOCKS FALL CHRONOLOGICALLY  ·  RGB φ-CONTRAST"
+    footer_note = f"REALTIME GITHUB COMMITS  ·  {start_lbl} – {end_lbl}  ·  BLOCKS FALL IN CHRONOLOGICAL ORDER"
 
     svg_doc = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {svg_w} {svg_h}" width="100%" role="img" aria-label="Retro Arcade Block Contribution Calendar for {username}">
   <defs>
+    <!-- Single dark slate cabinet background -->
     <linearGradient id="cabBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#090E18"/>
+      <stop offset="0%" stop-color="#070C15"/>
       <stop offset="100%" stop-color="{BG_HEX}"/>
     </linearGradient>
 
-    <linearGradient id="cabBorder" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="{c1}"/>
-      <stop offset="33%" stop-color="{c2}"/>
-      <stop offset="66%" stop-color="{c3}"/>
-      <stop offset="100%" stop-color="{c4}"/>
+    <!-- Subtle single-color amber top rule -->
+    <linearGradient id="amberAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="{ACCENT_HEX}" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="{ACCENT_HEX}" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="{ACCENT_HEX}" stop-opacity="0.08"/>
     </linearGradient>
+
+    <!-- Single-hue Golden-Ratio luminance and gradient brick tiers -->
+{os.linesep.join(tier_defs)}
 
     <filter id="brickGlow" x="-35%" y="-35%" width="170%" height="170%">
       <feGaussianBlur stdDeviation="1.8" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
 
-    <!-- Clip falling bricks neatly to calendar playfield below month header -->
     <clipPath id="playfieldClip">
       <rect x="{margin_left - 2:.1f}" y="{grid_y - 12:.1f}" width="{grid_w + 4:.1f}" height="{grid_h + 16:.1f}"/>
     </clipPath>
 
     <style><![CDATA[
       .mono {{ font-family: 'Courier New', Consolas, monospace; }}
-      .hud-title {{ font-size: 10.5px; font-weight: 700; fill: #F8D905; letter-spacing: 1.2px; }}
-      .hud-chip  {{ font-size: 9.5px;  font-weight: 700; fill: {c3}; letter-spacing: 0.8px; }}
+      .hud-title {{ font-size: 10.5px; font-weight: 700; fill: {ACCENT_HEX}; letter-spacing: 1.2px; }}
+      .hud-chip  {{ font-size: 9.5px;  font-weight: 700; fill: {t4_top}; letter-spacing: 0.8px; }}
       .hud-sub   {{ font-size: 8.5px;  fill: #94A3B8; letter-spacing: 0.6px; }}
       .m-lbl     {{ font-size: 8.5px;  fill: #94A3B8; }}
       .d-lbl     {{ font-size: 7.5px;  fill: #64748B; }}
@@ -344,7 +349,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
 
       @keyframes livePulse {{
         0%, 100% {{ opacity: 1; }}
-        50%      {{ opacity: 0.35; }}
+        50%      {{ opacity: 0.3; }}
       }}
       .live-ind {{ animation: livePulse 1.8s ease-in-out infinite; }}
 
@@ -352,12 +357,13 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     ]]></style>
   </defs>
 
-  <!-- Arcade Cabinet Frame -->
+  <!-- Single-tone dark arcade cabinet frame -->
   <rect x="0" y="0" width="{svg_w}" height="{svg_h}" rx="10" fill="url(#cabBg)"/>
-  <rect x="1" y="1" width="{svg_w - 2}" height="{svg_h - 2}" rx="9.2" fill="none" stroke="url(#cabBorder)" stroke-width="1.5" stroke-opacity="0.75"/>
+  <rect x="0.75" y="0.75" width="{svg_w - 1.5}" height="{svg_h - 1.5}" rx="9.5" fill="none" stroke="#1E293B" stroke-width="1.2"/>
+  <rect x="1" y="1" width="{svg_w - 2}" height="2" rx="1" fill="url(#amberAccent)"/>
 
-  <!-- Subtle Arcade Screen Scanlines -->
-  <g stroke="#FFFFFF" stroke-opacity="0.022" stroke-width="1">
+  <!-- Subtle CRT scanlines -->
+  <g stroke="#FFFFFF" stroke-opacity="0.02" stroke-width="1">
     <line x1="8" y1="48"  x2="{svg_w - 8}" y2="48"/>
     <line x1="8" y1="74"  x2="{svg_w - 8}" y2="74"/>
     <line x1="8" y1="100" x2="{svg_w - 8}" y2="100"/>
@@ -366,12 +372,12 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     <line x1="8" y1="178" x2="{svg_w - 8}" y2="178"/>
   </g>
 
-  <!-- HUD Scoreboard Top Strip -->
-  <circle cx="18" cy="18" r="3.5" fill="{c1}" class="live-ind"/>
-  <text x="27" y="21.5" class="mono hud-title">ARCADE CONTRIBUTION MATRIX // {username}</text>
+  <!-- HUD Header -->
+  <circle cx="18" cy="18" r="3.5" fill="{ACCENT_HEX}" class="live-ind"/>
+  <text x="27" y="21.5" class="mono hud-title">ARCADE CONTRIBUTION MATRIX // ABHIRAM B S</text>
   <text x="{svg_w - 16}" y="21.5" text-anchor="end" class="mono hud-chip">COMMITS: {total_commits}  ·  ACTIVE DAYS: {n_active}</text>
 
-  <text x="16" y="36" class="mono hud-sub">EMPTY GRID → CHRONOLOGICAL BRICK DROP  ·  GOLDEN-RATIO RGB INTENSITY (φ ≈ 1.618)</text>
+  <text x="16" y="36" class="mono hud-sub">EMPTY GRID → CHRONOLOGICAL BRICK DROP  ·  MONOCHROME φ-CONTRAST LUMINANCE</text>
   <text x="{svg_w - 16}" y="36" text-anchor="end" class="mono hud-sub">GRID: {num_cols} WKS × 7 DAYS</text>
   <line x1="14" y1="44" x2="{svg_w - 14}" y2="44" stroke="#1E293B" stroke-width="1"/>
 
@@ -385,46 +391,43 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
 {os.linesep.join(days_lbl_svg)}
   </g>
 
-  <!-- Empty Contribution Calendar Base Grid (always visible cleanly beneath falling blocks) -->
+  <!-- Empty Base Matrix -->
   <g id="empty-calendar-grid">
 {os.linesep.join(empty_slots_svg)}
   </g>
 
-  <!-- Falling & Locking Real Commit Bricks (sorted oldest -> newest) -->
+  <!-- Chronological Falling Commit Bricks -->
   <g id="commit-bricks" clip-path="url(#playfieldClip)">
 {os.linesep.join(falling_bricks_svg)}
   </g>
 
-  <!-- Footer Divider & Dynamic Legend / Real-Data Note -->
+  <!-- Footer Legend & Note -->
   <line x1="14" y1="184" x2="{svg_w - 14}" y2="184" stroke="#1E293B" stroke-width="1"/>
 
   <g class="mono">
-    <!-- RGB Commit Density Legend -->
     <text x="{legend_x}" y="{legend_y}" class="leg-lbl">0</text>
-    <rect x="{legend_x + 12}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="#0F172A" stroke="#1E293B" stroke-width="0.9"/>
+    <rect x="{legend_x + 12}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="#0B111E" stroke="#182235" stroke-width="0.9"/>
 
-    <rect x="{legend_x + 34}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="{c1}"/>
+    <rect x="{legend_x + 34}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="url(#tier1Grad)"/>
     <rect x="{legend_x + 35}" y="{legend_y - 8}" width="9"  height="2"  rx="1"   fill="{b1}"/>
     <text x="{legend_x + 49}" y="{legend_y}" class="leg-lbl">1–2</text>
 
-    <rect x="{legend_x + 76}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="{c2}"/>
+    <rect x="{legend_x + 76}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="url(#tier2Grad)"/>
     <rect x="{legend_x + 77}" y="{legend_y - 8}" width="9"  height="2"  rx="1"   fill="{b2}"/>
     <text x="{legend_x + 91}" y="{legend_y}" class="leg-lbl">3–5</text>
 
-    <rect x="{legend_x + 118}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="{c3}"/>
+    <rect x="{legend_x + 118}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="url(#tier3Grad)"/>
     <rect x="{legend_x + 119}" y="{legend_y - 8}" width="9"  height="2"  rx="1"   fill="{b3}"/>
     <text x="{legend_x + 133}" y="{legend_y}" class="leg-lbl">6–10</text>
 
-    <rect x="{legend_x + 166}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="{c4}"/>
+    <rect x="{legend_x + 166}" y="{legend_y - 9}" width="11" height="11" rx="2.2" fill="url(#tier4Grad)"/>
     <rect x="{legend_x + 167}" y="{legend_y - 8}" width="9"  height="2"  rx="1"   fill="{b4}"/>
     <text x="{legend_x + 181}" y="{legend_y}" class="leg-lbl">11+</text>
 
-    <!-- Right side: Live stats -->
-    <text x="{svg_w - 16}" y="{legend_y}" text-anchor="end" class="leg-lbl" fill="#E2E8F0">
-      SEQUENCE: OLDEST → LATEST  ·  TOTAL: <tspan fill="{c4}" font-weight="700">{total_commits}</tspan>
+    <text x="{svg_w - 16}" y="{legend_y}" text-anchor="end" class="leg-lbl">
+      ORDER: OLDEST → LATEST  ·  TOTAL: <tspan fill="{t3_top}" font-weight="700">{total_commits}</tspan>
     </text>
 
-    <!-- Bottom Real-Time Note -->
     <text x="{svg_w / 2:.1f}" y="227" text-anchor="middle" class="foot-note">{footer_note}</text>
   </g>
 </svg>
@@ -433,7 +436,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate retro arcade block contribution calendar SVG.")
+    parser = argparse.ArgumentParser(description="Generate single-hue golden-ratio arcade contribution calendar SVG.")
     parser.add_argument("--user", default="Abhi-ram-init", help="GitHub username")
     parser.add_argument("--out", default="assets/arcade-contributions.svg", help="Output SVG file path")
     args = parser.parse_args()

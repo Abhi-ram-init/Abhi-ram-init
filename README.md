@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<img src="assets/supercar-header.svg" width="100%" alt="A_Ram — Abhiram B S"/>
+<img src="assets/name-header.svg" width="100%" alt="Abhiram B S"/>
 
 <br/><br/>
 
@@ -11,10 +11,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="mailto:abhiram.github@gmail.com" target="_blank" title="Gmail">
   <img src="assets/icons/gmail.svg" width="30" height="30" alt="Gmail"/>
-</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://www.instagram.com/fstop.manual/" target="_blank" title="Photography · @fstop.manual">
-  <img src="assets/icons/instagram.svg" width="30" height="30" alt="Instagram"/>
 </a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://github.com/Abhi-ram-init" target="_blank" title="GitHub">
@@ -31,17 +27,19 @@
 
 ## ⚡ About Me
 
-<img align="right" width="40%" src="assets/about-hud.svg" alt="A_Ram Developer Telemetry"/>
+- 👨‍💻 **Name** — **Abhiram B S**
+- 🎓 **Education** — **Vidyavardhaka College of Engineering (VVCE), Mysuru** · Class of **2029**
+- 🧠 **Core Languages** — **C / C++**, **Python**, **Java** *(building deeper fluency step by step)*
+- 🔥 **The Spark** — Kicked off with pure **vibecoding**: diving headfirst into code on instinct, breaking things boldly, and chasing that click when an idea comes alive
+- 🧭 **The Craft Now** — Evolving into **Spec-Driven Development**, learning systems from scratch one concept at a time with clarity and intent
+- 🤝 **Collaborate** — Always excited to help out, learn together, and build **interesting ideas**
+- 📸 **Photography** — Capturing light & stories frame-by-frame at [@fstop.manual](https://www.instagram.com/fstop.manual/)
 
-- 👨‍💻 **Identity** — **Abhiram B S** (`A_Ram`)
-- 🎓 **Campus** — **Vidyavardhaka College of Engineering (VVCE), Mysuru** · Class of **2029**
-- 🧠 **Core Languages** — **C / C++**, **Python**, **Java** *(still building deeper mastery every day)*
-- 🔥 **Where It Started** — Kicked off with pure **vibecoding** — diving headfirst into code on instinct, breaking things boldly, and falling in love with that spark when an idea first comes alive
-- 🧭 **Where It's Going** — Growing into **Spec-Driven Development**, learning fundamentals from scratch one concept at a time until every layer clicks clearly
-- 🤝 **Open to Build** — Always excited to help out, brainstorm, and team up on **interesting ideas**
-- 📸 **Photography** — Capturing light, frames, and quiet stories over at [@fstop.manual](https://www.instagram.com/fstop.manual/)
+<br/>
 
-<br clear="right"/>
+<div align="center">
+  <img src="assets/about-hud.svg" width="100%" alt="Abhiram B S — Player HUD & Progression"/>
+</div>
 
 ---
 
@@ -63,11 +61,11 @@
 
 <div align="center">
 
-<img src="assets/arcade-contributions.svg" width="100%" alt="Retro Arcade Block Contribution Calendar — Real GitHub Commits"/>
+<img src="assets/arcade-contributions.svg" width="100%" alt="Arcade Block Contribution Calendar — Real GitHub Commits"/>
 
 <br/>
 
-<sub>🕹 Starts empty and drops <strong>real GitHub commit bricks</strong> chronologically onto their exact dates · RGB tiers use a Golden-Ratio contrast palette (<i>φ</i> ≈ 1.618) mapped to commit count · Auto-updated via <a href=".github/workflows/arcade-calendar.yml">GitHub Actions</a></sub>
+<sub>🕹 Starts from an empty grid and drops <strong>real GitHub commit bricks</strong> in chronological order · Block brightness &amp; saturation scale by Golden-Ratio luminance contrast (<i>φ</i> ≈ 1.618) · Auto-synced via <a href=".github/workflows/arcade-calendar.yml">GitHub Actions</a></sub>
 
 </div>
 
@@ -102,7 +100,7 @@ Fast **5G / 4G network mode** switcher for Android with privileged Shizuku AIDL 
 
 ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) &nbsp; ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) &nbsp; ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
 
-Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contributors with event & impact workflows.
+Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contributors with event &amp; impact workflows.
 
 </td>
 </tr>
@@ -143,6 +141,6 @@ Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contribu
 
 <br/><br/>
 
-<sub>⚡ Spec-Driven Spirit · Built with curiosity by <strong>A_Ram (Abhiram B S)</strong></sub>
+<sub>⚡ Crafted with Spec-Driven spirit by <strong>Abhiram B S</strong></sub>
 
 </div>
