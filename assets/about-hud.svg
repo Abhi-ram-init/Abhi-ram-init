@@ -61,42 +61,35 @@
   </text>
   <line x1="16" y1="32" x2="804" y2="32" stroke="#17253B" stroke-width="1"/>
 
-  <!-- PANEL 1 (Left): 2D Segmented Language Stats -->
+  <!-- PANEL 1 (Left): 2D Active Core Loadout Modules -->
   <g class="mono">
-    <text x="20" y="51" font-size="9.5" font-weight="700" fill="#7DD3FC" letter-spacing="1">STAT // CORE ENGINE</text>
+    <text x="20" y="51" font-size="9.5" font-weight="700" fill="#7DD3FC" letter-spacing="1">LOADOUT // CORE LANGUAGES</text>
 
-    <!-- C / C++ -->
-    <text x="20" y="72" font-size="10" font-weight="700" fill="#E2E8F0">C/C++</text>
-    <g transform="translate(80, 63)">
-      <rect x="0"   y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="17"  y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="34"  y="0" width="14" height="9" fill="#4DD0FF"/>
-      <rect x="51"  y="0" width="14" height="9" fill="#4DD0FF"/>
-      <rect x="68"  y="0" width="14" height="9" fill="#0F5A76"/>
-      <rect x="85"  y="0" width="14" height="9" fill="#0D1626" stroke="#17253B" stroke-width="0.8"/>
+    <!-- Module 1: C / C++ -->
+    <g transform="translate(20, 62)">
+      <rect x="0" y="0" width="74" height="40" rx="2" fill="#0B1526" stroke="#1B2E4B" stroke-width="1"/>
+      <rect x="0" y="0" width="74" height="2.5" fill="#4DD0FF"/>
+      <text x="37" y="18.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#F8FAFC">C / C++</text>
+      <text x="37" y="32" text-anchor="middle" font-size="7.8" fill="#7DD3FC" letter-spacing="0.6">SYSTEMS</text>
     </g>
 
-    <!-- Python -->
-    <text x="20" y="94" font-size="10" font-weight="700" fill="#E2E8F0">PYTHON</text>
-    <g transform="translate(80, 85)">
-      <rect x="0"   y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="17"  y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="34"  y="0" width="14" height="9" fill="#4DD0FF"/>
-      <rect x="51"  y="0" width="14" height="9" fill="#4DD0FF"/>
-      <rect x="68"  y="0" width="14" height="9" fill="#0F5A76"/>
-      <rect x="85"  y="0" width="14" height="9" fill="#0D1626" stroke="#17253B" stroke-width="0.8"/>
+    <!-- Module 2: Python -->
+    <g transform="translate(102, 62)">
+      <rect x="0" y="0" width="74" height="40" rx="2" fill="#0B1526" stroke="#1B2E4B" stroke-width="1"/>
+      <rect x="0" y="0" width="74" height="2.5" fill="#04A2DC"/>
+      <text x="37" y="18.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#F8FAFC">PYTHON</text>
+      <text x="37" y="32" text-anchor="middle" font-size="7.8" fill="#7DD3FC" letter-spacing="0.6">TOOLS</text>
     </g>
 
-    <!-- Java -->
-    <text x="20" y="116" font-size="10" font-weight="700" fill="#E2E8F0">JAVA</text>
-    <g transform="translate(80, 107)">
-      <rect x="0"   y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="17"  y="0" width="14" height="9" fill="#04A2DC"/>
-      <rect x="34"  y="0" width="14" height="9" fill="#4DD0FF"/>
-      <rect x="51"  y="0" width="14" height="9" fill="#0F5A76"/>
-      <rect x="68"  y="0" width="14" height="9" fill="#0D1626" stroke="#17253B" stroke-width="0.8"/>
-      <rect x="85"  y="0" width="14" height="9" fill="#0D1626" stroke="#17253B" stroke-width="0.8"/>
+    <!-- Module 3: Java -->
+    <g transform="translate(184, 62)">
+      <rect x="0" y="0" width="74" height="40" rx="2" fill="#0B1526" stroke="#1B2E4B" stroke-width="1"/>
+      <rect x="0" y="0" width="74" height="2.5" fill="#0B7CA6"/>
+      <text x="37" y="18.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#F8FAFC">JAVA</text>
+      <text x="37" y="32" text-anchor="middle" font-size="7.8" fill="#7DD3FC" letter-spacing="0.6">CORE OOP</text>
     </g>
+
+    <text x="20" y="121" font-size="9" fill="#94A3B8">&gt;_ STATUS: LEARNING STEP BY STEP</text>
   </g>
 
   <line x1="280" y1="42" x2="280" y2="132" stroke="#17253B" stroke-width="1"/>
