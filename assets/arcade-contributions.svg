@@ -52,185 +52,205 @@
       .live-ind { animation: livePulse 1.8s ease-in-out infinite; }
 
       @keyframes drop_0 {
-        0%, 3.00% { transform: translateY(-36.5px); opacity: 0; }
-        3.50% { opacity: 1; }
-        11.50% { transform: translateY(0px); opacity: 1; }
-        12.60% { transform: translateY(-2.5px); opacity: 1; }
-        13.60%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 3.00% { transform: translateY(-34.5px); opacity: 0; }
+        4.19% { transform: translateY(-21.9px); opacity: 1; }
+        6.57% { transform: translateY(-6.7px); opacity: 1; }
+        9.12% { transform: translateY(-0.8px); opacity: 1; }
+        11.50%, 82.00% { transform: translateY(0px); opacity: 1; }
+        84.75% { transform: translateY(0px); opacity: 0.50; }
+        87.50%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_0 { animation: drop_0 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_0 { animation: drop_0 10.00s linear infinite; }
       @keyframes drop_1 {
-        0%, 5.66% { transform: translateY(-65.5px); opacity: 0; }
-        6.16% { opacity: 1; }
-        14.16% { transform: translateY(0px); opacity: 1; }
-        15.26% { transform: translateY(-2.5px); opacity: 1; }
-        16.26%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 5.55% { transform: translateY(-63.5px); opacity: 0; }
+        6.74% { transform: translateY(-40.4px); opacity: 1; }
+        9.12% { transform: translateY(-12.4px); opacity: 1; }
+        11.67% { transform: translateY(-1.4px); opacity: 1; }
+        14.05%, 82.47% { transform: translateY(0px); opacity: 1; }
+        85.22% { transform: translateY(0px); opacity: 0.50; }
+        87.97%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_1 { animation: drop_1 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_1 { animation: drop_1 10.00s linear infinite; }
       @keyframes drop_2 {
-        0%, 8.32% { transform: translateY(-109.0px); opacity: 0; }
-        8.82% { opacity: 1; }
-        16.82% { transform: translateY(0px); opacity: 1; }
-        17.92% { transform: translateY(-2.5px); opacity: 1; }
-        18.92%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 8.11% { transform: translateY(-107.0px); opacity: 0; }
+        9.30% { transform: translateY(-68.1px); opacity: 1; }
+        11.68% { transform: translateY(-20.9px); opacity: 1; }
+        14.23% { transform: translateY(-2.3px); opacity: 1; }
+        16.61%, 82.95% { transform: translateY(0px); opacity: 1; }
+        85.70% { transform: translateY(0px); opacity: 0.50; }
+        88.45%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_2 { animation: drop_2 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_2 { animation: drop_2 10.00s linear infinite; }
       @keyframes drop_3 {
-        0%, 10.97% { transform: translateY(-80.0px); opacity: 0; }
-        11.47% { opacity: 1; }
-        19.47% { transform: translateY(0px); opacity: 1; }
-        20.57% { transform: translateY(-2.5px); opacity: 1; }
-        21.57%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 10.66% { transform: translateY(-78.0px); opacity: 0; }
+        11.85% { transform: translateY(-49.6px); opacity: 1; }
+        14.23% { transform: translateY(-15.2px); opacity: 1; }
+        16.78% { transform: translateY(-1.7px); opacity: 1; }
+        19.16%, 83.42% { transform: translateY(0px); opacity: 1; }
+        86.17% { transform: translateY(0px); opacity: 0.50; }
+        88.92%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_3 { animation: drop_3 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_3 { animation: drop_3 10.00s linear infinite; }
       @keyframes drop_4 {
-        0%, 13.63% { transform: translateY(-94.5px); opacity: 0; }
-        14.13% { opacity: 1; }
-        22.13% { transform: translateY(0px); opacity: 1; }
-        23.23% { transform: translateY(-2.5px); opacity: 1; }
-        24.23%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 13.21% { transform: translateY(-92.5px); opacity: 0; }
+        14.40% { transform: translateY(-58.8px); opacity: 1; }
+        16.78% { transform: translateY(-18.0px); opacity: 1; }
+        19.33% { transform: translateY(-2.0px); opacity: 1; }
+        21.71%, 83.89% { transform: translateY(0px); opacity: 1; }
+        86.64% { transform: translateY(0px); opacity: 0.50; }
+        89.39%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_4 { animation: drop_4 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_4 { animation: drop_4 10.00s linear infinite; }
       @keyframes drop_5 {
-        0%, 16.29% { transform: translateY(-109.0px); opacity: 0; }
-        16.79% { opacity: 1; }
-        24.79% { transform: translateY(0px); opacity: 1; }
-        25.89% { transform: translateY(-2.5px); opacity: 1; }
-        26.89%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 15.76% { transform: translateY(-107.0px); opacity: 0; }
+        16.95% { transform: translateY(-68.1px); opacity: 1; }
+        19.33% { transform: translateY(-20.9px); opacity: 1; }
+        21.88% { transform: translateY(-2.3px); opacity: 1; }
+        24.26%, 84.37% { transform: translateY(0px); opacity: 1; }
+        87.12% { transform: translateY(0px); opacity: 0.50; }
+        89.87%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_5 { animation: drop_5 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_5 { animation: drop_5 10.00s linear infinite; }
       @keyframes drop_6 {
-        0%, 18.95% { transform: translateY(-22.0px); opacity: 0; }
-        19.45% { opacity: 1; }
-        27.45% { transform: translateY(0px); opacity: 1; }
-        28.55% { transform: translateY(-2.5px); opacity: 1; }
-        29.55%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 18.32% { transform: translateY(-20.0px); opacity: 0; }
+        19.51% { transform: translateY(-12.7px); opacity: 1; }
+        21.89% { transform: translateY(-3.9px); opacity: 1; }
+        24.44% { transform: translateY(-0.4px); opacity: 1; }
+        26.82%, 84.84% { transform: translateY(0px); opacity: 1; }
+        87.59% { transform: translateY(0px); opacity: 0.50; }
+        90.34%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_6 { animation: drop_6 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_6 { animation: drop_6 10.00s linear infinite; }
       @keyframes drop_7 {
-        0%, 21.61% { transform: translateY(-36.5px); opacity: 0; }
-        22.11% { opacity: 1; }
-        30.11% { transform: translateY(0px); opacity: 1; }
-        31.21% { transform: translateY(-2.5px); opacity: 1; }
-        32.21%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 20.87% { transform: translateY(-34.5px); opacity: 0; }
+        22.06% { transform: translateY(-21.9px); opacity: 1; }
+        24.44% { transform: translateY(-6.7px); opacity: 1; }
+        26.99% { transform: translateY(-0.8px); opacity: 1; }
+        29.37%, 85.32% { transform: translateY(0px); opacity: 1; }
+        88.07% { transform: translateY(0px); opacity: 0.50; }
+        90.82%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_7 { animation: drop_7 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_7 { animation: drop_7 10.00s linear infinite; }
       @keyframes drop_8 {
-        0%, 24.26% { transform: translateY(-109.0px); opacity: 0; }
-        24.76% { opacity: 1; }
-        32.76% { transform: translateY(0px); opacity: 1; }
-        33.86% { transform: translateY(-2.5px); opacity: 1; }
-        34.86%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 23.42% { transform: translateY(-107.0px); opacity: 0; }
+        24.61% { transform: translateY(-68.1px); opacity: 1; }
+        26.99% { transform: translateY(-20.9px); opacity: 1; }
+        29.54% { transform: translateY(-2.3px); opacity: 1; }
+        31.92%, 85.79% { transform: translateY(0px); opacity: 1; }
+        88.54% { transform: translateY(0px); opacity: 0.50; }
+        91.29%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_8 { animation: drop_8 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_8 { animation: drop_8 10.00s linear infinite; }
       @keyframes drop_9 {
-        0%, 26.92% { transform: translateY(-22.0px); opacity: 0; }
-        27.42% { opacity: 1; }
-        35.42% { transform: translateY(0px); opacity: 1; }
-        36.52% { transform: translateY(-2.5px); opacity: 1; }
-        37.52%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 25.97% { transform: translateY(-20.0px); opacity: 0; }
+        27.16% { transform: translateY(-12.7px); opacity: 1; }
+        29.54% { transform: translateY(-3.9px); opacity: 1; }
+        32.09% { transform: translateY(-0.4px); opacity: 1; }
+        34.47%, 86.26% { transform: translateY(0px); opacity: 1; }
+        89.01% { transform: translateY(0px); opacity: 0.50; }
+        91.76%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_9 { animation: drop_9 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_9 { animation: drop_9 10.00s linear infinite; }
       @keyframes drop_10 {
-        0%, 29.58% { transform: translateY(-80.0px); opacity: 0; }
-        30.08% { opacity: 1; }
-        38.08% { transform: translateY(0px); opacity: 1; }
-        39.18% { transform: translateY(-2.5px); opacity: 1; }
-        40.18%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 28.53% { transform: translateY(-78.0px); opacity: 0; }
+        29.72% { transform: translateY(-49.6px); opacity: 1; }
+        32.10% { transform: translateY(-15.2px); opacity: 1; }
+        34.65% { transform: translateY(-1.7px); opacity: 1; }
+        37.03%, 86.74% { transform: translateY(0px); opacity: 1; }
+        89.49% { transform: translateY(0px); opacity: 0.50; }
+        92.24%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_10 { animation: drop_10 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_10 { animation: drop_10 10.00s linear infinite; }
       @keyframes drop_11 {
-        0%, 32.24% { transform: translateY(-94.5px); opacity: 0; }
-        32.74% { opacity: 1; }
-        40.74% { transform: translateY(0px); opacity: 1; }
-        41.84% { transform: translateY(-2.5px); opacity: 1; }
-        42.84%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 31.08% { transform: translateY(-92.5px); opacity: 0; }
+        32.27% { transform: translateY(-58.8px); opacity: 1; }
+        34.65% { transform: translateY(-18.0px); opacity: 1; }
+        37.20% { transform: translateY(-2.0px); opacity: 1; }
+        39.58%, 87.21% { transform: translateY(0px); opacity: 1; }
+        89.96% { transform: translateY(0px); opacity: 0.50; }
+        92.71%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_11 { animation: drop_11 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_11 { animation: drop_11 10.00s linear infinite; }
       @keyframes drop_12 {
-        0%, 34.89% { transform: translateY(-109.0px); opacity: 0; }
-        35.39% { opacity: 1; }
-        43.39% { transform: translateY(0px); opacity: 1; }
-        44.49% { transform: translateY(-2.5px); opacity: 1; }
-        45.49%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 33.63% { transform: translateY(-107.0px); opacity: 0; }
+        34.82% { transform: translateY(-68.1px); opacity: 1; }
+        37.20% { transform: translateY(-20.9px); opacity: 1; }
+        39.75% { transform: translateY(-2.3px); opacity: 1; }
+        42.13%, 87.68% { transform: translateY(0px); opacity: 1; }
+        90.43% { transform: translateY(0px); opacity: 0.50; }
+        93.18%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_12 { animation: drop_12 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_12 { animation: drop_12 10.00s linear infinite; }
       @keyframes drop_13 {
-        0%, 37.55% { transform: translateY(-51.0px); opacity: 0; }
-        38.05% { opacity: 1; }
-        46.05% { transform: translateY(0px); opacity: 1; }
-        47.15% { transform: translateY(-2.5px); opacity: 1; }
-        48.15%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 36.18% { transform: translateY(-49.0px); opacity: 0; }
+        37.37% { transform: translateY(-31.2px); opacity: 1; }
+        39.75% { transform: translateY(-9.6px); opacity: 1; }
+        42.30% { transform: translateY(-1.1px); opacity: 1; }
+        44.68%, 88.16% { transform: translateY(0px); opacity: 1; }
+        90.91% { transform: translateY(0px); opacity: 0.50; }
+        93.66%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_13 { animation: drop_13 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_13 { animation: drop_13 10.00s linear infinite; }
       @keyframes drop_14 {
-        0%, 40.21% { transform: translateY(-65.5px); opacity: 0; }
-        40.71% { opacity: 1; }
-        48.71% { transform: translateY(0px); opacity: 1; }
-        49.81% { transform: translateY(-2.5px); opacity: 1; }
-        50.81%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 38.74% { transform: translateY(-63.5px); opacity: 0; }
+        39.93% { transform: translateY(-40.4px); opacity: 1; }
+        42.31% { transform: translateY(-12.4px); opacity: 1; }
+        44.86% { transform: translateY(-1.4px); opacity: 1; }
+        47.24%, 88.63% { transform: translateY(0px); opacity: 1; }
+        91.38% { transform: translateY(0px); opacity: 0.50; }
+        94.13%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_14 { animation: drop_14 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_14 { animation: drop_14 10.00s linear infinite; }
       @keyframes drop_15 {
-        0%, 42.87% { transform: translateY(-22.0px); opacity: 0; }
-        43.37% { opacity: 1; }
-        51.37% { transform: translateY(0px); opacity: 1; }
-        52.47% { transform: translateY(-2.5px); opacity: 1; }
-        53.47%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 41.29% { transform: translateY(-20.0px); opacity: 0; }
+        42.48% { transform: translateY(-12.7px); opacity: 1; }
+        44.86% { transform: translateY(-3.9px); opacity: 1; }
+        47.41% { transform: translateY(-0.4px); opacity: 1; }
+        49.79%, 89.11% { transform: translateY(0px); opacity: 1; }
+        91.86% { transform: translateY(0px); opacity: 0.50; }
+        94.61%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_15 { animation: drop_15 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_15 { animation: drop_15 10.00s linear infinite; }
       @keyframes drop_16 {
-        0%, 45.53% { transform: translateY(-51.0px); opacity: 0; }
-        46.03% { opacity: 1; }
-        54.03% { transform: translateY(0px); opacity: 1; }
-        55.13% { transform: translateY(-2.5px); opacity: 1; }
-        56.13%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 43.84% { transform: translateY(-49.0px); opacity: 0; }
+        45.03% { transform: translateY(-31.2px); opacity: 1; }
+        47.41% { transform: translateY(-9.6px); opacity: 1; }
+        49.96% { transform: translateY(-1.1px); opacity: 1; }
+        52.34%, 89.58% { transform: translateY(0px); opacity: 1; }
+        92.33% { transform: translateY(0px); opacity: 0.50; }
+        95.08%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_16 { animation: drop_16 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_16 { animation: drop_16 10.00s linear infinite; }
       @keyframes drop_17 {
-        0%, 48.18% { transform: translateY(-36.5px); opacity: 0; }
-        48.68% { opacity: 1; }
-        56.68% { transform: translateY(0px); opacity: 1; }
-        57.78% { transform: translateY(-2.5px); opacity: 1; }
-        58.78%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 46.39% { transform: translateY(-34.5px); opacity: 0; }
+        47.58% { transform: translateY(-21.9px); opacity: 1; }
+        49.96% { transform: translateY(-6.7px); opacity: 1; }
+        52.51% { transform: translateY(-0.8px); opacity: 1; }
+        54.89%, 90.05% { transform: translateY(0px); opacity: 1; }
+        92.80% { transform: translateY(0px); opacity: 0.50; }
+        95.55%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_17 { animation: drop_17 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_17 { animation: drop_17 10.00s linear infinite; }
       @keyframes drop_18 {
-        0%, 50.84% { transform: translateY(-51.0px); opacity: 0; }
-        51.34% { opacity: 1; }
-        59.34% { transform: translateY(0px); opacity: 1; }
-        60.44% { transform: translateY(-2.5px); opacity: 1; }
-        61.44%, 91.50% { transform: translateY(0px); opacity: 1; }
-        96.50%, 100% { transform: translateY(0px); opacity: 0; }
+        0%, 48.95% { transform: translateY(-49.0px); opacity: 0; }
+        50.14% { transform: translateY(-31.2px); opacity: 1; }
+        52.52% { transform: translateY(-9.6px); opacity: 1; }
+        55.07% { transform: translateY(-1.1px); opacity: 1; }
+        57.45%, 90.53% { transform: translateY(0px); opacity: 1; }
+        93.28% { transform: translateY(0px); opacity: 0.50; }
+        96.03%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_18 { animation: drop_18 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_18 { animation: drop_18 10.00s linear infinite; }
       @keyframes drop_19 {
-        0%, 53.50% { transform: translateY(-65.5px); opacity: 0; }
-        54.00% { opacity: 1; }
-        62.00% { transform: translateY(0px); opacity: 1; }
-        63.10% { transform: translateY(-2.5px); opacity: 1; }
-        64.10%, 91.50% { transform: translateY(0px); opacity: 1; }
+        0%, 51.50% { transform: translateY(-63.5px); opacity: 0; }
+        52.69% { transform: translateY(-40.4px); opacity: 1; }
+        55.07% { transform: translateY(-12.4px); opacity: 1; }
+        57.62% { transform: translateY(-1.4px); opacity: 1; }
+        60.00%, 91.00% { transform: translateY(0px); opacity: 1; }
+        93.75% { transform: translateY(0px); opacity: 0.50; }
         96.50%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_19 { animation: drop_19 10.00s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }
+      .b_19 { animation: drop_19 10.00s linear infinite; }
     ]]></style>
   </defs>
 

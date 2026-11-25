@@ -220,28 +220,44 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
 
     css_keyframes: List[str] = []
     drop_span_start = 3.0
-    drop_span_end = 62.0
+    drop_span_end = 60.0
     drop_dur_pct = 8.5
 
     stagger = (drop_span_end - drop_span_start - drop_dur_pct) / max(1, n_active - 1) if n_active > 1 else 0.0
+    clear_span_start = 82.0
+    clear_fade_dur = 5.5
+    clear_stagger = (96.5 - clear_span_start - clear_fade_dur) / max(1, n_active - 1) if n_active > 1 else 0.0
 
     for idx, day in enumerate(active_days):
         t0 = drop_span_start + idx * stagger
-        t_enter = t0 + 0.5
-        t_land = min(drop_span_end + drop_dur_pct, t0 + drop_dur_pct)
-        t_bounce = min(90.0, t_land + 1.1)
-        t_settle = min(91.5, t_bounce + 1.0)
-        dy = -(day.row * step + 22.0)
+        dy = -(day.row * step + 20.0)
+
+        # Smooth cubic ease-out deceleration directly to translateY(0px) — zero bounce/overlap
+        p1 = t0 + drop_dur_pct * 0.14
+        p2 = t0 + drop_dur_pct * 0.42
+        p3 = t0 + drop_dur_pct * 0.72
+        t_land = t0 + drop_dur_pct
+
+        dy1 = dy * ((1.0 - 0.14) ** 3)
+        dy2 = dy * ((1.0 - 0.42) ** 3)
+        dy3 = dy * ((1.0 - 0.72) ** 3)
+
+        # Smooth ending wave dissolve back to the empty grid (stays locked at translateY(0))
+        tc0 = clear_span_start + idx * clear_stagger
+        tc_mid = tc0 + clear_fade_dur * 0.50
+        tc1 = min(97.5, tc0 + clear_fade_dur)
+
         css_keyframes.append(
             f"""      @keyframes drop_{idx} {{
         0%, {t0:.2f}% {{ transform: translateY({dy:.1f}px); opacity: 0; }}
-        {t_enter:.2f}% {{ opacity: 1; }}
-        {t_land:.2f}% {{ transform: translateY(0px); opacity: 1; }}
-        {t_bounce:.2f}% {{ transform: translateY(-2.5px); opacity: 1; }}
-        {t_settle:.2f}%, 91.50% {{ transform: translateY(0px); opacity: 1; }}
-        96.50%, 100% {{ transform: translateY(0px); opacity: 0; }}
+        {p1:.2f}% {{ transform: translateY({dy1:.1f}px); opacity: 1; }}
+        {p2:.2f}% {{ transform: translateY({dy2:.1f}px); opacity: 1; }}
+        {p3:.2f}% {{ transform: translateY({dy3:.1f}px); opacity: 1; }}
+        {t_land:.2f}%, {tc0:.2f}% {{ transform: translateY(0px); opacity: 1; }}
+        {tc_mid:.2f}% {{ transform: translateY(0px); opacity: 0.50; }}
+        {tc1:.2f}%, 100% {{ transform: translateY(0px); opacity: 0; }}
       }}
-      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s cubic-bezier(0.22, 0.85, 0.35, 1) infinite; }}"""
+      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear infinite; }}"""
         )
 
     # Pure flat 2D empty grid squares
