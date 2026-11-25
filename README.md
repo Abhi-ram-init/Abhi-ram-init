@@ -66,10 +66,6 @@
 
 <img src="assets/arcade-contributions.svg" width="100%" alt="2D Arcade Block Contribution Calendar — Real GitHub Commits"/>
 
-<br/>
-
-<sub>🕹 Starts from an empty 2D grid and drops <strong>real GitHub commit blocks</strong> in chronological order · Single-hue gradient &amp; saturation scaled by Golden-Ratio contrast (<i>φ</i> ≈ 1.618) · Auto-synced via <a href=".github/workflows/arcade-calendar.yml">GitHub Actions</a></sub>
-
 </div>
 
 ---
