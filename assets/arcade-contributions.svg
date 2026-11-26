@@ -51,298 +51,286 @@
       }
       .live-ind { animation: livePulse 1.8s ease-in-out infinite; }
 
-      .tile-wrap { transform-box: fill-box; transform-origin: center; }
-      .tile-sheen { opacity: 0; }
-      @keyframes tilePulse {
-        0%, 100% { transform: scale(1); }
-        22%      { transform: scale(1.13); }
-        48%      { transform: scale(1); }
-      }
-      @keyframes tileSheen {
-        0%, 100% { opacity: 0; }
-        22%      { opacity: 0.48; }
-        48%      { opacity: 0; }
-      }
       @keyframes drop_0 {
-        0%, 4.00% { transform: translateY(-34.5px); opacity: 0; }
-        7.00% { transform: translateY(-23.11px); opacity: 1; }
-        10.00% { transform: translateY(-14.55px); opacity: 1; }
-        13.00% { transform: translateY(-8.42px); opacity: 1; }
-        16.00% { transform: translateY(-4.31px); opacity: 1; }
-        19.00% { transform: translateY(-1.82px); opacity: 1; }
-        22.00% { transform: translateY(-0.54px); opacity: 1; }
-        25.00% { transform: translateY(-0.07px); opacity: 1; }
-        28.00%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 3.00% { transform: translateY(-34.5px); opacity: 0; }
+        4.75% { transform: translateY(-23.11px); opacity: 1; }
+        6.50% { transform: translateY(-14.55px); opacity: 1; }
+        8.25% { transform: translateY(-8.42px); opacity: 1; }
+        10.00% { transform: translateY(-4.31px); opacity: 1; }
+        11.75% { transform: translateY(-1.82px); opacity: 1; }
+        13.50% { transform: translateY(-0.54px); opacity: 1; }
+        15.25% { transform: translateY(-0.07px); opacity: 1; }
+        17.00%, 84.00% { transform: translateY(0px); opacity: 1; }
+        87.00% { transform: translateY(0px); opacity: 0.50; }
+        90.00%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_0 { animation: drop_0 4.60s linear 1 both; }
-      .tw_0 { animation: tilePulse 3.80s ease-in-out 1.29s infinite; }
-      .ts_0 { animation: tileSheen 3.80s ease-in-out 1.29s infinite; }
+      .b_0 { animation: drop_0 10.50s linear infinite; }
       @keyframes drop_1 {
-        0%, 7.74% { transform: translateY(-63.5px); opacity: 0; }
-        10.74% { transform: translateY(-42.54px); opacity: 1; }
-        13.74% { transform: translateY(-26.79px); opacity: 1; }
-        16.74% { transform: translateY(-15.50px); opacity: 1; }
-        19.74% { transform: translateY(-7.94px); opacity: 1; }
-        22.74% { transform: translateY(-3.35px); opacity: 1; }
-        25.74% { transform: translateY(-0.99px); opacity: 1; }
-        28.74% { transform: translateY(-0.12px); opacity: 1; }
-        31.74%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 5.16% { transform: translateY(-63.5px); opacity: 0; }
+        6.91% { transform: translateY(-42.54px); opacity: 1; }
+        8.66% { transform: translateY(-26.79px); opacity: 1; }
+        10.41% { transform: translateY(-15.50px); opacity: 1; }
+        12.16% { transform: translateY(-7.94px); opacity: 1; }
+        13.91% { transform: translateY(-3.35px); opacity: 1; }
+        15.66% { transform: translateY(-0.99px); opacity: 1; }
+        17.41% { transform: translateY(-0.12px); opacity: 1; }
+        19.16%, 84.37% { transform: translateY(0px); opacity: 1; }
+        87.37% { transform: translateY(0px); opacity: 0.50; }
+        90.37%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_1 { animation: drop_1 4.60s linear 1 both; }
-      .tw_1 { animation: tilePulse 3.80s ease-in-out 1.46s infinite; }
-      .ts_1 { animation: tileSheen 3.80s ease-in-out 1.46s infinite; }
+      .b_1 { animation: drop_1 10.50s linear infinite; }
       @keyframes drop_2 {
-        0%, 11.47% { transform: translateY(-107.0px); opacity: 0; }
-        14.47% { transform: translateY(-71.68px); opacity: 1; }
-        17.47% { transform: translateY(-45.14px); opacity: 1; }
-        20.47% { transform: translateY(-26.12px); opacity: 1; }
-        23.47% { transform: translateY(-13.38px); opacity: 1; }
-        26.47% { transform: translateY(-5.64px); opacity: 1; }
-        29.47% { transform: translateY(-1.67px); opacity: 1; }
-        32.47% { transform: translateY(-0.21px); opacity: 1; }
-        35.47%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 7.32% { transform: translateY(-107.0px); opacity: 0; }
+        9.07% { transform: translateY(-71.68px); opacity: 1; }
+        10.82% { transform: translateY(-45.14px); opacity: 1; }
+        12.57% { transform: translateY(-26.12px); opacity: 1; }
+        14.32% { transform: translateY(-13.38px); opacity: 1; }
+        16.07% { transform: translateY(-5.64px); opacity: 1; }
+        17.82% { transform: translateY(-1.67px); opacity: 1; }
+        19.57% { transform: translateY(-0.21px); opacity: 1; }
+        21.32%, 84.74% { transform: translateY(0px); opacity: 1; }
+        87.74% { transform: translateY(0px); opacity: 0.50; }
+        90.74%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_2 { animation: drop_2 4.60s linear 1 both; }
-      .tw_2 { animation: tilePulse 3.80s ease-in-out 1.63s infinite; }
-      .ts_2 { animation: tileSheen 3.80s ease-in-out 1.63s infinite; }
+      .b_2 { animation: drop_2 10.50s linear infinite; }
       @keyframes drop_3 {
-        0%, 15.21% { transform: translateY(-78.0px); opacity: 0; }
-        18.21% { transform: translateY(-52.25px); opacity: 1; }
-        21.21% { transform: translateY(-32.91px); opacity: 1; }
-        24.21% { transform: translateY(-19.04px); opacity: 1; }
-        27.21% { transform: translateY(-9.75px); opacity: 1; }
-        30.21% { transform: translateY(-4.11px); opacity: 1; }
-        33.21% { transform: translateY(-1.22px); opacity: 1; }
-        36.21% { transform: translateY(-0.15px); opacity: 1; }
-        39.21%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 9.47% { transform: translateY(-78.0px); opacity: 0; }
+        11.22% { transform: translateY(-52.25px); opacity: 1; }
+        12.97% { transform: translateY(-32.91px); opacity: 1; }
+        14.72% { transform: translateY(-19.04px); opacity: 1; }
+        16.47% { transform: translateY(-9.75px); opacity: 1; }
+        18.22% { transform: translateY(-4.11px); opacity: 1; }
+        19.97% { transform: translateY(-1.22px); opacity: 1; }
+        21.72% { transform: translateY(-0.15px); opacity: 1; }
+        23.47%, 85.11% { transform: translateY(0px); opacity: 1; }
+        88.11% { transform: translateY(0px); opacity: 0.50; }
+        91.11%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_3 { animation: drop_3 4.60s linear 1 both; }
-      .tw_3 { animation: tilePulse 3.80s ease-in-out 1.80s infinite; }
-      .ts_3 { animation: tileSheen 3.80s ease-in-out 1.80s infinite; }
+      .b_3 { animation: drop_3 10.50s linear infinite; }
       @keyframes drop_4 {
-        0%, 18.95% { transform: translateY(-92.5px); opacity: 0; }
-        21.95% { transform: translateY(-61.97px); opacity: 1; }
-        24.95% { transform: translateY(-39.02px); opacity: 1; }
-        27.95% { transform: translateY(-22.58px); opacity: 1; }
-        30.95% { transform: translateY(-11.56px); opacity: 1; }
-        33.95% { transform: translateY(-4.88px); opacity: 1; }
-        36.95% { transform: translateY(-1.45px); opacity: 1; }
-        39.95% { transform: translateY(-0.18px); opacity: 1; }
-        42.95%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 11.63% { transform: translateY(-92.5px); opacity: 0; }
+        13.38% { transform: translateY(-61.97px); opacity: 1; }
+        15.13% { transform: translateY(-39.02px); opacity: 1; }
+        16.88% { transform: translateY(-22.58px); opacity: 1; }
+        18.63% { transform: translateY(-11.56px); opacity: 1; }
+        20.38% { transform: translateY(-4.88px); opacity: 1; }
+        22.13% { transform: translateY(-1.45px); opacity: 1; }
+        23.88% { transform: translateY(-0.18px); opacity: 1; }
+        25.63%, 85.47% { transform: translateY(0px); opacity: 1; }
+        88.47% { transform: translateY(0px); opacity: 0.50; }
+        91.47%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_4 { animation: drop_4 4.60s linear 1 both; }
-      .tw_4 { animation: tilePulse 3.80s ease-in-out 1.98s infinite; }
-      .ts_4 { animation: tileSheen 3.80s ease-in-out 1.98s infinite; }
+      .b_4 { animation: drop_4 10.50s linear infinite; }
       @keyframes drop_5 {
-        0%, 22.68% { transform: translateY(-107.0px); opacity: 0; }
-        25.68% { transform: translateY(-71.68px); opacity: 1; }
-        28.68% { transform: translateY(-45.14px); opacity: 1; }
-        31.68% { transform: translateY(-26.12px); opacity: 1; }
-        34.68% { transform: translateY(-13.38px); opacity: 1; }
-        37.68% { transform: translateY(-5.64px); opacity: 1; }
-        40.68% { transform: translateY(-1.67px); opacity: 1; }
-        43.68% { transform: translateY(-0.21px); opacity: 1; }
-        46.68%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 13.79% { transform: translateY(-107.0px); opacity: 0; }
+        15.54% { transform: translateY(-71.68px); opacity: 1; }
+        17.29% { transform: translateY(-45.14px); opacity: 1; }
+        19.04% { transform: translateY(-26.12px); opacity: 1; }
+        20.79% { transform: translateY(-13.38px); opacity: 1; }
+        22.54% { transform: translateY(-5.64px); opacity: 1; }
+        24.29% { transform: translateY(-1.67px); opacity: 1; }
+        26.04% { transform: translateY(-0.21px); opacity: 1; }
+        27.79%, 85.84% { transform: translateY(0px); opacity: 1; }
+        88.84% { transform: translateY(0px); opacity: 0.50; }
+        91.84%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_5 { animation: drop_5 4.60s linear 1 both; }
-      .tw_5 { animation: tilePulse 3.80s ease-in-out 2.15s infinite; }
-      .ts_5 { animation: tileSheen 3.80s ease-in-out 2.15s infinite; }
+      .b_5 { animation: drop_5 10.50s linear infinite; }
       @keyframes drop_6 {
-        0%, 26.42% { transform: translateY(-20.0px); opacity: 0; }
-        29.42% { transform: translateY(-13.40px); opacity: 1; }
-        32.42% { transform: translateY(-8.44px); opacity: 1; }
-        35.42% { transform: translateY(-4.88px); opacity: 1; }
-        38.42% { transform: translateY(-2.50px); opacity: 1; }
-        41.42% { transform: translateY(-1.05px); opacity: 1; }
-        44.42% { transform: translateY(-0.31px); opacity: 1; }
-        47.42% { transform: translateY(-0.04px); opacity: 1; }
-        50.42%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 15.95% { transform: translateY(-20.0px); opacity: 0; }
+        17.70% { transform: translateY(-13.40px); opacity: 1; }
+        19.45% { transform: translateY(-8.44px); opacity: 1; }
+        21.20% { transform: translateY(-4.88px); opacity: 1; }
+        22.95% { transform: translateY(-2.50px); opacity: 1; }
+        24.70% { transform: translateY(-1.05px); opacity: 1; }
+        26.45% { transform: translateY(-0.31px); opacity: 1; }
+        28.20% { transform: translateY(-0.04px); opacity: 1; }
+        29.95%, 86.21% { transform: translateY(0px); opacity: 1; }
+        89.21% { transform: translateY(0px); opacity: 0.50; }
+        92.21%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_6 { animation: drop_6 4.60s linear 1 both; }
-      .tw_6 { animation: tilePulse 3.80s ease-in-out 2.32s infinite; }
-      .ts_6 { animation: tileSheen 3.80s ease-in-out 2.32s infinite; }
+      .b_6 { animation: drop_6 10.50s linear infinite; }
       @keyframes drop_7 {
-        0%, 30.16% { transform: translateY(-34.5px); opacity: 0; }
-        33.16% { transform: translateY(-23.11px); opacity: 1; }
-        36.16% { transform: translateY(-14.55px); opacity: 1; }
-        39.16% { transform: translateY(-8.42px); opacity: 1; }
-        42.16% { transform: translateY(-4.31px); opacity: 1; }
-        45.16% { transform: translateY(-1.82px); opacity: 1; }
-        48.16% { transform: translateY(-0.54px); opacity: 1; }
-        51.16% { transform: translateY(-0.07px); opacity: 1; }
-        54.16%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 18.11% { transform: translateY(-34.5px); opacity: 0; }
+        19.86% { transform: translateY(-23.11px); opacity: 1; }
+        21.61% { transform: translateY(-14.55px); opacity: 1; }
+        23.36% { transform: translateY(-8.42px); opacity: 1; }
+        25.11% { transform: translateY(-4.31px); opacity: 1; }
+        26.86% { transform: translateY(-1.82px); opacity: 1; }
+        28.61% { transform: translateY(-0.54px); opacity: 1; }
+        30.36% { transform: translateY(-0.07px); opacity: 1; }
+        32.11%, 86.58% { transform: translateY(0px); opacity: 1; }
+        89.58% { transform: translateY(0px); opacity: 0.50; }
+        92.58%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_7 { animation: drop_7 4.60s linear 1 both; }
-      .tw_7 { animation: tilePulse 3.80s ease-in-out 2.49s infinite; }
-      .ts_7 { animation: tileSheen 3.80s ease-in-out 2.49s infinite; }
+      .b_7 { animation: drop_7 10.50s linear infinite; }
       @keyframes drop_8 {
-        0%, 33.89% { transform: translateY(-107.0px); opacity: 0; }
-        36.89% { transform: translateY(-71.68px); opacity: 1; }
-        39.89% { transform: translateY(-45.14px); opacity: 1; }
-        42.89% { transform: translateY(-26.12px); opacity: 1; }
-        45.89% { transform: translateY(-13.38px); opacity: 1; }
-        48.89% { transform: translateY(-5.64px); opacity: 1; }
-        51.89% { transform: translateY(-1.67px); opacity: 1; }
-        54.89% { transform: translateY(-0.21px); opacity: 1; }
-        57.89%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 20.26% { transform: translateY(-107.0px); opacity: 0; }
+        22.01% { transform: translateY(-71.68px); opacity: 1; }
+        23.76% { transform: translateY(-45.14px); opacity: 1; }
+        25.51% { transform: translateY(-26.12px); opacity: 1; }
+        27.26% { transform: translateY(-13.38px); opacity: 1; }
+        29.01% { transform: translateY(-5.64px); opacity: 1; }
+        30.76% { transform: translateY(-1.67px); opacity: 1; }
+        32.51% { transform: translateY(-0.21px); opacity: 1; }
+        34.26%, 86.95% { transform: translateY(0px); opacity: 1; }
+        89.95% { transform: translateY(0px); opacity: 0.50; }
+        92.95%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_8 { animation: drop_8 4.60s linear 1 both; }
-      .tw_8 { animation: tilePulse 3.80s ease-in-out 2.66s infinite; }
-      .ts_8 { animation: tileSheen 3.80s ease-in-out 2.66s infinite; }
+      .b_8 { animation: drop_8 10.50s linear infinite; }
       @keyframes drop_9 {
-        0%, 37.63% { transform: translateY(-20.0px); opacity: 0; }
-        40.63% { transform: translateY(-13.40px); opacity: 1; }
-        43.63% { transform: translateY(-8.44px); opacity: 1; }
-        46.63% { transform: translateY(-4.88px); opacity: 1; }
-        49.63% { transform: translateY(-2.50px); opacity: 1; }
-        52.63% { transform: translateY(-1.05px); opacity: 1; }
-        55.63% { transform: translateY(-0.31px); opacity: 1; }
-        58.63% { transform: translateY(-0.04px); opacity: 1; }
-        61.63%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 22.42% { transform: translateY(-20.0px); opacity: 0; }
+        24.17% { transform: translateY(-13.40px); opacity: 1; }
+        25.92% { transform: translateY(-8.44px); opacity: 1; }
+        27.67% { transform: translateY(-4.88px); opacity: 1; }
+        29.42% { transform: translateY(-2.50px); opacity: 1; }
+        31.17% { transform: translateY(-1.05px); opacity: 1; }
+        32.92% { transform: translateY(-0.31px); opacity: 1; }
+        34.67% { transform: translateY(-0.04px); opacity: 1; }
+        36.42%, 87.32% { transform: translateY(0px); opacity: 1; }
+        90.32% { transform: translateY(0px); opacity: 0.50; }
+        93.32%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_9 { animation: drop_9 4.60s linear 1 both; }
-      .tw_9 { animation: tilePulse 3.80s ease-in-out 2.84s infinite; }
-      .ts_9 { animation: tileSheen 3.80s ease-in-out 2.84s infinite; }
+      .b_9 { animation: drop_9 10.50s linear infinite; }
       @keyframes drop_10 {
-        0%, 41.37% { transform: translateY(-78.0px); opacity: 0; }
-        44.37% { transform: translateY(-52.25px); opacity: 1; }
-        47.37% { transform: translateY(-32.91px); opacity: 1; }
-        50.37% { transform: translateY(-19.04px); opacity: 1; }
-        53.37% { transform: translateY(-9.75px); opacity: 1; }
-        56.37% { transform: translateY(-4.11px); opacity: 1; }
-        59.37% { transform: translateY(-1.22px); opacity: 1; }
-        62.37% { transform: translateY(-0.15px); opacity: 1; }
-        65.37%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 24.58% { transform: translateY(-78.0px); opacity: 0; }
+        26.33% { transform: translateY(-52.25px); opacity: 1; }
+        28.08% { transform: translateY(-32.91px); opacity: 1; }
+        29.83% { transform: translateY(-19.04px); opacity: 1; }
+        31.58% { transform: translateY(-9.75px); opacity: 1; }
+        33.33% { transform: translateY(-4.11px); opacity: 1; }
+        35.08% { transform: translateY(-1.22px); opacity: 1; }
+        36.83% { transform: translateY(-0.15px); opacity: 1; }
+        38.58%, 87.68% { transform: translateY(0px); opacity: 1; }
+        90.68% { transform: translateY(0px); opacity: 0.50; }
+        93.68%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_10 { animation: drop_10 4.60s linear 1 both; }
-      .tw_10 { animation: tilePulse 3.80s ease-in-out 3.01s infinite; }
-      .ts_10 { animation: tileSheen 3.80s ease-in-out 3.01s infinite; }
+      .b_10 { animation: drop_10 10.50s linear infinite; }
       @keyframes drop_11 {
-        0%, 45.11% { transform: translateY(-92.5px); opacity: 0; }
-        48.11% { transform: translateY(-61.97px); opacity: 1; }
-        51.11% { transform: translateY(-39.02px); opacity: 1; }
-        54.11% { transform: translateY(-22.58px); opacity: 1; }
-        57.11% { transform: translateY(-11.56px); opacity: 1; }
-        60.11% { transform: translateY(-4.88px); opacity: 1; }
-        63.11% { transform: translateY(-1.45px); opacity: 1; }
-        66.11% { transform: translateY(-0.18px); opacity: 1; }
-        69.11%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 26.74% { transform: translateY(-92.5px); opacity: 0; }
+        28.49% { transform: translateY(-61.97px); opacity: 1; }
+        30.24% { transform: translateY(-39.02px); opacity: 1; }
+        31.99% { transform: translateY(-22.58px); opacity: 1; }
+        33.74% { transform: translateY(-11.56px); opacity: 1; }
+        35.49% { transform: translateY(-4.88px); opacity: 1; }
+        37.24% { transform: translateY(-1.45px); opacity: 1; }
+        38.99% { transform: translateY(-0.18px); opacity: 1; }
+        40.74%, 88.05% { transform: translateY(0px); opacity: 1; }
+        91.05% { transform: translateY(0px); opacity: 0.50; }
+        94.05%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_11 { animation: drop_11 4.60s linear 1 both; }
-      .tw_11 { animation: tilePulse 3.80s ease-in-out 3.18s infinite; }
-      .ts_11 { animation: tileSheen 3.80s ease-in-out 3.18s infinite; }
+      .b_11 { animation: drop_11 10.50s linear infinite; }
       @keyframes drop_12 {
-        0%, 48.84% { transform: translateY(-107.0px); opacity: 0; }
-        51.84% { transform: translateY(-71.68px); opacity: 1; }
-        54.84% { transform: translateY(-45.14px); opacity: 1; }
-        57.84% { transform: translateY(-26.12px); opacity: 1; }
-        60.84% { transform: translateY(-13.38px); opacity: 1; }
-        63.84% { transform: translateY(-5.64px); opacity: 1; }
-        66.84% { transform: translateY(-1.67px); opacity: 1; }
-        69.84% { transform: translateY(-0.21px); opacity: 1; }
-        72.84%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 28.89% { transform: translateY(-107.0px); opacity: 0; }
+        30.64% { transform: translateY(-71.68px); opacity: 1; }
+        32.39% { transform: translateY(-45.14px); opacity: 1; }
+        34.14% { transform: translateY(-26.12px); opacity: 1; }
+        35.89% { transform: translateY(-13.38px); opacity: 1; }
+        37.64% { transform: translateY(-5.64px); opacity: 1; }
+        39.39% { transform: translateY(-1.67px); opacity: 1; }
+        41.14% { transform: translateY(-0.21px); opacity: 1; }
+        42.89%, 88.42% { transform: translateY(0px); opacity: 1; }
+        91.42% { transform: translateY(0px); opacity: 0.50; }
+        94.42%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_12 { animation: drop_12 4.60s linear 1 both; }
-      .tw_12 { animation: tilePulse 3.80s ease-in-out 3.35s infinite; }
-      .ts_12 { animation: tileSheen 3.80s ease-in-out 3.35s infinite; }
+      .b_12 { animation: drop_12 10.50s linear infinite; }
       @keyframes drop_13 {
-        0%, 52.58% { transform: translateY(-49.0px); opacity: 0; }
-        55.58% { transform: translateY(-32.83px); opacity: 1; }
-        58.58% { transform: translateY(-20.67px); opacity: 1; }
-        61.58% { transform: translateY(-11.96px); opacity: 1; }
-        64.58% { transform: translateY(-6.12px); opacity: 1; }
-        67.58% { transform: translateY(-2.58px); opacity: 1; }
-        70.58% { transform: translateY(-0.77px); opacity: 1; }
-        73.58% { transform: translateY(-0.10px); opacity: 1; }
-        76.58%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 31.05% { transform: translateY(-49.0px); opacity: 0; }
+        32.80% { transform: translateY(-32.83px); opacity: 1; }
+        34.55% { transform: translateY(-20.67px); opacity: 1; }
+        36.30% { transform: translateY(-11.96px); opacity: 1; }
+        38.05% { transform: translateY(-6.12px); opacity: 1; }
+        39.80% { transform: translateY(-2.58px); opacity: 1; }
+        41.55% { transform: translateY(-0.77px); opacity: 1; }
+        43.30% { transform: translateY(-0.10px); opacity: 1; }
+        45.05%, 88.79% { transform: translateY(0px); opacity: 1; }
+        91.79% { transform: translateY(0px); opacity: 0.50; }
+        94.79%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_13 { animation: drop_13 4.60s linear 1 both; }
-      .tw_13 { animation: tilePulse 3.80s ease-in-out 3.52s infinite; }
-      .ts_13 { animation: tileSheen 3.80s ease-in-out 3.52s infinite; }
+      .b_13 { animation: drop_13 10.50s linear infinite; }
       @keyframes drop_14 {
-        0%, 56.32% { transform: translateY(-63.5px); opacity: 0; }
-        59.32% { transform: translateY(-42.54px); opacity: 1; }
-        62.32% { transform: translateY(-26.79px); opacity: 1; }
-        65.32% { transform: translateY(-15.50px); opacity: 1; }
-        68.32% { transform: translateY(-7.94px); opacity: 1; }
-        71.32% { transform: translateY(-3.35px); opacity: 1; }
-        74.32% { transform: translateY(-0.99px); opacity: 1; }
-        77.32% { transform: translateY(-0.12px); opacity: 1; }
-        80.32%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 33.21% { transform: translateY(-63.5px); opacity: 0; }
+        34.96% { transform: translateY(-42.54px); opacity: 1; }
+        36.71% { transform: translateY(-26.79px); opacity: 1; }
+        38.46% { transform: translateY(-15.50px); opacity: 1; }
+        40.21% { transform: translateY(-7.94px); opacity: 1; }
+        41.96% { transform: translateY(-3.35px); opacity: 1; }
+        43.71% { transform: translateY(-0.99px); opacity: 1; }
+        45.46% { transform: translateY(-0.12px); opacity: 1; }
+        47.21%, 89.16% { transform: translateY(0px); opacity: 1; }
+        92.16% { transform: translateY(0px); opacity: 0.50; }
+        95.16%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_14 { animation: drop_14 4.60s linear 1 both; }
-      .tw_14 { animation: tilePulse 3.80s ease-in-out 3.69s infinite; }
-      .ts_14 { animation: tileSheen 3.80s ease-in-out 3.69s infinite; }
+      .b_14 { animation: drop_14 10.50s linear infinite; }
       @keyframes drop_15 {
-        0%, 60.05% { transform: translateY(-20.0px); opacity: 0; }
-        63.05% { transform: translateY(-13.40px); opacity: 1; }
-        66.05% { transform: translateY(-8.44px); opacity: 1; }
-        69.05% { transform: translateY(-4.88px); opacity: 1; }
-        72.05% { transform: translateY(-2.50px); opacity: 1; }
-        75.05% { transform: translateY(-1.05px); opacity: 1; }
-        78.05% { transform: translateY(-0.31px); opacity: 1; }
-        81.05% { transform: translateY(-0.04px); opacity: 1; }
-        84.05%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 35.37% { transform: translateY(-20.0px); opacity: 0; }
+        37.12% { transform: translateY(-13.40px); opacity: 1; }
+        38.87% { transform: translateY(-8.44px); opacity: 1; }
+        40.62% { transform: translateY(-4.88px); opacity: 1; }
+        42.37% { transform: translateY(-2.50px); opacity: 1; }
+        44.12% { transform: translateY(-1.05px); opacity: 1; }
+        45.87% { transform: translateY(-0.31px); opacity: 1; }
+        47.62% { transform: translateY(-0.04px); opacity: 1; }
+        49.37%, 89.53% { transform: translateY(0px); opacity: 1; }
+        92.53% { transform: translateY(0px); opacity: 0.50; }
+        95.53%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_15 { animation: drop_15 4.60s linear 1 both; }
-      .tw_15 { animation: tilePulse 3.80s ease-in-out 3.87s infinite; }
-      .ts_15 { animation: tileSheen 3.80s ease-in-out 3.87s infinite; }
+      .b_15 { animation: drop_15 10.50s linear infinite; }
       @keyframes drop_16 {
-        0%, 63.79% { transform: translateY(-49.0px); opacity: 0; }
-        66.79% { transform: translateY(-32.83px); opacity: 1; }
-        69.79% { transform: translateY(-20.67px); opacity: 1; }
-        72.79% { transform: translateY(-11.96px); opacity: 1; }
-        75.79% { transform: translateY(-6.12px); opacity: 1; }
-        78.79% { transform: translateY(-2.58px); opacity: 1; }
-        81.79% { transform: translateY(-0.77px); opacity: 1; }
-        84.79% { transform: translateY(-0.10px); opacity: 1; }
-        87.79%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 37.53% { transform: translateY(-49.0px); opacity: 0; }
+        39.28% { transform: translateY(-32.83px); opacity: 1; }
+        41.03% { transform: translateY(-20.67px); opacity: 1; }
+        42.78% { transform: translateY(-11.96px); opacity: 1; }
+        44.53% { transform: translateY(-6.12px); opacity: 1; }
+        46.28% { transform: translateY(-2.58px); opacity: 1; }
+        48.03% { transform: translateY(-0.77px); opacity: 1; }
+        49.78% { transform: translateY(-0.10px); opacity: 1; }
+        51.53%, 89.89% { transform: translateY(0px); opacity: 1; }
+        92.89% { transform: translateY(0px); opacity: 0.50; }
+        95.89%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_16 { animation: drop_16 4.60s linear 1 both; }
-      .tw_16 { animation: tilePulse 3.80s ease-in-out 4.04s infinite; }
-      .ts_16 { animation: tileSheen 3.80s ease-in-out 4.04s infinite; }
+      .b_16 { animation: drop_16 10.50s linear infinite; }
       @keyframes drop_17 {
-        0%, 67.53% { transform: translateY(-34.5px); opacity: 0; }
-        70.53% { transform: translateY(-23.11px); opacity: 1; }
-        73.53% { transform: translateY(-14.55px); opacity: 1; }
-        76.53% { transform: translateY(-8.42px); opacity: 1; }
-        79.53% { transform: translateY(-4.31px); opacity: 1; }
-        82.53% { transform: translateY(-1.82px); opacity: 1; }
-        85.53% { transform: translateY(-0.54px); opacity: 1; }
-        88.53% { transform: translateY(-0.07px); opacity: 1; }
-        91.53%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 39.68% { transform: translateY(-34.5px); opacity: 0; }
+        41.43% { transform: translateY(-23.11px); opacity: 1; }
+        43.18% { transform: translateY(-14.55px); opacity: 1; }
+        44.93% { transform: translateY(-8.42px); opacity: 1; }
+        46.68% { transform: translateY(-4.31px); opacity: 1; }
+        48.43% { transform: translateY(-1.82px); opacity: 1; }
+        50.18% { transform: translateY(-0.54px); opacity: 1; }
+        51.93% { transform: translateY(-0.07px); opacity: 1; }
+        53.68%, 90.26% { transform: translateY(0px); opacity: 1; }
+        93.26% { transform: translateY(0px); opacity: 0.50; }
+        96.26%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_17 { animation: drop_17 4.60s linear 1 both; }
-      .tw_17 { animation: tilePulse 3.80s ease-in-out 4.21s infinite; }
-      .ts_17 { animation: tileSheen 3.80s ease-in-out 4.21s infinite; }
+      .b_17 { animation: drop_17 10.50s linear infinite; }
       @keyframes drop_18 {
-        0%, 71.26% { transform: translateY(-49.0px); opacity: 0; }
-        74.26% { transform: translateY(-32.83px); opacity: 1; }
-        77.26% { transform: translateY(-20.67px); opacity: 1; }
-        80.26% { transform: translateY(-11.96px); opacity: 1; }
-        83.26% { transform: translateY(-6.12px); opacity: 1; }
-        86.26% { transform: translateY(-2.58px); opacity: 1; }
-        89.26% { transform: translateY(-0.77px); opacity: 1; }
-        92.26% { transform: translateY(-0.10px); opacity: 1; }
-        95.26%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 41.84% { transform: translateY(-49.0px); opacity: 0; }
+        43.59% { transform: translateY(-32.83px); opacity: 1; }
+        45.34% { transform: translateY(-20.67px); opacity: 1; }
+        47.09% { transform: translateY(-11.96px); opacity: 1; }
+        48.84% { transform: translateY(-6.12px); opacity: 1; }
+        50.59% { transform: translateY(-2.58px); opacity: 1; }
+        52.34% { transform: translateY(-0.77px); opacity: 1; }
+        54.09% { transform: translateY(-0.10px); opacity: 1; }
+        55.84%, 90.63% { transform: translateY(0px); opacity: 1; }
+        93.63% { transform: translateY(0px); opacity: 0.50; }
+        96.63%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_18 { animation: drop_18 4.60s linear 1 both; }
-      .tw_18 { animation: tilePulse 3.80s ease-in-out 4.38s infinite; }
-      .ts_18 { animation: tileSheen 3.80s ease-in-out 4.38s infinite; }
+      .b_18 { animation: drop_18 10.50s linear infinite; }
       @keyframes drop_19 {
-        0%, 75.00% { transform: translateY(-63.5px); opacity: 0; }
-        78.00% { transform: translateY(-42.54px); opacity: 1; }
-        81.00% { transform: translateY(-26.79px); opacity: 1; }
-        84.00% { transform: translateY(-15.50px); opacity: 1; }
-        87.00% { transform: translateY(-7.94px); opacity: 1; }
-        90.00% { transform: translateY(-3.35px); opacity: 1; }
-        93.00% { transform: translateY(-0.99px); opacity: 1; }
-        96.00% { transform: translateY(-0.12px); opacity: 1; }
-        99.00%, 100% { transform: translateY(0px); opacity: 1; }
+        0%, 44.00% { transform: translateY(-63.5px); opacity: 0; }
+        45.75% { transform: translateY(-42.54px); opacity: 1; }
+        47.50% { transform: translateY(-26.79px); opacity: 1; }
+        49.25% { transform: translateY(-15.50px); opacity: 1; }
+        51.00% { transform: translateY(-7.94px); opacity: 1; }
+        52.75% { transform: translateY(-3.35px); opacity: 1; }
+        54.50% { transform: translateY(-0.99px); opacity: 1; }
+        56.25% { transform: translateY(-0.12px); opacity: 1; }
+        58.00%, 91.00% { transform: translateY(0px); opacity: 1; }
+        94.00% { transform: translateY(0px); opacity: 0.50; }
+        97.00%, 100% { transform: translateY(0px); opacity: 0; }
       }
-      .b_19 { animation: drop_19 4.60s linear 1 both; }
-      .tw_19 { animation: tilePulse 3.80s ease-in-out 4.55s infinite; }
-      .ts_19 { animation: tileSheen 3.80s ease-in-out 4.55s infinite; }
+      .b_19 { animation: drop_19 10.50s linear infinite; }
     ]]></style>
   </defs>
 
@@ -760,143 +748,83 @@
   <g id="commit-bricks" clip-path="url(#playfieldClip)">
     <g class="b_0">
       <title>2026-06-01: 1 commit</title>
-      <g class="tile-wrap tw_0">
-        <rect x="427.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="427.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_0"/>
-      </g>
+      <rect x="427.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_1">
       <title>2026-06-03: 2 commits</title>
-      <g class="tile-wrap tw_1">
-        <rect x="427.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="427.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_1"/>
-      </g>
+      <rect x="427.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_2">
       <title>2026-06-06: 12 commits</title>
-      <g class="tile-wrap tw_2">
-        <rect x="427.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
-        <rect x="427.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_2"/>
-      </g>
+      <rect x="427.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
     </g>
     <g class="b_3">
       <title>2026-06-11: 4 commits</title>
-      <g class="tile-wrap tw_3">
-        <rect x="442.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="442.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_3"/>
-      </g>
+      <rect x="442.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_4">
       <title>2026-09-18: 1 commit</title>
-      <g class="tile-wrap tw_4">
-        <rect x="645.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="645.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_4"/>
-      </g>
+      <rect x="645.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_5">
       <title>2026-10-03: 3 commits</title>
-      <g class="tile-wrap tw_5">
-        <rect x="674.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="674.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_5"/>
-      </g>
+      <rect x="674.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_6">
       <title>2026-10-04: 4 commits</title>
-      <g class="tile-wrap tw_6">
-        <rect x="688.5" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="688.5" y="66.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_6"/>
-      </g>
+      <rect x="688.5" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_7">
       <title>2026-10-05: 4 commits</title>
-      <g class="tile-wrap tw_7">
-        <rect x="688.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="688.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_7"/>
-      </g>
+      <rect x="688.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_8">
       <title>2026-10-10: 9 commits</title>
-      <g class="tile-wrap tw_8">
-        <rect x="688.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier3Grad)"/>
-        <rect x="688.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_8"/>
-      </g>
+      <rect x="688.5" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier3Grad)"/>
     </g>
     <g class="b_9">
       <title>2026-10-11: 1 commit</title>
-      <g class="tile-wrap tw_9">
-        <rect x="703.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="703.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_9"/>
-      </g>
+      <rect x="703.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_10">
       <title>2026-10-15: 4 commits</title>
-      <g class="tile-wrap tw_10">
-        <rect x="703.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="703.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_10"/>
-      </g>
+      <rect x="703.0" y="124.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_11">
       <title>2026-10-16: 4 commits</title>
-      <g class="tile-wrap tw_11">
-        <rect x="703.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="703.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_11"/>
-      </g>
+      <rect x="703.0" y="138.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_12">
       <title>2026-10-17: 2 commits</title>
-      <g class="tile-wrap tw_12">
-        <rect x="703.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="703.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_12"/>
-      </g>
+      <rect x="703.0" y="153.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_13">
       <title>2026-10-20: 4 commits</title>
-      <g class="tile-wrap tw_13">
-        <rect x="717.5" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="717.5" y="95.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_13"/>
-      </g>
+      <rect x="717.5" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_14">
       <title>2026-10-21: 6 commits</title>
-      <g class="tile-wrap tw_14">
-        <rect x="717.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier3Grad)"/>
-        <rect x="717.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_14"/>
-      </g>
+      <rect x="717.5" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier3Grad)"/>
     </g>
     <g class="b_15">
       <title>2026-10-25: 15 commits</title>
-      <g class="tile-wrap tw_15">
-        <rect x="732.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
-        <rect x="732.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_15"/>
-      </g>
+      <rect x="732.0" y="66.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
     </g>
     <g class="b_16">
       <title>2026-10-27: 2 commits</title>
-      <g class="tile-wrap tw_16">
-        <rect x="732.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="732.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_16"/>
-      </g>
+      <rect x="732.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_17">
       <title>2026-11-02: 1 commit</title>
-      <g class="tile-wrap tw_17">
-        <rect x="746.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
-        <rect x="746.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_17"/>
-      </g>
+      <rect x="746.5" y="80.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier1Grad)"/>
     </g>
     <g class="b_18">
       <title>2026-11-24: 5 commits</title>
-      <g class="tile-wrap tw_18">
-        <rect x="790.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
-        <rect x="790.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_18"/>
-      </g>
+      <rect x="790.0" y="95.0" width="11.5" height="11.5" rx="1.2" fill="url(#tier2Grad)"/>
     </g>
     <g class="b_19">
       <title>2026-11-25: 17 commits</title>
-      <g class="tile-wrap tw_19">
-        <rect x="790.0" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
-        <rect x="790.0" y="109.5" width="11.5" height="11.5" rx="1.2" fill="#99F0FF" class="tile-sheen ts_19"/>
-      </g>
+      <rect x="790.0" y="109.5" width="11.5" height="11.5" rx="1.2" fill="url(#tier4Grad)"/>
     </g>
   </g>
 

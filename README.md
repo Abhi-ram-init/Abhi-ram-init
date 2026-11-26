@@ -120,24 +120,6 @@ Role-based **NGO ecosystem** platform linking NGOs, volunteers, and CSR contribu
 
 **Got an interesting idea or tough bug?** Always down to learn, collaborate, and build something cool.
 
-<br/>
-
-<a href="https://www.linkedin.com/in/abhiram-b-s-90b628383/" target="_blank" title="LinkedIn">
-  <img src="assets/icons/linkedin.svg" width="28" height="28" alt="LinkedIn"/>
-</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=abhiram.github@gmail.com" target="_blank" title="Gmail · abhiram.github@gmail.com">
-  <img src="assets/icons/gmail.svg" width="28" height="28" alt="Gmail"/>
-</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://github.com/Abhi-ram-init" target="_blank" title="GitHub">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/icons/github-light.svg"/>
-    <source media="(prefers-color-scheme: light)" srcset="assets/icons/github-dark.svg"/>
-    <img src="assets/icons/github-dark.svg" width="28" height="28" alt="GitHub"/>
-  </picture>
-</a>
-
 <br/><br/>
 
 <sub>⚡ Crafted with Spec-Driven spirit by <strong>Abhiram B S</strong></sub>

@@ -215,56 +215,48 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     end_lbl = datetime.strptime(end_date, "%Y-%m-%d").strftime("%b '%y").upper()
 
     n_active = len(active_days)
-    cycle_s = round(max(4.0, min(9.5, 1.8 + n_active * 0.14)), 2)
-    wave_dur_s = round(max(3.8, cycle_s * 0.80), 2)
+    cycle_s = round(max(10.0, min(20.0, 5.5 + n_active * 0.25)), 2)
     month_labels = compute_month_labels(days)
 
-    css_keyframes: List[str] = [
-        f"""      .tile-wrap {{ transform-box: fill-box; transform-origin: center; }}
-      .tile-sheen {{ opacity: 0; }}
-      @keyframes tilePulse {{
-        0%, 100% {{ transform: scale(1); }}
-        22%      {{ transform: scale(1.13); }}
-        48%      {{ transform: scale(1); }}
-      }}
-      @keyframes tileSheen {{
-        0%, 100% {{ opacity: 0; }}
-        22%      {{ opacity: 0.48; }}
-        48%      {{ opacity: 0; }}
-      }}"""
-    ]
-    drop_span_start = 4.0
-    drop_span_end = 99.0
-    drop_dur_pct = 24.0
+    css_keyframes: List[str] = []
+    drop_span_start = 3.0
+    drop_span_end = 58.0
+    drop_dur_pct = 14.0
 
     stagger = (drop_span_end - drop_span_start - drop_dur_pct) / max(1, n_active - 1) if n_active > 1 else 0.0
     sample_us = (0.125, 0.25, 0.375, 0.50, 0.625, 0.75, 0.875)
 
+    clear_span_start = 84.0
+    clear_fade_dur = 6.0
+    clear_stagger = (97.0 - clear_span_start - clear_fade_dur) / max(1, n_active - 1) if n_active > 1 else 0.0
+
     for idx, day in enumerate(active_days):
         t0 = drop_span_start + idx * stagger
         dy = -(day.row * step + 20.0)
-        t_land = min(100.0, t0 + drop_dur_pct)
-        t_land_s = round((t_land / 100.0) * cycle_s, 2)
+        t_land = t0 + drop_dur_pct
 
-        # Smooth 9-point cubic ease-out deceleration; lands once and remains permanently placed
+        # Smooth 9-point cubic ease-out fall directly to translateY(0px) — zero pop or bounce
         steps_lines = [f"        0%, {t0:.2f}% {{ transform: translateY({dy:.1f}px); opacity: 0; }}"]
         for u in sample_us:
             tu = t0 + drop_dur_pct * u
             dyu = dy * ((1.0 - u) ** 3)
             steps_lines.append(f"        {tu:.2f}% {{ transform: translateY({dyu:.2f}px); opacity: 1; }}")
-        if round(t_land, 2) < 100.0:
-            steps_lines.append(f"        {t_land:.2f}%, 100% {{ transform: translateY(0px); opacity: 1; }}")
-        else:
-            steps_lines.append("        100% { transform: translateY(0px); opacity: 1; }")
+
+        # Smooth staggered dissolve back to empty grid before the next continuous fall cycle
+        tc0 = clear_span_start + idx * clear_stagger
+        tc_mid = tc0 + clear_fade_dur * 0.50
+        tc1 = min(97.8, tc0 + clear_fade_dur)
+
+        steps_lines.append(f"        {t_land:.2f}%, {tc0:.2f}% {{ transform: translateY(0px); opacity: 1; }}")
+        steps_lines.append(f"        {tc_mid:.2f}% {{ transform: translateY(0px); opacity: 0.50; }}")
+        steps_lines.append(f"        {tc1:.2f}%, 100% {{ transform: translateY(0px); opacity: 0; }}")
 
         keyframes_body = os.linesep.join(steps_lines)
         css_keyframes.append(
             f"""      @keyframes drop_{idx} {{
 {keyframes_body}
       }}
-      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear 1 both; }}
-      .tw_{idx} {{ animation: tilePulse {wave_dur_s:.2f}s ease-in-out {t_land_s:.2f}s infinite; }}
-      .ts_{idx} {{ animation: tileSheen {wave_dur_s:.2f}s ease-in-out {t_land_s:.2f}s infinite; }}"""
+      .b_{idx} {{ animation: drop_{idx} {cycle_s:.2f}s linear infinite; }}"""
         )
 
     # Pure flat 2D empty grid squares
@@ -276,7 +268,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
             f'    <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="#0C1322" stroke="#162238" stroke-width="0.8"/>'
         )
 
-    # Pure flat 2D falling arcade blocks with perpetual chronological wave pulse once landed
+    # Pure flat 2D falling arcade blocks (continuous smooth drop loop, zero in-place pop)
     falling_bricks_svg: List[str] = []
     for idx, d in enumerate(active_days):
         t = tier_from_count(d.count)
@@ -285,10 +277,7 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
         falling_bricks_svg.append(
             f'    <g class="b_{idx}">\n'
             f'      <title>{d.date}: {d.count} commit{"s" if d.count != 1 else ""}</title>\n'
-            f'      <g class="tile-wrap tw_{idx}">\n'
-            f'        <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="url(#tier{t}Grad)"/>\n'
-            f'        <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="#99F0FF" class="tile-sheen ts_{idx}"/>\n'
-            f'      </g>\n'
+            f'      <rect x="{cx:.1f}" y="{cy:.1f}" width="{cell:.1f}" height="{cell:.1f}" rx="1.2" fill="url(#tier{t}Grad)"/>\n'
             f'    </g>'
         )
 
