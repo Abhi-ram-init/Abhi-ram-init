@@ -2,7 +2,7 @@ name: Arcade Block Contribution Calendar
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # Refresh every 6 hours with live GitHub contribution data
+    - cron: "*/30 * * * *"  # Refresh every 30 minutes with live GitHub contribution data
   workflow_dispatch:        # Allow manual run anytime
   push:
     branches:
@@ -25,7 +25,13 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Wait for GitHub contributions index on push
+        if: github.event_name == 'push'
+        run: sleep 20
+
       - name: Generate real-time arcade block calendar SVG
+        env:
+          GH_CONTRIBUTIONS_TOKEN: ${{ secrets.GH_CONTRIBUTIONS_TOKEN }}
         run: python .github/generators/generate_arcade_calendar.py --user "${{ github.repository_owner }}" --out assets/arcade-contributions.svg
 
       - name: Commit updated SVG if changed
@@ -36,7 +42,8 @@ jobs:
             git add assets/arcade-contributions.svg
             git commit -m "chore: refresh live arcade block contribution calendar"
             git pull --rebase origin main || true
-            git push
+            git push origin HEAD:main
+            git push --force-with-lease origin HEAD:master || true
           else
             echo "Contribution calendar is already up to date."
           fi

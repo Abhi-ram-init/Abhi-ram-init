@@ -15,10 +15,12 @@ from __future__ import annotations
 import argparse
 import colorsys
 import html
+import json
 import math
 import os
 import re
 import sys
+import time
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
@@ -98,13 +100,73 @@ def tier_from_count(count: int) -> int:
     return 4
 
 
+def fetch_contributions_graphql(username: str, token: str) -> Tuple[List[ContributionDay], int]:
+    """Fetch live contribution calendar via GitHub GraphQL API (includes private repos if permitted)."""
+    query = """
+    query($login: String!) {
+      user(login: $login) {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+            weeks {
+              contributionDays {
+                date
+                contributionCount
+                weekday
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+    payload = json.dumps({"query": query, "variables": {"login": username}}).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "User-Agent": "AbhiRamArcadeCalendar/1.0",
+        },
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        data = json.loads(resp.read().decode("utf-8"))
+
+    if data.get("errors"):
+        raise RuntimeError(f"GraphQL error: {data['errors']}")
+
+    cal = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+    total = int(cal["totalContributions"])
+    days: List[ContributionDay] = []
+    for col, week in enumerate(cal["weeks"]):
+        for d in week["contributionDays"]:
+            count = int(d["contributionCount"])
+            days.append(
+                ContributionDay(
+                    date=d["date"],
+                    col=col,
+                    row=int(d["weekday"]),
+                    level=tier_from_count(count),
+                    count=count,
+                )
+            )
+    if not days:
+        raise RuntimeError("GraphQL returned 0 contribution days.")
+    days.sort(key=lambda d: (d.col, d.row))
+    return days, total
+
+
 def fetch_contributions_html(username: str) -> str:
-    url = f"https://github.com/users/{username}/contributions"
+    url = f"https://github.com/users/{username}/contributions?_cb={int(time.time())}"
     req = urllib.request.Request(
         url,
         headers={
             "User-Agent": "Mozilla/5.0 (compatible; AbhiRamArcadeCalendar/1.0)",
             "Accept": "text/html,application/xhtml+xml",
+            "Cache-Control": "no-cache, no-store",
+            "Pragma": "no-cache",
         },
     )
     with urllib.request.urlopen(req, timeout=25) as resp:
@@ -415,14 +477,24 @@ def render_svg(username: str, days: List[ContributionDay], total_header: Optiona
     return svg_doc
 
 
+def load_contributions(username: str) -> Tuple[List[ContributionDay], Optional[int]]:
+    token = os.environ.get("GH_CONTRIBUTIONS_TOKEN", "").strip()
+    if token:
+        try:
+            return fetch_contributions_graphql(username, token)
+        except Exception as exc:
+            print(f"GraphQL fallback to public contributions HTML ({exc})", file=sys.stderr)
+    raw_html = fetch_contributions_html(username)
+    return parse_contributions(raw_html)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate 2D single-hue golden-ratio arcade contribution calendar SVG.")
     parser.add_argument("--user", default="Abhi-ram-init", help="GitHub username")
     parser.add_argument("--out", default="assets/arcade-contributions.svg", help="Output SVG file path")
     args = parser.parse_args()
 
-    raw_html = fetch_contributions_html(args.user)
-    days, total_hdr = parse_contributions(raw_html)
+    days, total_hdr = load_contributions(args.user)
     svg_text = render_svg(args.user, days, total_hdr)
 
     out_path = Path(args.out)
